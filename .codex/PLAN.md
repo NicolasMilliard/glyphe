@@ -28,14 +28,14 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Design System
 
-- [ ] Define color tokens
-- [ ] Define typography tokens
-- [ ] Define spacing rhythm
-- [ ] Define border radius rules
-- [ ] Define focus ring style
-- [ ] Add light theme
-- [ ] Add dark theme
-- [ ] Add theme CSS variables
+- [x] Define color tokens
+- [x] Define typography tokens
+- [x] Define spacing rhythm
+- [x] Define border radius rules
+- [x] Define focus ring style
+- [x] Add light theme
+- [x] Add dark theme
+- [x] Add theme CSS variables
 - [ ] Create button primitive
 - [ ] Create icon button primitive
 - [ ] Create input primitive

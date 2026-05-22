@@ -12,13 +12,11 @@ function HomePage() {
   return (
     <section className="grid min-h-[calc(100vh-14rem)] items-center">
       <div className="max-w-3xl">
-        <p className="mb-4 font-mono text-sm tracking-[0.18em] text-teal-300 uppercase">
+        <p className="text-accent mb-4 font-mono text-sm uppercase">
           Registry-first text motion
         </p>
-        <h1 className="text-6xl font-semibold tracking-tight sm:text-8xl">
-          Glyphe
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
+        <h1 className="text-6xl font-semibold sm:text-8xl">Glyphe</h1>
+        <p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-8">
           {siteConfig.description}
         </p>
       </div>
