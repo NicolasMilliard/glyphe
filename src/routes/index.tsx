@@ -6,8 +6,8 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   return (
-    <main className="grid min-h-screen place-items-center bg-zinc-950 px-6 text-zinc-50">
-      <section className="max-w-3xl">
+    <section className="grid min-h-[calc(100vh-14rem)] items-center">
+      <div className="max-w-3xl">
         <p className="mb-4 font-mono text-sm tracking-[0.18em] text-teal-300 uppercase">
           Registry-first text motion
         </p>
@@ -18,7 +18,7 @@ function HomePage() {
           A CSS-first toolkit for terminal-inspired animations, built with Vite,
           React, TypeScript, Tailwind CSS, and TanStack Router.
         </p>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

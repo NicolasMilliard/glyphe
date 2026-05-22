@@ -10,7 +10,7 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Wire TanStack Router into Vite
 - [x] Create root route
 - [x] Create home route
-- [ ] Create base app layout
+- [x] Create base app layout
 
 ## Foundation
 
