@@ -41,10 +41,10 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Create input primitive
 - [x] Create textarea primitive
 - [x] Create select primitive
-- [ ] Create tabs primitive
-- [ ] Create segmented control primitive
-- [ ] Create tooltip primitive
-- [ ] Create copy button primitive
+- [x] Create tabs primitive
+- [x] Create segmented control primitive
+- [x] Create tooltip primitive
+- [x] Create copy button primitive
 
 ## Site Shell
 
