@@ -48,14 +48,14 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Site Shell
 
-- [ ] Create site header
-- [ ] Create site navigation
-- [ ] Create mobile navigation
-- [ ] Create page container
-- [ ] Create docs content wrapper
-- [ ] Create footer
-- [ ] Add active nav state
-- [ ] Add responsive layout checks
+- [x] Create site header
+- [x] Create site navigation
+- [x] Create mobile navigation
+- [x] Create page container
+- [x] Create docs content wrapper
+- [x] Create footer
+- [x] Add active nav state
+- [x] Add responsive layout checks
 
 ## Routes
 
