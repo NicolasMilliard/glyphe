@@ -36,11 +36,11 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Add light theme
 - [x] Add dark theme
 - [x] Add theme CSS variables
-- [ ] Create button primitive
-- [ ] Create icon button primitive
-- [ ] Create input primitive
-- [ ] Create textarea primitive
-- [ ] Create select primitive
+- [x] Create button primitive
+- [x] Create icon button primitive
+- [x] Create input primitive
+- [x] Create textarea primitive
+- [x] Create select primitive
 - [ ] Create tabs primitive
 - [ ] Create segmented control primitive
 - [ ] Create tooltip primitive
