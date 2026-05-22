@@ -70,22 +70,22 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Registry Core
 
-- [ ] Add registry folder
-- [ ] Add registry schema
-- [ ] Add animation category enum
-- [ ] Add rendering strategy enum
-- [ ] Add accessibility metadata schema
-- [ ] Add compatibility metadata schema
-- [ ] Add registry index
-- [ ] Add registry validation helper
-- [ ] Add registry slug helper
-- [ ] Add registry lookup helper
-- [ ] Add duplicate slug check
-- [ ] Add first spinner registry item
+- [x] Add registry folder
+- [x] Add registry schema
+- [x] Add animation category enum
+- [x] Add rendering strategy enum
+- [x] Add accessibility metadata schema
+- [x] Add compatibility metadata schema
+- [x] Add registry index
+- [x] Add registry validation helper
+- [x] Add registry slug helper
+- [x] Add registry lookup helper
+- [x] Add duplicate slug check
+- [x] Add first spinner registry item
 
 ## Initial Registry Items
 
-- [ ] Add braille spinner
+- [x] Add braille spinner
 - [ ] Add dots spinner
 - [ ] Add line spinner
 - [ ] Add clock spinner
