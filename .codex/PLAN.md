@@ -59,14 +59,14 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Routes
 
-- [ ] Create gallery route
-- [ ] Create animation detail route
-- [ ] Create generator route
-- [ ] Create docs route
-- [ ] Create registry route
-- [ ] Create examples route
-- [ ] Add route metadata model
-- [ ] Add breadcrumb helper
+- [x] Create gallery route
+- [x] Create animation detail route
+- [x] Create generator route
+- [x] Create docs route
+- [x] Create registry route
+- [x] Create examples route
+- [x] Add route metadata model
+- [x] Add breadcrumb helper
 
 ## Registry Core
 
