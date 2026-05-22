@@ -14,12 +14,12 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Foundation
 
-- [ ] Add `src/lib/cn.ts`
-- [ ] Add path aliases
-- [ ] Decide formatting setup
-- [ ] Configure Prettier
-- [ ] Configure Tailwind class sorting
-- [ ] Review ESLint defaults
+- [x] Add `src/lib/cn.ts`
+- [x] Add path aliases
+- [x] Decide formatting setup
+- [x] Configure Prettier
+- [x] Configure Tailwind class sorting
+- [x] Review ESLint defaults
 - [ ] Add project metadata to `README.md`
 - [ ] Add basic document titles
 - [ ] Add favicon references

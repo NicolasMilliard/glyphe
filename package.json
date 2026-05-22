@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.0",
     "@tanstack/react-router": "1.170.7",
+    "clsx": "2.1.1",
     "react": "19.2.6",
     "react-dom": "19.2.6",
+    "tailwind-merge": "3.6.0",
     "tailwindcss": "4.3.0"
   },
   "devDependencies": {
