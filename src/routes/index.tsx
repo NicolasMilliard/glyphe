@@ -1,10 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { siteConfig } from '@/lib/site';
+import { useDocumentTitle } from '@/lib/use-document-title';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
 
 function HomePage() {
+  useDocumentTitle();
+
   return (
     <section className="grid min-h-[calc(100vh-14rem)] items-center">
       <div className="max-w-3xl">
@@ -15,8 +19,7 @@ function HomePage() {
           Glyphe
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-          A CSS-first toolkit for terminal-inspired animations, built with Vite,
-          React, TypeScript, Tailwind CSS, and TanStack Router.
+          {siteConfig.description}
         </p>
       </div>
     </section>

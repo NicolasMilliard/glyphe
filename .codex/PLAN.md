@@ -20,11 +20,11 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Configure Prettier
 - [x] Configure Tailwind class sorting
 - [x] Review ESLint defaults
-- [ ] Add project metadata to `README.md`
-- [ ] Add basic document titles
-- [ ] Add favicon references
-- [ ] Add route-level not found page
-- [ ] Add root error boundary
+- [x] Add project metadata to `README.md`
+- [x] Add basic document titles
+- [x] Add favicon references
+- [x] Add route-level not found page
+- [x] Add root error boundary
 
 ## Design System
 
