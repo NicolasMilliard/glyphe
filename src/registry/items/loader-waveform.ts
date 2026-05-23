@@ -1,5 +1,5 @@
-import { createRegistrySlug } from '../slug';
 import type { RegistryItem } from '../schema';
+import { createRegistrySlug } from '../slug';
 
 export const loaderWaveform = {
   name: 'Waveform Loader',
@@ -7,7 +7,18 @@ export const loaderWaveform = {
   category: 'loader',
   description: 'A text waveform loader using block-height unicode frames.',
   tags: ['loader', 'waveform', 'audio', 'unicode'],
-  frames: ['▁▃▅▇▅▃', '▃▅▇▅▃▁', '▅▇▅▃▁▃', '▇▅▃▁▃▅'],
+  frames: [
+    '▁▂▃▄▅▆',
+    '▂▃▄▅▆▅',
+    '▃▄▅▆▅▄',
+    '▄▅▆▅▄▃',
+    '▅▆▅▄▃▂',
+    '▆▅▄▃▂▁',
+    '▅▄▃▂▁▂',
+    '▄▃▂▁▂▃',
+    '▃▂▁▂▃▄',
+    '▂▁▂▃▄▅',
+  ],
   duration: 900,
   timing: 'steps',
   loop: true,
