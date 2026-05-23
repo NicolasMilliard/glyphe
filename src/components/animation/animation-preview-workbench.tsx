@@ -42,6 +42,8 @@ export function AnimationPreviewWorkbench({
           monospace={monospace}
           fontFamily={fontFamily}
           loopPreview
+          className={previewTheme === 'dark' ? 'border-black bg-black' : ''}
+          rendererClassName={previewTheme === 'dark' ? 'text-white' : ''}
         />
       </div>
 

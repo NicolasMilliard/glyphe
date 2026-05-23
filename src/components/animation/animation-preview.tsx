@@ -14,6 +14,7 @@ export type AnimationPreviewProps = {
   fontFamily?: string;
   loopPreview?: boolean;
   className?: string;
+  rendererClassName?: string;
 };
 
 export function AnimationPreview({
@@ -25,6 +26,7 @@ export function AnimationPreview({
   fontFamily,
   loopPreview,
   className,
+  rendererClassName,
 }: AnimationPreviewProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const effectiveReducedMotion = reducedMotion ?? prefersReducedMotion;
@@ -44,6 +46,7 @@ export function AnimationPreview({
         monospace,
         fontFamily,
         loopPreview,
+        rendererClassName,
       })}
     </div>
   );
@@ -57,6 +60,7 @@ function renderPreview({
   monospace,
   fontFamily,
   loopPreview,
+  rendererClassName,
 }: Omit<AnimationPreviewProps, 'className'>) {
   switch (item.strategy) {
     case 'stacked-spans':
@@ -68,6 +72,7 @@ function renderPreview({
           reducedMotion={reducedMotion}
           monospace={monospace}
           fontFamily={fontFamily}
+          className={rendererClassName}
         />
       );
     case 'css-var-swap':
@@ -81,6 +86,7 @@ function renderPreview({
           monospace={monospace}
           fontFamily={fontFamily}
           loopPreview={loopPreview}
+          className={rendererClassName}
         />
       );
     case 'transform':
@@ -92,6 +98,7 @@ function renderPreview({
           reducedMotion={reducedMotion}
           monospace={monospace}
           fontFamily={fontFamily}
+          className={rendererClassName}
         />
       );
     case 'scripted':
@@ -104,6 +111,7 @@ function renderPreview({
           monospace={monospace}
           fontFamily={fontFamily}
           loopPreview={loopPreview}
+          className={rendererClassName}
         />
       );
   }

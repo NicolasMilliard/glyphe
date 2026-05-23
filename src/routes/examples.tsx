@@ -43,7 +43,10 @@ function ExamplesPage() {
             type="button"
             className="rounded-glyphe-md border-accent bg-accent text-accent-foreground inline-flex h-11 items-center gap-3 border px-4 text-sm font-medium"
           >
-            <InlineAnimation item={spinnerBraille} />
+            <InlineAnimation
+              item={spinnerBraille}
+              rendererClassName="text-accent-foreground"
+            />
             Saving changes
           </button>
         </ExampleCard>
@@ -155,15 +158,18 @@ function ExampleCard({
 function InlineAnimation({
   item,
   className,
+  rendererClassName,
 }: {
   item: RegistryItem;
   className?: string;
+  rendererClassName?: string;
 }) {
   return (
     <AnimationPreview
       item={item}
       loopPreview
       className={`inline-grid min-h-0 border-0 bg-transparent p-0 ${className ?? ''}`}
+      rendererClassName={rendererClassName}
     />
   );
 }
