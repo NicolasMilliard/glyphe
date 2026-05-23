@@ -117,3 +117,16 @@ body {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
+@keyframes glyphe-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(0.08em, -0.04em);
+    opacity: 0.82;
+  }
+}

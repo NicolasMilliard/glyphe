@@ -100,15 +100,15 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Animation Rendering
 
-- [ ] Create stacked spans renderer
-- [ ] Create transform renderer
-- [ ] Create scripted renderer placeholder
-- [ ] Create preview renderer switch
-- [ ] Add fixed preview dimensions
-- [ ] Add monospace preview mode
-- [ ] Add reduced motion preview mode
-- [ ] Add animation speed override
-- [ ] Add animation pause control
+- [x] Create stacked spans renderer
+- [x] Create transform renderer
+- [x] Create scripted renderer placeholder
+- [x] Create preview renderer switch
+- [x] Add fixed preview dimensions
+- [x] Add monospace preview mode
+- [x] Add reduced motion preview mode
+- [x] Add animation speed override
+- [x] Add animation pause control
 
 ## CSS Generator
 
