@@ -1,0 +1,141 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tailwind generator > generates @theme animation output 1`] = `
+"@theme {
+  --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
+
+  @keyframes glyphe-spinner-braille-frames {
+    0% {
+      opacity: 1;
+    }
+  
+    10% {
+      opacity: 1;
+    }
+  
+    10.01% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }
+}"
+`;
+
+exports[`tailwind generator > generates Tailwind-friendly CSS 1`] = `
+"@theme {
+  --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
+
+  @keyframes glyphe-spinner-braille-frames {
+    0% {
+      opacity: 1;
+    }
+  
+    10% {
+      opacity: 1;
+    }
+  
+    10.01% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+.glyphe-spinner-braille {
+  --glyphe-duration: 800ms;
+}
+
+.glyphe-spinner-braille {
+  display: inline-grid;
+  place-items: center;
+  width: var(--glyphe-width, 1ch);
+  min-height: 1em;
+  font-family: var(--glyphe-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  line-height: 1;
+}
+
+.glyphe-spinner-braille > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  animation: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
+}
+
+.glyphe-spinner-braille > span:nth-child(1) {
+  animation-delay: -800ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(2) {
+  animation-delay: -720ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(3) {
+  animation-delay: -640ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(4) {
+  animation-delay: -560ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(5) {
+  animation-delay: -480ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(6) {
+  animation-delay: -400ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(7) {
+  animation-delay: -320ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(8) {
+  animation-delay: -240ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(9) {
+  animation-delay: -160ms;
+}
+
+.glyphe-spinner-braille > span:nth-child(10) {
+  animation-delay: -80ms;
+}
+
+@keyframes glyphe-spinner-braille-frames {
+  0% {
+    opacity: 1;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  10.01% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyphe-spinner-braille,
+  .glyphe-spinner-braille > span {
+    animation: none;
+  }
+
+  .glyphe-spinner-braille > span {
+    opacity: 0;
+  }
+
+  .glyphe-spinner-braille > span:first-child {
+    opacity: 1;
+  }
+}"
+`;

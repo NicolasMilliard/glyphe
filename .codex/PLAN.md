@@ -138,13 +138,13 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Tailwind Generator
 
-- [ ] Create Tailwind generator entry
-- [ ] Generate Tailwind-friendly CSS
-- [ ] Generate `@theme` animation output
-- [ ] Generate utility examples
-- [ ] Generate className examples
-- [ ] Add Tailwind generator tests
-- [ ] Add generated Tailwind snapshots
+- [x] Create Tailwind generator entry
+- [x] Generate Tailwind-friendly CSS
+- [x] Generate `@theme` animation output
+- [x] Generate utility examples
+- [x] Generate className examples
+- [x] Add Tailwind generator tests
+- [x] Add generated Tailwind snapshots
 
 ## Gallery
 
