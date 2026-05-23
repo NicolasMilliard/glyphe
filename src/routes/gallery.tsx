@@ -6,7 +6,6 @@ import { cn } from '@/lib/cn';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { registryItems, type AnimationCategory } from '@/registry';
-import { animationCategories } from '@/registry/schema';
 
 export const Route = createFileRoute('/gallery')({
   component: GalleryPage,
@@ -14,36 +13,29 @@ export const Route = createFileRoute('/gallery')({
 
 const categoryItems = [
   { label: 'All', value: 'all' },
-  ...animationCategories.map((category) => ({
-    label: category,
-    value: category,
-  })),
-];
-
-const familyItems = [
-  { label: 'All families', value: 'all' },
-  { label: 'Braille', value: 'braille' },
-  { label: 'Text effects', value: 'text-effects' },
-  { label: 'Progress', value: 'progress' },
-  { label: 'Terminal', value: 'terminal' },
-  { label: 'General', value: 'general' },
+  ...Array.from(new Set(registryItems.map((item) => item.category))).map(
+    (category) => ({
+      label: toTitleCase(category),
+      value: category,
+    }),
+  ),
 ];
 
 const tagItems = [
-  { label: 'All tags', value: 'all' },
+  { label: 'All', value: 'all' },
   { label: 'Unicode', value: 'unicode' },
   { label: 'ASCII', value: 'ascii' },
-  { label: 'Loading', value: 'loading' },
-  { label: 'Effect', value: 'effect' },
   { label: 'CSS-only', value: 'css-only' },
+  { label: 'Text effect', value: 'text-effect' },
+  { label: 'Loading', value: 'loading' },
 ];
 
 function GalleryPage() {
   const metadata = routeMetadata.gallery;
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<AnimationCategory | 'all'>('all');
-  const [family, setFamily] = useState('all');
   const [tag, setTag] = useState('all');
+  const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   useDocumentTitle(metadata.title);
 
   const filteredItems = useMemo(() => {
@@ -51,25 +43,16 @@ function GalleryPage() {
 
     return registryItems.filter((item) => {
       const matchesCategory = category === 'all' || item.category === category;
-      const matchesFamily = family === 'all' || getItemFamily(item) === family;
-      const matchesTag =
-        tag === 'all' ||
-        item.tags.includes(tag) ||
-        (tag === 'css-only' && item.compatibility.supportsCssOnly);
+      const matchesTag = matchesTagFilter(item, tag);
       const matchesQuery =
         normalizedQuery.length === 0 ||
         item.name.toLowerCase().includes(normalizedQuery) ||
         item.description.toLowerCase().includes(normalizedQuery) ||
         item.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery));
 
-      return matchesCategory && matchesFamily && matchesTag && matchesQuery;
+      return matchesCategory && matchesTag && matchesQuery;
     });
-  }, [category, family, query, tag]);
-
-  const brailleItems = useMemo(
-    () => registryItems.filter((item) => getItemFamily(item) === 'braille'),
-    [],
-  );
+  }, [category, query, tag]);
 
   return (
     <section className="grid min-w-0 gap-8 sm:gap-10">
@@ -86,33 +69,7 @@ function GalleryPage() {
       </div>
 
       <div className="grid min-w-0 gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-start">
-        <aside className="grid min-w-0 gap-6 lg:sticky lg:top-24">
-          <div className="grid gap-2">
-            <label htmlFor="gallery-search" className="sr-only">
-              Search animations
-            </label>
-            <Input
-              id="gallery-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search animations"
-              className="min-w-0"
-            />
-          </div>
-
-          <FilterGroup label="Families">
-            {familyItems.map((item) => (
-              <FilterNavButton
-                key={item.value}
-                active={family === item.value}
-                onClick={() => setFamily(item.value)}
-              >
-                {item.label}
-              </FilterNavButton>
-            ))}
-          </FilterGroup>
-
+        <aside className="lg:sticky lg:top-24">
           <FilterGroup label="Categories">
             {categoryItems.map((item) => (
               <FilterNavButton
@@ -126,21 +83,55 @@ function GalleryPage() {
               </FilterNavButton>
             ))}
           </FilterGroup>
-
-          <FilterGroup label="Tags">
-            {tagItems.map((item) => (
-              <FilterNavButton
-                key={item.value}
-                active={tag === item.value}
-                onClick={() => setTag(item.value)}
-              >
-                {item.label}
-              </FilterNavButton>
-            ))}
-          </FilterGroup>
         </aside>
 
         <div className="grid min-w-0 gap-6">
+          <div className="border-border bg-surface grid min-w-0 gap-4 border-y py-4">
+            <div className="grid min-w-0 gap-3 xl:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)_auto] xl:items-center">
+              <label htmlFor="gallery-search" className="sr-only">
+                Search animations
+              </label>
+              <Input
+                id="gallery-search"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search animations"
+                className="min-w-0"
+              />
+
+              <div
+                className="flex min-w-0 gap-2 overflow-x-auto pb-1"
+                aria-label="Filter animations by tag"
+              >
+                {tagItems.map((item) => (
+                  <FilterChip
+                    key={item.value}
+                    active={tag === item.value}
+                    onClick={() => setTag(item.value)}
+                  >
+                    {item.label}
+                  </FilterChip>
+                ))}
+              </div>
+
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="text-muted-foreground text-sm">Preview</span>
+                <div className="border-border bg-background rounded-glyphe-md inline-flex border p-1">
+                  {(['light', 'dark'] as const).map((theme) => (
+                    <FilterChip
+                      key={theme}
+                      active={previewTheme === theme}
+                      onClick={() => setPreviewTheme(theme)}
+                    >
+                      {toTitleCase(theme)}
+                    </FilterChip>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
             <p className="text-muted-foreground text-sm">
               Showing {filteredItems.length} of {registryItems.length}{' '}
@@ -151,7 +142,6 @@ function GalleryPage() {
               onClick={() => {
                 setQuery('');
                 setCategory('all');
-                setFamily('all');
                 setTag('all');
               }}
               className="text-muted-foreground hover:text-foreground text-sm font-medium"
@@ -160,42 +150,14 @@ function GalleryPage() {
             </button>
           </div>
 
-          {family === 'braille' || tag === 'unicode' ? (
-            <section className="border-border bg-surface grid min-w-0 gap-4 border-y py-5">
-              <div className="max-w-2xl min-w-0">
-                <p className="text-accent font-mono text-xs uppercase">
-                  Braille collection
-                </p>
-                <h2 className="text-foreground mt-2 text-2xl font-semibold">
-                  Braille motion systems
-                </h2>
-                <p className="text-muted-foreground mt-2 text-sm leading-6">
-                  {brailleItems.length} unicode braille animations built from
-                  single-cell frames, all CSS-only and reduced-motion aware.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {brailleItems.slice(0, 12).map((item) => (
-                  <button
-                    key={item.slug}
-                    type="button"
-                    onClick={() => {
-                      setFamily('braille');
-                      setQuery(item.name.replace(/^Braille\s+/i, ''));
-                    }}
-                    className="rounded-glyphe-md border-border bg-background text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
-                  >
-                    {item.name.replace(/^Braille\s+/i, '')}
-                  </button>
-                ))}
-              </div>
-            </section>
-          ) : null}
-
           {filteredItems.length > 0 ? (
             <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {filteredItems.map((item) => (
-                <AnimationCard key={item.slug} item={item} />
+                <AnimationCard
+                  key={item.slug}
+                  item={item}
+                  previewTheme={previewTheme}
+                />
               ))}
             </div>
           ) : (
@@ -226,7 +188,9 @@ function FilterGroup({
       <p className="text-muted-foreground font-mono text-xs uppercase">
         {label}
       </p>
-      <div className="grid gap-1">{children}</div>
+      <div className="flex gap-1 overflow-x-auto pb-1 lg:grid lg:overflow-visible lg:pb-0">
+        {children}
+      </div>
     </nav>
   );
 }
@@ -245,7 +209,7 @@ function FilterNavButton({
       type="button"
       onClick={onClick}
       className={cn(
-        'rounded-glyphe-md px-3 py-2 text-left text-sm transition-colors',
+        'rounded-glyphe-md shrink-0 px-3 py-2 text-left text-sm transition-colors',
         active
           ? 'bg-foreground text-background'
           : 'text-muted-foreground hover:bg-surface hover:text-foreground',
@@ -256,22 +220,47 @@ function FilterNavButton({
   );
 }
 
-function getItemFamily(item: (typeof registryItems)[number]) {
-  if (item.tags.includes('braille')) {
-    return 'braille';
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'rounded-glyphe-md shrink-0 px-3 py-1.5 text-sm font-medium transition-colors',
+        active
+          ? 'bg-foreground text-background'
+          : 'text-muted-foreground hover:bg-background hover:text-foreground',
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+function matchesTagFilter(item: (typeof registryItems)[number], tag: string) {
+  if (tag === 'all') {
+    return true;
   }
 
-  if (item.category === 'text') {
-    return 'text-effects';
+  if (tag === 'css-only') {
+    return item.compatibility.supportsCssOnly;
   }
 
-  if (item.category === 'progress') {
-    return 'progress';
+  if (tag === 'text-effect') {
+    return item.category === 'text';
   }
 
-  if (item.tags.includes('terminal') || item.category === 'cursor') {
-    return 'terminal';
-  }
+  return item.tags.includes(tag);
+}
 
-  return 'general';
+function toTitleCase(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

@@ -8,9 +8,13 @@ import type { RegistryItem } from '@/registry';
 
 type AnimationCardProps = {
   item: RegistryItem;
+  previewTheme?: 'light' | 'dark';
 };
 
-export function AnimationCard({ item }: AnimationCardProps) {
+export function AnimationCard({
+  item,
+  previewTheme = 'light',
+}: AnimationCardProps) {
   const detailSlug = item.slug.replace('/', '--');
 
   return (
@@ -18,13 +22,18 @@ export function AnimationCard({ item }: AnimationCardProps) {
       <AnimationPreview
         item={item}
         loopPreview
-        className="min-h-44 rounded-none border-x-0 border-t-0 border-b"
+        className={
+          previewTheme === 'dark'
+            ? 'min-h-44 rounded-none border-x-0 border-t-0 border-b border-black bg-black'
+            : 'min-h-44 rounded-none border-x-0 border-t-0 border-b'
+        }
+        rendererClassName={previewTheme === 'dark' ? 'text-white' : ''}
       />
 
       <div className="grid min-w-0 gap-5 p-4 sm:p-5">
         <div className="grid min-w-0 gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge>{item.category}</Badge>
+            <Badge>{toTitleCase(item.category)}</Badge>
             <Badge>
               {item.accessibility.decorative ? 'decorative' : 'status'}
             </Badge>
@@ -71,6 +80,10 @@ export function AnimationCard({ item }: AnimationCardProps) {
       </div>
     </article>
   );
+}
+
+function toTitleCase(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function Badge({ children }: { children: string }) {
