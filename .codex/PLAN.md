@@ -272,6 +272,23 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Plan `@glyphe/tailwind`
 - [x] Plan `@glyphe/cli`
 
+## Product Loop Stabilization
+
+- [ ] Create real examples page
+- [ ] Add loading button example
+- [ ] Add command palette loading row example
+- [ ] Add terminal status line example
+- [ ] Add progress indicator example
+- [ ] Add text reveal example
+- [ ] Add gallery family grouping
+- [ ] Add gallery tag filtering
+- [ ] Add Braille collection view
+- [ ] Add generator preset picker
+- [ ] Load registry item into generator
+- [ ] Export edited preset output
+- [ ] Review package boundaries after examples
+- [ ] Review package boundaries after generator presets
+
 ## Deferred
 
 - [ ] Add matrix rain primitive
