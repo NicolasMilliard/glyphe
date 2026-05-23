@@ -17,6 +17,7 @@ export function AnimationCard({ item }: AnimationCardProps) {
     <article className="rounded-glyphe-lg border-border bg-background grid overflow-hidden border">
       <AnimationPreview
         item={item}
+        loopPreview
         className="min-h-44 rounded-none border-x-0 border-t-0 border-b"
       />
 

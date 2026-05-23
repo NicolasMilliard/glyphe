@@ -10,6 +10,7 @@ export type AnimationPreviewProps = {
   paused?: boolean;
   reducedMotion?: boolean;
   monospace?: boolean;
+  loopPreview?: boolean;
   className?: string;
 };
 
@@ -19,6 +20,7 @@ export function AnimationPreview({
   paused,
   reducedMotion,
   monospace,
+  loopPreview,
   className,
 }: AnimationPreviewProps) {
   return (
@@ -34,6 +36,7 @@ export function AnimationPreview({
         paused,
         reducedMotion,
         monospace,
+        loopPreview,
       })}
     </div>
   );
@@ -45,6 +48,7 @@ function renderPreview({
   paused,
   reducedMotion,
   monospace,
+  loopPreview,
 }: Omit<AnimationPreviewProps, 'className'>) {
   switch (item.strategy) {
     case 'stacked-spans':
@@ -77,6 +81,7 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+          loopPreview={loopPreview}
         />
       );
   }

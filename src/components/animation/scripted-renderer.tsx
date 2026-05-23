@@ -8,6 +8,7 @@ type ScriptedRendererProps = {
   paused?: boolean;
   reducedMotion?: boolean;
   monospace?: boolean;
+  loopPreview?: boolean;
   className?: string;
 };
 
@@ -17,6 +18,7 @@ export function ScriptedRenderer({
   paused = false,
   reducedMotion = false,
   monospace = item.compatibility.requiresMonospace,
+  loopPreview = false,
   className,
 }: ScriptedRendererProps) {
   const frames = useMemo(() => getScriptedFrames(item), [item]);
@@ -32,7 +34,7 @@ export function ScriptedRenderer({
         const nextFrame = frame + 1;
 
         if (nextFrame >= frames.length) {
-          return item.loop ? 0 : frame;
+          return item.loop || loopPreview ? 0 : frame;
         }
 
         return nextFrame;
@@ -40,7 +42,7 @@ export function ScriptedRenderer({
     }, speed / frames.length);
 
     return () => window.clearInterval(interval);
-  }, [frames.length, item.loop, paused, reducedMotion, speed]);
+  }, [frames.length, item.loop, loopPreview, paused, reducedMotion, speed]);
 
   const visibleFrame =
     reducedMotion || paused ? frames[frames.length - 1] : frames[activeFrame];

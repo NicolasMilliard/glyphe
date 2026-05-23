@@ -25,6 +25,7 @@ export function AnimationPreviewWorkbench({
         paused={paused}
         reducedMotion={reducedMotion}
         monospace={monospace}
+        loopPreview
       />
 
       <div className="flex flex-wrap items-center gap-3">
