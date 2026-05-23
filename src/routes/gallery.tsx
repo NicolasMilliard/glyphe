@@ -1,15 +1,101 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RoutePage } from '@/components/site/route-page';
+import { useMemo, useState } from 'react';
+import { AnimationCard } from '@/components/gallery';
+import { Input, SegmentedControl } from '@/components/ui';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
+import { registryItems, type AnimationCategory } from '@/registry';
+import { animationCategories } from '@/registry/schema';
 
 export const Route = createFileRoute('/gallery')({
   component: GalleryPage,
 });
 
+const categoryItems = [
+  { label: 'All', value: 'all' },
+  ...animationCategories.map((category) => ({
+    label: category,
+    value: category,
+  })),
+];
+
 function GalleryPage() {
   const metadata = routeMetadata.gallery;
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState<AnimationCategory | 'all'>('all');
   useDocumentTitle(metadata.title);
 
-  return <RoutePage metadata={metadata} />;
+  const filteredItems = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return registryItems.filter((item) => {
+      const matchesCategory = category === 'all' || item.category === category;
+      const matchesQuery =
+        normalizedQuery.length === 0 ||
+        item.name.toLowerCase().includes(normalizedQuery) ||
+        item.description.toLowerCase().includes(normalizedQuery) ||
+        item.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery));
+
+      return matchesCategory && matchesQuery;
+    });
+  }, [category, query]);
+
+  return (
+    <section className="grid gap-10">
+      <div className="max-w-3xl">
+        <p className="text-accent mb-4 font-mono text-sm uppercase">
+          {metadata.label}
+        </p>
+        <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
+          {metadata.title}
+        </h1>
+        <p className="text-muted-foreground mt-5 max-w-2xl text-lg leading-8">
+          {metadata.description}
+        </p>
+      </div>
+
+      <div className="grid gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <SegmentedControl
+            label="Filter animations by category"
+            value={category}
+            onValueChange={(value) =>
+              setCategory(value as AnimationCategory | 'all')
+            }
+            items={categoryItems}
+            className="max-w-full overflow-x-auto"
+          />
+
+          <Input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search animations"
+            className="sm:max-w-72"
+          />
+        </div>
+
+        <p className="text-muted-foreground text-sm">
+          Showing {filteredItems.length} of {registryItems.length} animations.
+        </p>
+      </div>
+
+      {filteredItems.length > 0 ? (
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredItems.map((item) => (
+            <AnimationCard key={item.slug} item={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-glyphe-lg border-border bg-surface border p-8">
+          <h2 className="text-foreground text-xl font-semibold">
+            No animations found.
+          </h2>
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
+            Try a different category or search term.
+          </p>
+        </div>
+      )}
+    </section>
+  );
 }

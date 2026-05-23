@@ -148,17 +148,17 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Gallery
 
-- [ ] Create gallery page layout
-- [ ] Create gallery filter controls
-- [ ] Create category tabs
-- [ ] Create animation card
-- [ ] Add live preview to cards
-- [ ] Add copy CSS action
-- [ ] Add copy React action
-- [ ] Add copy Tailwind action
-- [ ] Add accessibility badge
-- [ ] Add compatibility badge
-- [ ] Add empty filter state
+- [x] Create gallery page layout
+- [x] Create gallery filter controls
+- [x] Create category tabs
+- [x] Create animation card
+- [x] Add live preview to cards
+- [x] Add copy CSS action
+- [x] Add copy React action
+- [x] Add copy Tailwind action
+- [x] Add accessibility badge
+- [x] Add compatibility badge
+- [x] Add empty filter state
 
 ## Animation Detail
 
