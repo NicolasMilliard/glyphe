@@ -23,7 +23,7 @@ const categoryItems = [
 
 const filterItems = [
   { label: 'All', value: 'all' },
-  { label: 'Unicode', value: 'unicode' },
+  { label: 'Braille', value: 'braille' },
   { label: 'ASCII', value: 'ascii' },
   { label: 'CSS-only', value: 'css-only' },
   { label: 'Text effect', value: 'text-effect' },

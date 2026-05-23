@@ -16,6 +16,8 @@ export function AnimationCard({
   previewTheme = 'light',
 }: AnimationCardProps) {
   const detailSlug = item.slug.replace('/', '--');
+  const badges = getCardBadges(item);
+  const displayName = getDisplayName(item);
 
   return (
     <article className="rounded-glyphe-lg border-border bg-background grid min-w-0 overflow-hidden border">
@@ -24,8 +26,8 @@ export function AnimationCard({
         loopPreview
         className={
           previewTheme === 'dark'
-            ? 'min-h-44 rounded-none border-x-0 border-t-0 border-b border-black bg-black'
-            : 'min-h-44 rounded-none border-x-0 border-t-0 border-b'
+            ? 'min-h-34 rounded-none border-x-0 border-t-0 border-b border-black bg-black sm:min-h-36'
+            : 'min-h-34 rounded-none border-x-0 border-t-0 border-b sm:min-h-36'
         }
         rendererClassName={previewTheme === 'dark' ? 'text-white' : ''}
       />
@@ -33,18 +35,14 @@ export function AnimationCard({
       <div className="grid min-w-0 gap-5 p-4 sm:p-5">
         <div className="grid min-w-0 gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge>{toTitleCase(item.category)}</Badge>
-            <Badge>
-              {item.accessibility.decorative ? 'decorative' : 'status'}
-            </Badge>
-            <Badge>
-              {item.compatibility.supportsCssOnly ? 'CSS-only' : 'scripted'}
-            </Badge>
+            {badges.map((badge) => (
+              <Badge key={badge}>{badge}</Badge>
+            ))}
           </div>
 
           <div className="min-w-0">
             <h2 className="text-foreground text-xl font-semibold">
-              {item.name}
+              {displayName}
             </h2>
             <p className="text-muted-foreground mt-2 min-h-12 text-sm leading-6">
               {item.description}
@@ -73,7 +71,7 @@ export function AnimationCard({
         <Link
           to="/gallery/$slug"
           params={{ slug: detailSlug }}
-          className="text-accent text-sm font-medium hover:underline"
+          className="text-foreground decoration-border hover:decoration-foreground justify-self-start text-sm font-medium underline underline-offset-4 transition-colors"
         >
           View details
         </Link>
@@ -86,9 +84,31 @@ function toTitleCase(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+function getDisplayName(item: RegistryItem) {
+  return item.name.replace(/^Braille\s+/i, '');
+}
+
+function getCardBadges(item: RegistryItem) {
+  const badges = [toTitleCase(item.category)];
+
+  if (item.tags.includes('braille')) {
+    badges.push('Braille');
+  } else if (item.tags.includes('ascii')) {
+    badges.push('ASCII');
+  } else if (item.tags.includes('unicode')) {
+    badges.push('Unicode');
+  }
+
+  if (item.compatibility.supportsCssOnly) {
+    badges.push('CSS');
+  }
+
+  return badges;
+}
+
 function Badge({ children }: { children: string }) {
   return (
-    <span className="rounded-glyphe-sm border-border bg-surface text-muted-foreground border px-2 py-1 font-mono text-xs uppercase">
+    <span className="rounded-glyphe-sm border-border bg-surface text-muted-foreground border px-1.5 py-0.5 font-mono text-[0.65rem] uppercase">
       {children}
     </span>
   );
