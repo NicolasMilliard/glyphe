@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn';
 import type { RegistryItem } from '@/registry';
-import { ScriptedRendererPlaceholder } from './scripted-renderer-placeholder';
+import { ScriptedRenderer } from './scripted-renderer';
 import { StackedSpansRenderer } from './stacked-spans-renderer';
 import { TransformRenderer } from './transform-renderer';
 
@@ -70,6 +70,14 @@ function renderPreview({
         />
       );
     case 'scripted':
-      return <ScriptedRendererPlaceholder item={item} monospace={monospace} />;
+      return (
+        <ScriptedRenderer
+          item={item}
+          speed={speed}
+          paused={paused}
+          reducedMotion={reducedMotion}
+          monospace={monospace}
+        />
+      );
   }
 }
