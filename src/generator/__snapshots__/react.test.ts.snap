@@ -1,0 +1,71 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`react generator > generates stacked span components 1`] = `
+"type SpinnerBrailleAnimationProps = {
+  label?: string;
+  decorative?: boolean;
+  className?: string;
+};
+
+export function SpinnerBrailleAnimation({
+  label = 'Loading',
+  decorative = true,
+  className,
+}: SpinnerBrailleAnimationProps) {
+  return (
+    <>
+      <span
+        className={[ 'glyphe-spinner-braille', className ].filter(Boolean).join(' ')}
+        aria-hidden={decorative}
+      >
+        <span>⠋</span>
+        <span>⠙</span>
+        <span>⠹</span>
+        <span>⠸</span>
+        <span>⠼</span>
+        <span>⠴</span>
+        <span>⠦</span>
+        <span>⠧</span>
+        <span>⠇</span>
+        <span>⠏</span>
+      </span>
+      {decorative ? <span className="sr-only">{label}</span> : null}
+    </>
+  );
+}
+
+// Reduced motion: first-frame. Keep the generated CSS media query with this component."
+`;
+
+exports[`react generator > generates status components 1`] = `
+"type ProgressAsciiAnimationProps = {
+  label?: string;
+  decorative?: boolean;
+  className?: string;
+};
+
+export function ProgressAsciiAnimation({
+  label = 'Progress loading',
+  decorative = false,
+  className,
+}: ProgressAsciiAnimationProps) {
+  return (
+    <span role="status" aria-label={label}>
+      <span
+        className={[ 'glyphe-progress-ascii', className ].filter(Boolean).join(' ')}
+        aria-hidden={decorative ? true : undefined}
+      >
+        <span>[>    ]</span>
+        <span>[=>   ]</span>
+        <span>[==>  ]</span>
+        <span>[===> ]</span>
+        <span>[====>]</span>
+        <span>[=====]</span>
+      </span>
+      {decorative ? null : <span className="sr-only">{label}</span>}
+    </span>
+  );
+}
+
+// Reduced motion: static-label. Keep the generated CSS media query with this component."
+`;

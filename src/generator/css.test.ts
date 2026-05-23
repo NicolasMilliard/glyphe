@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { requireRegistryItem } from '@/registry';
+import { progressAscii } from '@/registry/items/progress-ascii';
+import { spinnerBraille } from '@/registry/items/spinner-braille';
+import { textGlitchSoft } from '@/registry/items/text-glitch-soft';
 import { escapeCssIdentifier, generateCss, getGeneratedCssNames } from './css';
 
 describe('css generator', () => {
   it('generates stable names from registry slugs', () => {
-    const item = requireRegistryItem('spinner/braille');
-
-    expect(getGeneratedCssNames(item)).toEqual({
+    expect(getGeneratedCssNames(spinnerBraille)).toEqual({
       rootClassName: 'glyphe-spinner-braille',
       keyframeName: 'glyphe-spinner-braille-frames',
     });
@@ -17,14 +17,16 @@ describe('css generator', () => {
   });
 
   it('generates stacked span CSS', () => {
-    expect(
-      generateCss(requireRegistryItem('spinner/braille')),
-    ).toMatchSnapshot();
+    expect(generateCss(spinnerBraille)).toMatchSnapshot();
   });
 
   it('generates transform CSS', () => {
-    expect(
-      generateCss(requireRegistryItem('text/glitch-soft')),
-    ).toMatchSnapshot();
+    expect(generateCss(textGlitchSoft)).toMatchSnapshot();
+  });
+
+  it('generates status CSS', () => {
+    expect(generateCss(progressAscii)).toContain(
+      '@media (prefers-reduced-motion: reduce)',
+    );
   });
 });

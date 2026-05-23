@@ -125,16 +125,16 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## React Generator
 
-- [ ] Create React generator entry
-- [ ] Generate component names
-- [ ] Generate component props
-- [ ] Generate stacked span markup
-- [ ] Generate accessible label markup
-- [ ] Generate decorative mode
-- [ ] Generate status mode
-- [ ] Generate reduced motion notes
-- [ ] Add React generator tests
-- [ ] Add generated React snapshots
+- [x] Create React generator entry
+- [x] Generate component names
+- [x] Generate component props
+- [x] Generate stacked span markup
+- [x] Generate accessible label markup
+- [x] Generate decorative mode
+- [x] Generate status mode
+- [x] Generate reduced motion notes
+- [x] Add React generator tests
+- [x] Add generated React snapshots
 
 ## Tailwind Generator
 
