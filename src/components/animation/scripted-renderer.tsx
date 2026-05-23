@@ -44,8 +44,9 @@ export function ScriptedRenderer({
     return () => window.clearInterval(interval);
   }, [frames.length, item.loop, loopPreview, paused, reducedMotion, speed]);
 
+  const safeFrame = Math.min(activeFrame, frames.length - 1);
   const visibleFrame =
-    reducedMotion || paused ? frames[frames.length - 1] : frames[activeFrame];
+    reducedMotion || paused ? frames[frames.length - 1] : frames[safeFrame];
   const maxFrameLength = Math.max(...frames.map((frame) => frame.length), 1);
 
   return (

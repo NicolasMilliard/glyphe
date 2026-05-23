@@ -29,4 +29,32 @@ describe('css generator', () => {
       '@media (prefers-reduced-motion: reduce)',
     );
   });
+
+  it('generates CSS variable swap CSS', () => {
+    expect(
+      generateCss({
+        ...spinnerBraille,
+        strategy: 'css-var-swap',
+      }),
+    ).toContain('--glyphe-frame');
+  });
+
+  it('generates pseudo-element CSS', () => {
+    expect(
+      generateCss({
+        ...spinnerBraille,
+        strategy: 'pseudo-content',
+      }),
+    ).toContain('::before');
+  });
+
+  it('reflects timing and loop options in CSS', () => {
+    expect(
+      generateCss({
+        ...spinnerBraille,
+        timing: 'linear',
+        loop: false,
+      }),
+    ).toContain('linear 1 forwards');
+  });
 });

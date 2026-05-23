@@ -78,6 +78,26 @@ ${spans}
       </span>`;
 }
 
+export function generateSingleElementMarkup(
+  item: RegistryItem,
+  options: {
+    rootClassName: string;
+    frame?: string;
+  },
+) {
+  const ariaHidden = item.accessibility.ariaHiddenRecommended
+    ? '{decorative}'
+    : '{decorative ? true : undefined}';
+  const content = options.frame
+    ? `\n        ${escapeJsxText(options.frame)}\n      `
+    : '';
+
+  return `      <span
+        className={[ '${options.rootClassName}', className ].filter(Boolean).join(' ')}
+        aria-hidden=${ariaHidden}
+      >${content}</span>`;
+}
+
 export function generateAccessibleLabelMarkup(item: RegistryItem) {
   if (item.accessibility.decorative) {
     return `{decorative ? <span className="sr-only">{label}</span> : null}`;
@@ -128,17 +148,17 @@ function generateAnimatedMarkup(
 ) {
   switch (item.strategy) {
     case 'stacked-spans':
+      return generateStackedSpanMarkup(item, options);
     case 'css-var-swap':
     case 'pseudo-content':
-      return generateStackedSpanMarkup(item, options);
+      return generateSingleElementMarkup(item, options);
     case 'transform':
+      return generateSingleElementMarkup(item, {
+        ...options,
+        frame: options.frames[0],
+      });
     case 'scripted':
-      return `      <span
-        className={[ '${options.rootClassName}', className ].filter(Boolean).join(' ')}
-        aria-hidden={decorative}
-      >
-        {label}
-      </span>`;
+      return generateSingleElementMarkup(item, options);
   }
 }
 

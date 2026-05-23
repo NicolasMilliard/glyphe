@@ -52,8 +52,6 @@ function renderPreview({
 }: Omit<AnimationPreviewProps, 'className'>) {
   switch (item.strategy) {
     case 'stacked-spans':
-    case 'css-var-swap':
-    case 'pseudo-content':
       return (
         <StackedSpansRenderer
           item={item}
@@ -61,6 +59,18 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+        />
+      );
+    case 'css-var-swap':
+    case 'pseudo-content':
+      return (
+        <ScriptedRenderer
+          item={item}
+          speed={speed}
+          paused={paused}
+          reducedMotion={reducedMotion}
+          monospace={monospace}
+          loopPreview={loopPreview}
         />
       );
     case 'transform':

@@ -80,6 +80,7 @@ exports[`css generator > generates stacked span CSS 1`] = `
 
 @media (prefers-reduced-motion: reduce) {
   .glyphe-spinner-braille,
+  .glyphe-spinner-braille::before,
   .glyphe-spinner-braille > span {
     animation: none;
   }
@@ -101,7 +102,7 @@ exports[`css generator > generates transform CSS 1`] = `
 
 .glyphe-text-glitch-soft {
   display: inline-block;
-  animation: glyphe-text-glitch-soft-frames var(--glyphe-duration, 1200ms) steps(2, end) infinite;
+  animation: glyphe-text-glitch-soft-frames var(--glyphe-duration, 1200ms) steps(1, end) infinite;
   will-change: transform, opacity;
 }
 
@@ -120,6 +121,7 @@ exports[`css generator > generates transform CSS 1`] = `
 
 @media (prefers-reduced-motion: reduce) {
   .glyphe-text-glitch-soft,
+  .glyphe-text-glitch-soft::before,
   .glyphe-text-glitch-soft > span {
     animation: none;
   }

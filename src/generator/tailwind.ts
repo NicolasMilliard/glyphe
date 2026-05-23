@@ -1,8 +1,8 @@
 import type { RegistryItem } from '@/registry';
 import {
+  generateCss,
   generateReducedMotionCss,
-  generateStackedSpanCss,
-  generateTransformCss,
+  getAnimationTimingFunction,
   getGeneratedCssNames,
 } from './css';
 
@@ -32,10 +32,12 @@ export function generateTailwindTheme(
   names = getTailwindNames(item),
 ) {
   const frames = item.frames ?? [item.name];
-  const steps = item.strategy === 'transform' ? 2 : frames.length;
+  const steps = frames.length;
+  const iteration = item.loop ? 'infinite' : '1';
+  const fillMode = item.loop ? '' : ' forwards';
 
   return `@theme {
-  --animate-${names.animationToken}: ${names.keyframeName} var(--glyphe-duration, ${item.duration}ms) steps(${steps}, end) infinite;
+  --animate-${names.animationToken}: ${names.keyframeName} var(--glyphe-duration, ${item.duration}ms) ${getAnimationTimingFunction(item, steps)} ${iteration}${fillMode};
 
 ${generateTailwindKeyframes(item, names)
   .split('\n')
@@ -48,16 +50,10 @@ export function generateTailwindUtilityCss(
   item: RegistryItem,
   names = getTailwindNames(item),
 ) {
-  const css =
-    item.strategy === 'transform'
-      ? generateTransformCss(item, {
-          rootClassName: names.utilityClassName,
-          keyframeName: names.keyframeName,
-        })
-      : generateStackedSpanCss(item, {
-          rootClassName: names.utilityClassName,
-          keyframeName: names.keyframeName,
-        });
+  const css = generateCss(item, {
+    className: names.utilityClassName,
+    keyframeName: names.keyframeName,
+  });
 
   return css
     .replace(

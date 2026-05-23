@@ -29,6 +29,25 @@ describe('react generator', () => {
     expect(generateReactComponent(spinnerBraille)).toMatchSnapshot();
   });
 
+  it('generates pseudo-element components without frame spans', () => {
+    expect(
+      generateReactComponent({
+        ...spinnerBraille,
+        strategy: 'pseudo-content',
+      }),
+    ).not.toContain('<span>⠋</span>');
+  });
+
+  it('generates transform components with the first frame as content', () => {
+    const output = generateReactComponent({
+      ...spinnerBraille,
+      strategy: 'transform',
+    });
+
+    expect(output).toContain('⠋');
+    expect(output).not.toContain('Generated Animation');
+  });
+
   it('generates status components', () => {
     expect(generateReactComponent(progressAscii)).toMatchSnapshot();
   });

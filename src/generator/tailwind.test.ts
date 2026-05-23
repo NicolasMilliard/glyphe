@@ -37,4 +37,14 @@ describe('tailwind generator', () => {
       'className="glyphe-text-glitch-soft animate-text-glitch-soft"',
     );
   });
+
+  it('reflects timing and loop options in @theme output', () => {
+    expect(
+      generateTailwindTheme({
+        ...spinnerBraille,
+        timing: 'ease',
+        loop: false,
+      }),
+    ).toContain('ease 1 forwards');
+  });
 });

@@ -18,9 +18,11 @@ export function generateCss(
 
   switch (item.strategy) {
     case 'stacked-spans':
-    case 'css-var-swap':
-    case 'pseudo-content':
       return generateStackedSpanCss(item, names);
+    case 'css-var-swap':
+      return generateCssVariableSwapCss(item, names);
+    case 'pseudo-content':
+      return generatePseudoContentCss(item, names);
     case 'transform':
       return generateTransformCss(item, names);
     case 'scripted':
@@ -45,7 +47,7 @@ export function generateStackedSpanCss(
   names = getGeneratedCssNames(item),
 ) {
   const frames = item.frames ?? [item.name];
-  const duration = `var(--glyphe-duration, ${item.duration}ms)`;
+  const animation = getAnimationDeclaration(item, names, frames.length);
   const width = `${Math.max(...frames.map((frame) => frame.length), 1)}ch`;
   const delayStep = item.duration / frames.length;
   const frameRules = frames
@@ -73,7 +75,7 @@ export function generateStackedSpanCss(
 .${names.rootClassName} > span {
   grid-area: 1 / 1;
   opacity: 0;
-  animation: ${names.keyframeName} ${duration} steps(${frames.length}, end) infinite;
+  animation: ${animation};
 }
 
 ${frameRules}
@@ -99,17 +101,89 @@ ${frameRules}
 ${generateReducedMotionCss(item, names)}`;
 }
 
-export function generateTransformCss(
+export function generateCssVariableSwapCss(
   item: RegistryItem,
   names = getGeneratedCssNames(item),
 ) {
-  const duration = `var(--glyphe-duration, ${item.duration}ms)`;
+  const frames = item.frames ?? [item.name];
+  const frameKeyframes = frames
+    .map((frame, index) => {
+      const percent = Math.round((index / frames.length) * 10000) / 100;
+
+      return `  ${percent}% {
+    --glyphe-frame: "${escapeCssString(frame)}";
+  }`;
+    })
+    .join('\n\n');
 
   return `${generateCssVariables(item, names)}
 
 .${names.rootClassName} {
   display: inline-block;
-  animation: ${names.keyframeName} ${duration} steps(2, end) infinite;
+  min-width: var(--glyphe-width, ${Math.max(...frames.map((frame) => frame.length), 1)}ch);
+  font-family: var(--glyphe-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  line-height: 1;
+  animation: ${getAnimationDeclaration(item, names, frames.length)};
+}
+
+.${names.rootClassName}::before {
+  content: var(--glyphe-frame, "${escapeCssString(frames[0] ?? '')}");
+}
+
+@keyframes ${names.keyframeName} {
+${frameKeyframes}
+}
+
+${generateReducedMotionCss(item, names)}`;
+}
+
+export function generatePseudoContentCss(
+  item: RegistryItem,
+  names = getGeneratedCssNames(item),
+) {
+  const frames = item.frames ?? [item.name];
+  const frameKeyframes = frames
+    .map((frame, index) => {
+      const percent = Math.round((index / frames.length) * 10000) / 100;
+
+      return `  ${percent}% {
+    content: "${escapeCssString(frame)}";
+  }`;
+    })
+    .join('\n\n');
+
+  return `${generateCssVariables(item, names)}
+
+.${names.rootClassName} {
+  display: inline-block;
+  min-width: var(--glyphe-width, ${Math.max(...frames.map((frame) => frame.length), 1)}ch);
+  font-family: var(--glyphe-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  line-height: 1;
+}
+
+.${names.rootClassName}::before {
+  content: "${escapeCssString(frames[0] ?? '')}";
+  animation: ${getAnimationDeclaration(item, names, frames.length)};
+}
+
+@keyframes ${names.keyframeName} {
+${frameKeyframes}
+}
+
+${generateReducedMotionCss(item, names)}`;
+}
+
+export function generateTransformCss(
+  item: RegistryItem,
+  names = getGeneratedCssNames(item),
+) {
+  const frames = item.frames ?? [item.name];
+
+  return `${generateCssVariables(item, names)}
+
+.${names.rootClassName} {
+  display: inline-block;
+  animation: ${getAnimationDeclaration(item, names, frames.length)};
   will-change: transform, opacity;
 }
 
@@ -163,6 +237,7 @@ export function generateReducedMotionCss(
 
   return `@media (prefers-reduced-motion: reduce) {
   .${names.rootClassName},
+  .${names.rootClassName}::before,
   .${names.rootClassName} > span {
     animation: none;
   }
@@ -177,10 +252,41 @@ export function generateReducedMotionCss(
 }`;
 }
 
+export function getAnimationTimingFunction(
+  item: RegistryItem,
+  frameCount: number,
+) {
+  switch (item.timing) {
+    case 'steps':
+      return `steps(${frameCount}, end)`;
+    case 'linear':
+      return 'linear';
+    case 'ease':
+      return 'ease';
+    case 'custom':
+      return 'var(--glyphe-timing-function, steps(' + frameCount + ', end))';
+  }
+}
+
+export function getAnimationDeclaration(
+  item: RegistryItem,
+  names = getGeneratedCssNames(item),
+  frameCount = item.frames?.length ?? 1,
+) {
+  const iteration = item.loop ? 'infinite' : '1';
+  const fillMode = item.loop ? '' : ' forwards';
+
+  return `${names.keyframeName} var(--glyphe-duration, ${item.duration}ms) ${getAnimationTimingFunction(item, frameCount)} ${iteration}${fillMode}`;
+}
+
 export function escapeCssIdentifier(value: string) {
   return value
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
+}
+
+function escapeCssString(value: string) {
+  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }

@@ -176,20 +176,20 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Generator Page
 
-- [ ] Create generator page layout
-- [ ] Create frame input textarea
-- [ ] Parse whitespace-separated frames
-- [ ] Parse newline-separated frames
-- [ ] Add frame count display
-- [ ] Add duration control
-- [ ] Add timing control
-- [ ] Add loop toggle
-- [ ] Add rendering strategy control
-- [ ] Add live generated preview
-- [ ] Add output tabs
-- [ ] Add validation messages
-- [ ] Add glyph risk warnings
-- [ ] Add reset example action
+- [x] Create generator page layout
+- [x] Create frame input textarea
+- [x] Parse whitespace-separated frames
+- [x] Parse newline-separated frames
+- [x] Add frame count display
+- [x] Add duration control
+- [x] Add timing control
+- [x] Add loop toggle
+- [x] Add rendering strategy control
+- [x] Add live generated preview
+- [x] Add output tabs
+- [x] Add validation messages
+- [x] Add glyph risk warnings
+- [x] Add reset example action
 
 ## Accessibility
 

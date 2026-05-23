@@ -126,6 +126,7 @@ exports[`tailwind generator > generates Tailwind-friendly CSS 1`] = `
 
 @media (prefers-reduced-motion: reduce) {
   .glyphe-spinner-braille,
+  .glyphe-spinner-braille::before,
   .glyphe-spinner-braille > span {
     animation: none;
   }

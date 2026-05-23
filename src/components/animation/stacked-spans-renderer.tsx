@@ -28,11 +28,19 @@ export function StackedSpansRenderer({
     }
 
     const interval = window.setInterval(() => {
-      setActiveFrame((frame) => (frame + 1) % frames.length);
+      setActiveFrame((frame) => {
+        const nextFrame = frame + 1;
+
+        if (nextFrame >= frames.length) {
+          return item.loop ? 0 : frame;
+        }
+
+        return nextFrame;
+      });
     }, speed / frames.length);
 
     return () => window.clearInterval(interval);
-  }, [frames.length, paused, reducedMotion, speed]);
+  }, [frames.length, item.loop, paused, reducedMotion, speed]);
 
   const maxFrameLength = Math.max(...frames.map((frame) => frame.length), 1);
   const visibleFrame =
