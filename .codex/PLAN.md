@@ -112,16 +112,16 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## CSS Generator
 
-- [ ] Create CSS generator entry
-- [ ] Generate class names
-- [ ] Generate keyframe names
-- [ ] Generate stacked span CSS
-- [ ] Generate transform CSS
-- [ ] Generate reduced motion CSS
-- [ ] Generate CSS variables
-- [ ] Escape generated identifiers
-- [ ] Add CSS generator tests
-- [ ] Add generated CSS snapshots
+- [x] Create CSS generator entry
+- [x] Generate class names
+- [x] Generate keyframe names
+- [x] Generate stacked span CSS
+- [x] Generate transform CSS
+- [x] Generate reduced motion CSS
+- [x] Generate CSS variables
+- [x] Escape generated identifiers
+- [x] Add CSS generator tests
+- [x] Add generated CSS snapshots
 
 ## React Generator
 

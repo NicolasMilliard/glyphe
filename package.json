@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "bun ./node_modules/vitest/vitest.mjs run"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.0",
@@ -36,6 +37,7 @@
     "prettier-plugin-tailwindcss": "0.7.2",
     "typescript": "6.0.2",
     "typescript-eslint": "8.59.2",
-    "vite": "8.0.12"
+    "vite": "8.0.12",
+    "vitest": "4.1.7"
   }
 }
