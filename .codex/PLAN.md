@@ -229,16 +229,16 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Documentation
 
-- [ ] Write project introduction
-- [ ] Write registry concept docs
-- [ ] Write copy-paste ownership docs
-- [ ] Write rendering strategy docs
-- [ ] Write accessibility docs
-- [ ] Write reduced motion docs
-- [ ] Write unicode rendering docs
-- [ ] Write Tailwind integration docs
-- [ ] Write future CLI docs
-- [ ] Update roadmap after MVP scope changes
+- [x] Write project introduction
+- [x] Write registry concept docs
+- [x] Write copy-paste ownership docs
+- [x] Write rendering strategy docs
+- [x] Write accessibility docs
+- [x] Write reduced motion docs
+- [x] Write unicode rendering docs
+- [x] Write Tailwind integration docs
+- [x] Write future CLI docs
+- [x] Update roadmap after MVP scope changes
 
 ## Polish
 

@@ -16,6 +16,77 @@ function DocsPage() {
       <h1>{metadata.title}</h1>
       <p>{metadata.description}</p>
 
+      <h2>Project introduction</h2>
+      <p>
+        Glyphe is a registry-first, CSS-first toolkit for terminal-inspired text
+        animation on the web. It is built around copyable primitives: unicode
+        spinners, ASCII loaders, progress indicators, cursor effects, glitch
+        text, typewriter text, and other animated glyph systems.
+      </p>
+      <p>
+        The product goal is ownership. Generated CSS, React components, and
+        Tailwind-friendly snippets should be readable enough to paste into an
+        app, customize, and keep without depending on a runtime package.
+      </p>
+
+      <h2>Registry concepts</h2>
+      <p>
+        The registry is the source of truth for every animation. A registry item
+        describes the frames, duration, timing, loop behavior, rendering
+        strategy, accessibility mode, unicode compatibility, and customization
+        options for a primitive.
+      </p>
+      <p>
+        The gallery, detail pages, generator output, compatibility notes, and
+        future CLI should all consume this metadata. That keeps docs, previews,
+        and generated code from drifting apart.
+      </p>
+
+      <h2>Copy-paste ownership</h2>
+      <p>
+        Glyphe follows the shadcn/ui style of distribution: users should own the
+        generated code. The website provides good defaults and clear warnings,
+        but the copied output should remain ordinary CSS and TypeScript.
+      </p>
+      <ul>
+        <li>Generated CSS should use readable class names and variables.</li>
+        <li>
+          Generated React should be a small adapter around the CSS pattern.
+        </li>
+        <li>
+          Generated Tailwind output should be pasteable into a Tailwind v4
+          stylesheet without making Tailwind mandatory for the core project.
+        </li>
+      </ul>
+
+      <h2>Rendering strategies</h2>
+      <p>
+        Glyphe supports several rendering strategies because terminal-inspired
+        animation is not one single technical problem.
+      </p>
+      <ul>
+        <li>
+          <code>stacked-spans</code>: renders real text frames in stacked spans.
+          This is the safest default for unicode frame animations.
+        </li>
+        <li>
+          <code>css-var-swap</code>: swaps a CSS custom property used by
+          generated content. This is compact and useful for utility output.
+        </li>
+        <li>
+          <code>pseudo-content</code>: animates <code>::before</code> content.
+          This keeps markup small, but needs clear accessibility handling.
+        </li>
+        <li>
+          <code>transform</code>: moves or fades visible text. This works well
+          for glitch, cursor, bars, and subtle motion effects.
+        </li>
+        <li>
+          <code>scripted</code>: uses runtime frame stepping for effects like
+          typewriter and scramble text.
+        </li>
+      </ul>
+
       <h2>Accessibility</h2>
       <p>
         Glyphe animations should be easy to copy, but they should also be hard
@@ -82,10 +153,54 @@ function DocsPage() {
         full-screen changes, and aggressive jitter for glitch-style effects.
       </p>
 
-      <h2>Registry first</h2>
+      <h2>Unicode rendering</h2>
       <p>
-        Glyphe will use structured animation metadata to generate previews, CSS,
-        React components, Tailwind-friendly output, and future CLI installs.
+        Unicode and terminal glyphs are visually expressive, but they are not
+        perfectly stable across fonts, operating systems, and browsers. Glyphe
+        tracks glyph width, unicode risk, emoji risk, monospace requirements,
+        and recommended font stacks so users can inspect risky animations before
+        copying them.
+      </p>
+      <ul>
+        <li>
+          Prefer monospace font stacks for frame animations that must align.
+        </li>
+        <li>
+          Treat emoji as risky because they can render as colored, double-width,
+          or platform-specific glyphs.
+        </li>
+        <li>
+          Watch combining characters because they can affect width and vertical
+          alignment.
+        </li>
+        <li>
+          Use fixed preview dimensions so glyph changes do not resize the UI.
+        </li>
+      </ul>
+
+      <h2>Tailwind integration</h2>
+      <p>
+        Tailwind support is additive. Glyphe generates ordinary CSS first, then
+        offers Tailwind-friendly output for projects that want to keep animation
+        tokens and utilities inside their stylesheet.
+      </p>
+      <p>
+        The generated Tailwind output uses <code>@theme</code> animation tokens
+        and utility classes where useful. It should stay readable, copyable, and
+        close to the plain CSS output.
+      </p>
+
+      <h2>Future CLI</h2>
+      <p>
+        A CLI should come after the registry and generators are stable. The
+        future flow should feel like <code>glyphe add spinner/braille</code>:
+        select a registry item, generate code, write it into user-owned files,
+        and avoid hiding behavior in a runtime dependency.
+      </p>
+      <p>
+        The CLI should eventually detect React, Tailwind, TypeScript, and local
+        project paths. It should preserve user edits, support dry runs, and use
+        the same registry metadata as the website.
       </p>
     </DocsContent>
   );

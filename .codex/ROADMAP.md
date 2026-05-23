@@ -32,7 +32,8 @@ Initial stack:
 - Bun
 - Zod
 - Vitest
-- Biome
+- ESLint
+- Prettier
 
 Potential future additions:
 
@@ -339,13 +340,27 @@ Initial animation set:
 
 Defer matrix rain until after the core CSS/registry story is strong.
 
+## Current MVP Status
+
+The current implementation has moved past foundation work and now includes:
+
+- Vite, React, TypeScript, TanStack Router, Tailwind CSS, Bun, Zod, Vitest, ESLint, and Prettier
+- a registry schema with accessibility and unicode compatibility metadata
+- gallery, animation detail, generator, docs, registry, and examples routes
+- copyable CSS, React, and Tailwind output
+- live previews with pause, reduced-motion, speed, and font-stack controls
+- generator validation, glyph warnings, and strategy-specific output
+- focused tests for generators, registry validation, slug lookup, frame parsing, accessibility helpers, and unicode compatibility helpers
+
+The next high-value work should focus on polish, examples, and visual QA before starting a CLI prototype.
+
 ## Milestones
 
 ### Milestone 1: Project Foundation
 
 - scaffold Vite, React, TypeScript, and TanStack Router
 - configure Tailwind CSS
-- configure Biome
+- configure ESLint and Prettier
 - configure Vitest
 - create base layout and routes
 - create initial design tokens
