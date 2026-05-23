@@ -31,7 +31,7 @@ export function SiteHeader() {
                   <Link
                     to={item.to}
                     className={cn(
-                      'rounded-glyphe-md px-3 py-2 text-sm transition-colors focus-visible:outline-none',
+                      'rounded-glyphe-md px-3 py-2 text-sm transition-colors',
                       active
                         ? 'bg-surface text-foreground'
                         : 'text-muted-foreground hover:bg-surface hover:text-foreground',
@@ -50,7 +50,7 @@ export function SiteHeader() {
           aria-label="Toggle navigation"
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
-          className="rounded-glyphe-md border-border text-muted-foreground hover:bg-surface hover:text-foreground border px-3 py-2 text-sm transition-colors focus-visible:outline-none sm:hidden"
+          className="rounded-glyphe-md border-border text-muted-foreground hover:bg-surface hover:text-foreground border px-3 py-2 text-sm transition-colors sm:hidden"
         >
           Menu
         </button>
@@ -72,7 +72,7 @@ export function SiteHeader() {
                     to={item.to}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      'rounded-glyphe-md block px-3 py-2 text-sm transition-colors focus-visible:outline-none',
+                      'rounded-glyphe-md block px-3 py-2 text-sm transition-colors',
                       active
                         ? 'bg-surface text-foreground'
                         : 'text-muted-foreground hover:bg-surface hover:text-foreground',

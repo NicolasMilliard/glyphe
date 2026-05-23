@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn';
+import type { KeyboardEvent } from 'react';
 
 export type SegmentedControlItem = {
   label: string;
@@ -21,10 +22,43 @@ export function SegmentedControl({
   label,
   className,
 }: SegmentedControlProps) {
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+
+    const enabledItems = items.filter((item) => !item.disabled);
+    if (enabledItems.length === 0) {
+      return;
+    }
+    const currentIndex = enabledItems.findIndex((item) => item.value === value);
+    const fallbackIndex = currentIndex === -1 ? 0 : currentIndex;
+    const nextIndex = getKeyboardIndex({
+      currentIndex: fallbackIndex,
+      key: event.key,
+      total: enabledItems.length,
+    });
+    const nextItem = enabledItems[nextIndex];
+
+    if (!nextItem) {
+      return;
+    }
+
+    event.preventDefault();
+    const enabledButtons = Array.from(
+      event.currentTarget.querySelectorAll<HTMLButtonElement>(
+        'button:not(:disabled)',
+      ),
+    );
+    enabledButtons[nextIndex]?.focus();
+    onValueChange(nextItem.value);
+  }
+
   return (
     <div
       role="radiogroup"
       aria-label={label}
+      onKeyDown={handleKeyDown}
       className={cn(
         'rounded-glyphe-md border-border bg-surface inline-flex max-w-full overflow-x-auto border p-1',
         className,
@@ -39,6 +73,7 @@ export function SegmentedControl({
             type="button"
             role="radio"
             aria-checked={selected}
+            tabIndex={selected ? 0 : -1}
             disabled={item.disabled}
             onClick={() => onValueChange(item.value)}
             className={cn(
@@ -54,4 +89,28 @@ export function SegmentedControl({
       })}
     </div>
   );
+}
+
+function getKeyboardIndex({
+  currentIndex,
+  key,
+  total,
+}: {
+  currentIndex: number;
+  key: string;
+  total: number;
+}) {
+  if (key === 'Home') {
+    return 0;
+  }
+
+  if (key === 'End') {
+    return total - 1;
+  }
+
+  if (key === 'ArrowLeft') {
+    return (currentIndex - 1 + total) % total;
+  }
+
+  return (currentIndex + 1) % total;
 }

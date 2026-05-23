@@ -14,7 +14,7 @@ export function RootNotFound() {
         </p>
         <Link
           to="/"
-          className="rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none"
+          className="rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium transition-colors"
         >
           Back to home
         </Link>
@@ -42,7 +42,7 @@ export function RootErrorBoundary({ error, reset }: ErrorComponentProps) {
         <button
           type="button"
           onClick={reset}
-          className="rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none"
+          className="rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium transition-colors"
         >
           Try again
         </button>

@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn';
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion';
 import type { RegistryItem } from '@/registry';
 import { ScriptedRenderer } from './scripted-renderer';
 import { StackedSpansRenderer } from './stacked-spans-renderer';
@@ -25,6 +26,9 @@ export function AnimationPreview({
   loopPreview,
   className,
 }: AnimationPreviewProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const effectiveReducedMotion = reducedMotion ?? prefersReducedMotion;
+
   return (
     <div
       className={cn(
@@ -36,7 +40,7 @@ export function AnimationPreview({
         item,
         speed,
         paused,
-        reducedMotion,
+        reducedMotion: effectiveReducedMotion,
         monospace,
         fontFamily,
         loopPreview,

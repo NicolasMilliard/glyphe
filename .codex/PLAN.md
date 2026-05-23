@@ -245,12 +245,12 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Refine homepage copy
 - [x] Refine homepage visual direction
 - [x] Add subtle text animation showcase
-- [ ] Add responsive QA pass
-- [ ] Add keyboard navigation QA pass
-- [ ] Add focus state QA pass
-- [ ] Add reduced motion QA pass
-- [ ] Add light theme QA pass
-- [ ] Add dark theme QA pass
+- [x] Add responsive QA pass
+- [x] Add keyboard navigation QA pass
+- [x] Add focus state QA pass
+- [x] Add reduced motion QA pass
+- [x] Add light theme QA pass
+- [x] Add dark theme QA pass
 
 ## Future CLI
 
