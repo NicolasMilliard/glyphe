@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, SegmentedControl, Select } from '@/components/ui';
+import { IconButton, Input, SegmentedControl, Select } from '@/components/ui';
 import { cn } from '@/lib/cn';
 import {
   getPreviewFontFamily,
@@ -18,7 +18,7 @@ export function AnimationPreviewWorkbench({
 }: AnimationPreviewWorkbenchProps) {
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [previewTheme, setPreviewTheme] = useState('light');
+  const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   const [fontStack, setFontStack] = useState<RecommendedFontStack>(
     getUnicodeCompatibilityGuidance(item).recommendedFontStack,
   );
@@ -30,10 +30,26 @@ export function AnimationPreviewWorkbench({
     <div className="grid gap-4">
       <div
         className={cn(
-          'rounded-glyphe-lg',
+          'rounded-glyphe-lg relative',
           previewTheme === 'dark' ? 'theme-dark' : 'theme-light',
         )}
       >
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+          <ThemeToggle
+            value={previewTheme}
+            onChange={() =>
+              setPreviewTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
+            }
+          />
+          <IconButton
+            label={paused ? 'Resume animation' : 'Pause animation'}
+            icon={paused ? <PlayIcon /> : <PauseIcon />}
+            variant="secondary"
+            className="bg-background/90 backdrop-blur"
+            onClick={() => setPaused((value) => !value)}
+          />
+        </div>
+
         <AnimationPreview
           item={item}
           speed={speed}
@@ -47,23 +63,14 @@ export function AnimationPreviewWorkbench({
         />
       </div>
 
-      <div className="flex flex-wrap items-end gap-3">
-        <Button
-          variant={paused ? 'primary' : 'secondary'}
-          onClick={() => setPaused((value) => !value)}
-          className="h-10"
-        >
-          {paused ? 'Resume' : 'Pause'}
-        </Button>
-
-        <label className="text-muted-foreground grid gap-1 text-sm">
-          Font stack
+      <div className="grid gap-4 sm:grid-cols-[10rem_auto_7rem] sm:items-start">
+        <label className="text-muted-foreground grid gap-1.5 text-sm">
+          <span className="h-5">Font stack</span>
           <Select
             value={fontStack}
             onChange={(event) =>
               setFontStack(event.target.value as RecommendedFontStack)
             }
-            className="w-36"
           >
             {previewFontStackOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -73,28 +80,26 @@ export function AnimationPreviewWorkbench({
           </Select>
         </label>
 
-        <SegmentedControl
-          label="Motion mode"
-          value={reducedMotion ? 'reduced' : 'motion'}
-          onValueChange={(value) => setReducedMotion(value === 'reduced')}
-          items={[
-            { label: 'Motion', value: 'motion' },
-            { label: 'Reduced', value: 'reduced' },
-          ]}
-        />
+        <div className="grid justify-start gap-1.5">
+          <span className="text-muted-foreground h-5 text-sm">Motion</span>
+          <SegmentedControl
+            label="Motion mode"
+            value={reducedMotion ? 'reduced' : 'motion'}
+            onValueChange={(value) => setReducedMotion(value === 'reduced')}
+            items={[
+              { label: 'Motion', value: 'motion' },
+              { label: 'Reduced', value: 'reduced' },
+            ]}
+            className="w-fit"
+          />
+          <p className="text-muted-foreground max-w-xs text-xs leading-5">
+            Reduced shows the safer static or slowed state used for people who
+            prefer less motion.
+          </p>
+        </div>
 
-        <SegmentedControl
-          label="Preview theme"
-          value={previewTheme}
-          onValueChange={setPreviewTheme}
-          items={[
-            { label: 'Light', value: 'light' },
-            { label: 'Dark', value: 'dark' },
-          ]}
-        />
-
-        <label className="text-muted-foreground grid gap-1 text-sm">
-          Speed
+        <label className="text-muted-foreground grid gap-1.5 text-sm">
+          <span className="h-5">Speed</span>
           <Input
             type="number"
             min={item.options.speed?.min ?? 100}
@@ -102,10 +107,113 @@ export function AnimationPreviewWorkbench({
             step={50}
             value={speed}
             onChange={(event) => setSpeed(Number(event.target.value))}
-            className="w-28"
           />
         </label>
       </div>
     </div>
+  );
+}
+
+function ThemeToggle({
+  value,
+  onChange,
+}: {
+  value: 'light' | 'dark';
+  onChange: () => void;
+}) {
+  const dark = value === 'dark';
+
+  return (
+    <button
+      type="button"
+      aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
+      aria-pressed={dark}
+      onClick={onChange}
+      className="border-border bg-background/90 text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 backdrop-blur transition-colors"
+    >
+      <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
+      <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
+      <span
+        className={cn(
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform',
+          dark ? 'translate-x-0' : 'translate-x-10',
+        )}
+      />
+    </button>
+  );
+}
+
+function PauseIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <path d="M8 5v14" />
+      <path d="M16 5v14" />
+    </svg>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <path d="m8 5 11 7-11 7Z" />
+    </svg>
+  );
+}
+
+function MoonIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={cn('relative z-10 size-4 translate-x-px', className)}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <path d="M20.5 14.5A7.5 7.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
+    </svg>
+  );
+}
+
+function SunIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={cn('relative z-10 size-4', className)}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" />
+      <path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" />
+      <path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" />
+      <path d="m19.07 4.93-1.41 1.41" />
+    </svg>
   );
 }
