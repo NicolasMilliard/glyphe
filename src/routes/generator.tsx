@@ -11,6 +11,7 @@ import {
   Textarea,
 } from '@/components/ui';
 import { generateCss } from '@/generator/css';
+import { parseFrames } from '@/generator/frames';
 import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
 import { routeMetadata } from '@/lib/routes';
@@ -211,13 +212,6 @@ function GeneratorPage() {
       </div>
     </section>
   );
-}
-
-function parseFrames(value: string) {
-  return value
-    .split(/\s+/)
-    .map((frame) => frame.trim())
-    .filter(Boolean);
 }
 
 function getValidationMessages(frames: string[], duration: number) {

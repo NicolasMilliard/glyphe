@@ -10,7 +10,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "bun ./node_modules/vitest/vitest.mjs run"
+    "test": "bun ./node_modules/vitest/vitest.mjs run",
+    "check": "bun run lint && bun run test && bun run build"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.0",

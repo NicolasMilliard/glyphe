@@ -1,0 +1,29 @@
+import { describe, expect, it } from 'vitest';
+import { getRegistryItem, requireRegistryItem } from './index';
+import { createRegistrySlug, slugify } from './slug';
+
+describe('registry slugs', () => {
+  it('slugifies labels', () => {
+    expect(slugify(' Braille Spinner! ')).toBe('braille-spinner');
+  });
+
+  it('creates category-prefixed registry slugs', () => {
+    expect(createRegistrySlug('spinner', 'Braille Spinner')).toBe(
+      'spinner/braille-spinner',
+    );
+  });
+
+  it('looks up registry items by slug', () => {
+    expect(getRegistryItem('spinner/braille')?.name).toBe('Braille Spinner');
+  });
+
+  it('requires registry items by slug', () => {
+    expect(requireRegistryItem('spinner/braille').slug).toBe('spinner/braille');
+  });
+
+  it('throws when a required item is missing', () => {
+    expect(() => requireRegistryItem('spinner/missing')).toThrow(
+      'Registry item not found: spinner/missing',
+    );
+  });
+});

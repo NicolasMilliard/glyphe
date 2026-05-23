@@ -216,16 +216,16 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Testing
 
-- [ ] Add Vitest
-- [ ] Configure Vitest
-- [ ] Test registry validation
-- [ ] Test CSS generator
-- [ ] Test React generator
-- [ ] Test Tailwind generator
-- [ ] Test frame parser
-- [ ] Test slug lookup
-- [ ] Add build check to local workflow
-- [ ] Add lint check to local workflow
+- [x] Add Vitest
+- [x] Configure Vitest
+- [x] Test registry validation
+- [x] Test CSS generator
+- [x] Test React generator
+- [x] Test Tailwind generator
+- [x] Test frame parser
+- [x] Test slug lookup
+- [x] Add build check to local workflow
+- [x] Add lint check to local workflow
 
 ## Documentation
 
