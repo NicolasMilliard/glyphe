@@ -280,9 +280,9 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Add terminal status line example
 - [x] Add progress indicator example
 - [x] Add text reveal example
-- [ ] Add gallery family grouping
-- [ ] Add gallery tag filtering
-- [ ] Add Braille collection view
+- [x] Add gallery family grouping
+- [x] Add gallery tag filtering
+- [x] Add Braille collection view
 - [ ] Add generator preset picker
 - [ ] Load registry item into generator
 - [ ] Export edited preset output
