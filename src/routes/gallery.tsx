@@ -13,15 +13,15 @@ export const Route = createFileRoute('/gallery')({
 
 const categoryItems = [
   { label: 'All', value: 'all' },
-  ...Array.from(new Set(registryItems.map((item) => item.category))).map(
-    (category) => ({
+  ...Array.from(new Set(registryItems.map((item) => item.category)))
+    .sort((first, second) => first.localeCompare(second))
+    .map((category) => ({
       label: toTitleCase(category),
       value: category,
-    }),
-  ),
+    })),
 ];
 
-const tagItems = [
+const filterItems = [
   { label: 'All', value: 'all' },
   { label: 'Unicode', value: 'unicode' },
   { label: 'ASCII', value: 'ascii' },
@@ -34,7 +34,7 @@ function GalleryPage() {
   const metadata = routeMetadata.gallery;
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<AnimationCategory | 'all'>('all');
-  const [tag, setTag] = useState('all');
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   useDocumentTitle(metadata.title);
 
@@ -43,23 +43,22 @@ function GalleryPage() {
 
     return registryItems.filter((item) => {
       const matchesCategory = category === 'all' || item.category === category;
-      const matchesTag = matchesTagFilter(item, tag);
+      const matchesFilters = selectedFilters.every((filter) =>
+        matchesFilter(item, filter),
+      );
       const matchesQuery =
         normalizedQuery.length === 0 ||
         item.name.toLowerCase().includes(normalizedQuery) ||
         item.description.toLowerCase().includes(normalizedQuery) ||
         item.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery));
 
-      return matchesCategory && matchesTag && matchesQuery;
+      return matchesCategory && matchesFilters && matchesQuery;
     });
-  }, [category, query, tag]);
+  }, [category, query, selectedFilters]);
 
   return (
     <section className="grid min-w-0 gap-8 sm:gap-10">
       <div className="max-w-3xl min-w-0">
-        <p className="text-accent mb-4 font-mono text-sm uppercase">
-          {metadata.label}
-        </p>
         <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
           {metadata.title}
         </h1>
@@ -83,11 +82,38 @@ function GalleryPage() {
               </FilterNavButton>
             ))}
           </FilterGroup>
+
+          <FilterGroup label="Filters">
+            {filterItems.map((item) => (
+              <FilterCheckbox
+                key={item.value}
+                checked={
+                  item.value === 'all'
+                    ? selectedFilters.length === 0
+                    : selectedFilters.includes(item.value)
+                }
+                onChange={() => {
+                  if (item.value === 'all') {
+                    setSelectedFilters([]);
+                    return;
+                  }
+
+                  setSelectedFilters((filters) =>
+                    filters.includes(item.value)
+                      ? filters.filter((filter) => filter !== item.value)
+                      : [...filters, item.value],
+                  );
+                }}
+              >
+                {item.label}
+              </FilterCheckbox>
+            ))}
+          </FilterGroup>
         </aside>
 
         <div className="grid min-w-0 gap-6">
-          <div className="border-border bg-surface grid min-w-0 gap-4 border-y py-4">
-            <div className="grid min-w-0 gap-3 xl:grid-cols-[minmax(14rem,20rem)_minmax(0,1fr)_auto] xl:items-center">
+          <div className="grid min-w-0 gap-3 sm:grid-cols-[minmax(14rem,24rem)_auto] sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <label htmlFor="gallery-search" className="sr-only">
                 Search animations
               </label>
@@ -99,38 +125,36 @@ function GalleryPage() {
                 placeholder="Search animations"
                 className="min-w-0"
               />
-
-              <div
-                className="flex min-w-0 gap-2 overflow-x-auto pb-1"
-                aria-label="Filter animations by tag"
-              >
-                {tagItems.map((item) => (
-                  <FilterChip
-                    key={item.value}
-                    active={tag === item.value}
-                    onClick={() => setTag(item.value)}
-                  >
-                    {item.label}
-                  </FilterChip>
-                ))}
-              </div>
-
-              <div className="flex shrink-0 items-center gap-2">
-                <span className="text-muted-foreground text-sm">Preview</span>
-                <div className="border-border bg-background rounded-glyphe-md inline-flex border p-1">
-                  {(['light', 'dark'] as const).map((theme) => (
-                    <FilterChip
-                      key={theme}
-                      active={previewTheme === theme}
-                      onClick={() => setPreviewTheme(theme)}
-                    >
-                      {toTitleCase(theme)}
-                    </FilterChip>
-                  ))}
-                </div>
-              </div>
             </div>
+
+            <ThemeToggle
+              value={previewTheme}
+              onChange={() =>
+                setPreviewTheme((theme) =>
+                  theme === 'light' ? 'dark' : 'light',
+                )
+              }
+            />
           </div>
+
+          {selectedFilters.length > 0 ? (
+            <div className="flex min-w-0 flex-wrap gap-2">
+              {selectedFilters.map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() =>
+                    setSelectedFilters((filters) =>
+                      filters.filter((item) => item !== filter),
+                    )
+                  }
+                  className="rounded-glyphe-md border-border bg-surface text-muted-foreground hover:text-foreground border px-3 py-1.5 text-sm transition-colors"
+                >
+                  {getFilterLabel(filter)} ×
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
             <p className="text-muted-foreground text-sm">
@@ -142,7 +166,7 @@ function GalleryPage() {
               onClick={() => {
                 setQuery('');
                 setCategory('all');
-                setTag('all');
+                setSelectedFilters([]);
               }}
               className="text-muted-foreground hover:text-foreground text-sm font-medium"
             >
@@ -220,47 +244,118 @@ function FilterNavButton({
   );
 }
 
-function FilterChip({
-  active,
-  onClick,
+function FilterCheckbox({
+  checked,
+  onChange,
   children,
 }: {
-  active: boolean;
-  onClick: () => void;
+  checked: boolean;
+  onChange: () => void;
   children: React.ReactNode;
 }) {
   return (
+    <label className="text-muted-foreground hover:text-foreground rounded-glyphe-md hover:bg-surface flex shrink-0 cursor-pointer items-center gap-2 px-3 py-2 text-sm transition-colors">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="accent-foreground size-3.5"
+      />
+      {children}
+    </label>
+  );
+}
+
+function ThemeToggle({
+  value,
+  onChange,
+}: {
+  value: 'light' | 'dark';
+  onChange: () => void;
+}) {
+  const dark = value === 'dark';
+
+  return (
     <button
       type="button"
-      onClick={onClick}
-      className={cn(
-        'rounded-glyphe-md shrink-0 px-3 py-1.5 text-sm font-medium transition-colors',
-        active
-          ? 'bg-foreground text-background'
-          : 'text-muted-foreground hover:bg-background hover:text-foreground',
-      )}
+      aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
+      aria-pressed={dark}
+      onClick={onChange}
+      className="border-border bg-background text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 transition-colors"
     >
-      {children}
+      <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
+      <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
+      <span
+        className={cn(
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform',
+          dark ? 'translate-x-0' : 'translate-x-10',
+        )}
+      />
     </button>
   );
 }
 
-function matchesTagFilter(item: (typeof registryItems)[number], tag: string) {
-  if (tag === 'all') {
-    return true;
-  }
-
-  if (tag === 'css-only') {
+function matchesFilter(item: (typeof registryItems)[number], filter: string) {
+  if (filter === 'css-only') {
     return item.compatibility.supportsCssOnly;
   }
 
-  if (tag === 'text-effect') {
+  if (filter === 'text-effect') {
     return item.category === 'text';
   }
 
-  return item.tags.includes(tag);
+  return item.tags.includes(filter);
+}
+
+function getFilterLabel(value: string) {
+  return (
+    filterItems.find((item) => item.value === value)?.label ??
+    toTitleCase(value)
+  );
 }
 
 function toTitleCase(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function MoonIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={cn('relative z-10 size-4', className)}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <path d="M20.5 14.5A7.5 7.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
+    </svg>
+  );
+}
+
+function SunIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={cn('relative z-10 size-4', className)}
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" />
+      <path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" />
+      <path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" />
+      <path d="m19.07 4.93-1.41 1.41" />
+    </svg>
+  );
 }

@@ -48,9 +48,6 @@ function AnimationDetailPage() {
   if (!item) {
     return (
       <section className="max-w-2xl">
-        <p className="text-accent mb-4 font-mono text-sm uppercase">
-          {metadata.title}
-        </p>
         <h1 className="text-foreground text-4xl font-semibold">
           Animation not found.
         </h1>
@@ -81,9 +78,6 @@ function AnimationDetailPage() {
         </Link>
 
         <div className="max-w-3xl min-w-0">
-          <p className="text-accent mb-4 font-mono text-sm uppercase">
-            {item.category}
-          </p>
           <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
             {item.name}
           </h1>

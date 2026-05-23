@@ -9,17 +9,9 @@ type RoutePageProps = {
   className?: string;
 };
 
-export function RoutePage({
-  metadata,
-  eyebrow,
-  children,
-  className,
-}: RoutePageProps) {
+export function RoutePage({ metadata, children, className }: RoutePageProps) {
   return (
     <section className={cn('max-w-3xl', className)}>
-      <p className="text-accent mb-4 font-mono text-sm uppercase">
-        {eyebrow ?? metadata.label}
-      </p>
       <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
         {metadata.title}
       </h1>

@@ -21,9 +21,6 @@ function ExamplesPage() {
   return (
     <section className="grid min-w-0 gap-10">
       <div className="max-w-3xl min-w-0">
-        <p className="text-accent mb-4 font-mono text-sm uppercase">
-          {metadata.label}
-        </p>
         <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
           {metadata.title}
         </h1>

@@ -22,7 +22,7 @@ export const routeMetadata = {
   gallery: {
     path: '/gallery',
     label: 'Gallery',
-    title: 'Animation Gallery',
+    title: 'Gallery',
     description: 'Browse terminal-inspired animation primitives.',
     parent: '/',
   },
