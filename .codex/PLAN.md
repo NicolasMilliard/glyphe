@@ -86,17 +86,17 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 ## Initial Registry Items
 
 - [x] Add braille spinner
-- [ ] Add dots spinner
-- [ ] Add line spinner
-- [ ] Add clock spinner
-- [ ] Add waveform loader
-- [ ] Add bars loader
-- [ ] Add ASCII progress
-- [ ] Add block progress
-- [ ] Add block cursor
-- [ ] Add soft glitch text
-- [ ] Add typewriter text
-- [ ] Add scramble text
+- [x] Add dots spinner
+- [x] Add line spinner
+- [x] Add clock spinner
+- [x] Add waveform loader
+- [x] Add bars loader
+- [x] Add ASCII progress
+- [x] Add block progress
+- [x] Add block cursor
+- [x] Add soft glitch text
+- [x] Add typewriter text
+- [x] Add scramble text
 
 ## Animation Rendering
 
