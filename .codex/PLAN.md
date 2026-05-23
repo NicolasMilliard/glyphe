@@ -205,13 +205,13 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Unicode Compatibility
 
-- [ ] Add glyph width metadata
-- [ ] Add unicode risk metadata
-- [ ] Add emoji risk metadata
-- [ ] Add recommended font stack metadata
-- [ ] Add combining character warning
-- [ ] Add monospace alignment notes
-- [ ] Add font fallback notes
+- [x] Add glyph width metadata
+- [x] Add unicode risk metadata
+- [x] Add emoji risk metadata
+- [x] Add recommended font stack metadata
+- [x] Add combining character warning
+- [x] Add monospace alignment notes
+- [x] Add font fallback notes
 - [ ] Add preview font selector
 
 ## Testing

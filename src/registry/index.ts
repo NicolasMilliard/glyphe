@@ -48,6 +48,10 @@ export function requireRegistryItem(slug: string) {
 
 export type {
   AnimationCategory,
+  EmojiRiskLevel,
+  GlyphWidthMode,
+  RecommendedFontStack,
   RegistryItem,
   RenderingStrategy,
+  UnicodeRiskLevel,
 } from './schema';

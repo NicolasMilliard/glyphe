@@ -14,6 +14,10 @@ import { generateCss } from '@/generator/css';
 import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
 import { routeMetadata } from '@/lib/routes';
+import {
+  getUnicodeCompatibilityGuidance,
+  hasNonAsciiCharacter,
+} from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import type { RegistryItem, RenderingStrategy } from '@/registry';
 import { renderingStrategies } from '@/registry/schema';
@@ -235,21 +239,22 @@ function getValidationMessages(frames: string[], duration: number) {
 }
 
 function getGlyphWarnings(frames: string[]) {
-  const warnings: string[] = [];
+  const item = createGeneratedItem({
+    frames,
+    duration: 800,
+    timing: 'steps',
+    loop: true,
+    strategy: 'stacked-spans',
+  });
+  const guidance = getUnicodeCompatibilityGuidance(item);
 
-  if (frames.some((frame) => frame.length > 2)) {
-    warnings.push('Some frames are wider than two characters.');
-  }
-
-  if (frames.some((frame) => /[\u{1f300}-\u{1faff}]/u.test(frame))) {
-    warnings.push('Emoji can render as double-width or colored glyphs.');
-  }
-
-  if (frames.some((frame) => /[\u0300-\u036f]/.test(frame))) {
-    warnings.push('Combining characters can affect alignment.');
-  }
-
-  return warnings;
+  return [
+    `Glyph width: ${guidance.glyphWidth}`,
+    `Unicode risk: ${guidance.unicodeRisk}`,
+    guidance.monospaceNote,
+    guidance.fontFallbackNote,
+    ...guidance.warnings,
+  ];
 }
 
 function createGeneratedItem({
@@ -286,6 +291,7 @@ function createGeneratedItem({
       requiresMonospace: true,
       unicodeSensitive: frames.some(hasNonAsciiCharacter),
       supportsCssOnly: strategy !== 'scripted',
+      recommendedFontStack: 'monospace',
     },
     options: {
       speed: {
@@ -297,10 +303,6 @@ function createGeneratedItem({
       color: ['currentColor', 'accent', 'muted'],
     },
   };
-}
-
-function hasNonAsciiCharacter(value: string) {
-  return Array.from(value).some((character) => character.charCodeAt(0) > 127);
 }
 
 function CodePanel({ value, label }: { value: string; label: string }) {

@@ -7,6 +7,7 @@ import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
 import { getAccessibilityGuidance } from '@/lib/accessibility';
 import { routeMetadata } from '@/lib/routes';
+import { getUnicodeCompatibilityGuidance } from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { getRegistryItem, registryItems } from '@/registry';
 
@@ -57,6 +58,7 @@ function AnimationDetailPage() {
   }
 
   const accessibility = getAccessibilityGuidance(item);
+  const unicodeCompatibility = getUnicodeCompatibilityGuidance(item);
 
   return (
     <section className="grid min-w-0 gap-10">
@@ -137,13 +139,17 @@ function AnimationDetailPage() {
           <InfoList
             items={[
               `Rendering strategy: ${item.strategy}`,
+              `Glyph width: ${unicodeCompatibility.glyphWidth}`,
+              `Unicode risk: ${unicodeCompatibility.unicodeRisk}`,
+              `Emoji risk: ${unicodeCompatibility.emojiRisk}`,
+              `Recommended font stack: ${unicodeCompatibility.recommendedFontStack}`,
               `Monospace recommended: ${
                 item.compatibility.requiresMonospace ? 'yes' : 'no'
               }`,
-              `Unicode sensitive: ${
-                item.compatibility.unicodeSensitive ? 'yes' : 'no'
-              }`,
+              unicodeCompatibility.monospaceNote,
+              unicodeCompatibility.fontFallbackNote,
               `CSS-only: ${item.compatibility.supportsCssOnly ? 'yes' : 'no'}`,
+              ...unicodeCompatibility.warnings,
             ]}
           />
         </InfoSection>
