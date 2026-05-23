@@ -283,11 +283,11 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Add gallery family grouping
 - [x] Add gallery tag filtering
 - [x] Add Braille collection view
-- [ ] Add generator preset picker
-- [ ] Load registry item into generator
-- [ ] Export edited preset output
-- [ ] Review package boundaries after examples
-- [ ] Review package boundaries after generator presets
+- [x] Add generator preset picker
+- [x] Load registry item into generator
+- [x] Export edited preset output
+- [x] Review package boundaries after examples
+- [x] Review package boundaries after generator presets
 
 ## Deferred
 

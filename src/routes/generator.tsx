@@ -20,7 +20,11 @@ import {
   hasNonAsciiCharacter,
 } from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
-import type { RegistryItem, RenderingStrategy } from '@/registry';
+import {
+  registryItems,
+  type RegistryItem,
+  type RenderingStrategy,
+} from '@/registry';
 import { renderingStrategies } from '@/registry/schema';
 
 export const Route = createFileRoute('/generator')({
@@ -32,9 +36,11 @@ const strategyOptions = renderingStrategies.map((strategy) => ({
   label: strategy,
   value: strategy,
 }));
+const customPresetValue = 'custom';
 
 function GeneratorPage() {
   const metadata = routeMetadata.generator;
+  const [presetSlug, setPresetSlug] = useState(customPresetValue);
   const [framesInput, setFramesInput] = useState(exampleFrames);
   const [duration, setDuration] = useState(800);
   const [timing, setTiming] = useState<'steps' | 'linear' | 'ease' | 'custom'>(
@@ -46,11 +52,26 @@ function GeneratorPage() {
   useDocumentTitle(metadata.title);
 
   const frames = useMemo(() => parseFrames(framesInput), [framesInput]);
+  const presetItem = useMemo(
+    () =>
+      presetSlug === customPresetValue
+        ? undefined
+        : registryItems.find((item) => item.slug === presetSlug),
+    [presetSlug],
+  );
   const validationMessages = getValidationMessages(frames, duration);
   const glyphWarnings = getGlyphWarnings(frames);
   const generatedItem = useMemo(
-    () => createGeneratedItem({ frames, duration, timing, loop, strategy }),
-    [duration, frames, loop, strategy, timing],
+    () =>
+      createGeneratedItem({
+        frames,
+        duration,
+        timing,
+        loop,
+        strategy,
+        presetItem,
+      }),
+    [duration, frames, loop, presetItem, strategy, timing],
   );
 
   const cssOutput = generateCss(generatedItem);
@@ -75,6 +96,52 @@ function GeneratorPage() {
 
       <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <section className="rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-5 border p-4 sm:p-5">
+          <div className="grid gap-2">
+            <label
+              htmlFor="preset"
+              className="text-foreground text-sm font-medium"
+            >
+              Start from preset
+            </label>
+            <Select
+              id="preset"
+              value={presetSlug}
+              onChange={(event) => {
+                const nextPresetSlug = event.target.value;
+
+                setPresetSlug(nextPresetSlug);
+
+                if (nextPresetSlug === customPresetValue) {
+                  return;
+                }
+
+                const nextPreset = registryItems.find(
+                  (item) => item.slug === nextPresetSlug,
+                );
+
+                if (nextPreset) {
+                  loadPreset(nextPreset, {
+                    setFramesInput,
+                    setDuration,
+                    setTiming,
+                    setLoop,
+                    setStrategy,
+                  });
+                }
+              }}
+            >
+              <option value={customPresetValue}>Custom frames</option>
+              {registryItems.map((item) => (
+                <option key={item.slug} value={item.slug}>
+                  {item.name} ({item.slug})
+                </option>
+              ))}
+            </Select>
+            <p className="text-muted-foreground text-sm">
+              Load a registry item, edit it, then export the modified output.
+            </p>
+          </div>
+
           <div className="grid gap-2">
             <label
               htmlFor="frames"
@@ -163,6 +230,7 @@ function GeneratorPage() {
                 setTiming('steps');
                 setLoop(true);
                 setStrategy('stacked-spans');
+                setPresetSlug(customPresetValue);
               }}
             >
               Reset example
@@ -257,35 +325,45 @@ function createGeneratedItem({
   timing,
   loop,
   strategy,
+  presetItem,
 }: {
   frames: string[];
   duration: number;
   timing: 'steps' | 'linear' | 'ease' | 'custom';
   loop: boolean;
   strategy: RenderingStrategy;
+  presetItem?: RegistryItem;
 }): RegistryItem {
   return {
-    name: 'Generated Animation',
-    slug: 'custom/generated',
-    category: 'spinner',
-    description: 'A custom animation generated from user-provided frames.',
-    tags: ['custom', 'generated'],
+    name: presetItem?.name ?? 'Generated Animation',
+    slug: presetItem?.slug ?? 'custom/generated',
+    category: presetItem?.category ?? 'spinner',
+    description:
+      presetItem?.description ??
+      'A custom animation generated from user-provided frames.',
+    tags: presetItem?.tags ?? ['custom', 'generated'],
     frames: frames.length > 0 ? frames : [''],
     duration: Number.isFinite(duration) && duration > 0 ? duration : 800,
     timing,
     loop,
     strategy,
     accessibility: {
-      decorative: true,
-      defaultLabel: 'Loading',
-      reducedMotion: 'first-frame',
-      ariaHiddenRecommended: true,
+      decorative: presetItem?.accessibility.decorative ?? true,
+      defaultLabel: presetItem?.accessibility.defaultLabel ?? 'Loading',
+      reducedMotion: presetItem?.accessibility.reducedMotion ?? 'first-frame',
+      ariaHiddenRecommended:
+        presetItem?.accessibility.ariaHiddenRecommended ?? true,
     },
     compatibility: {
-      requiresMonospace: true,
+      requiresMonospace: presetItem?.compatibility.requiresMonospace ?? true,
       unicodeSensitive: frames.some(hasNonAsciiCharacter),
       supportsCssOnly: strategy !== 'scripted',
-      recommendedFontStack: 'monospace',
+      glyphWidth: presetItem?.compatibility.glyphWidth,
+      unicodeRisk: presetItem?.compatibility.unicodeRisk,
+      emojiRisk: presetItem?.compatibility.emojiRisk,
+      recommendedFontStack:
+        presetItem?.compatibility.recommendedFontStack ?? 'monospace',
+      fontFallbackNotes: presetItem?.compatibility.fontFallbackNotes,
     },
     options: {
       speed: {
@@ -297,6 +375,23 @@ function createGeneratedItem({
       color: ['currentColor', 'accent', 'muted'],
     },
   };
+}
+
+function loadPreset(
+  item: RegistryItem,
+  setters: {
+    setFramesInput: (value: string) => void;
+    setDuration: (value: number) => void;
+    setTiming: (value: 'steps' | 'linear' | 'ease' | 'custom') => void;
+    setLoop: (value: boolean) => void;
+    setStrategy: (value: RenderingStrategy) => void;
+  },
+) {
+  setters.setFramesInput((item.frames ?? [item.name]).join(' '));
+  setters.setDuration(item.duration);
+  setters.setTiming(item.timing);
+  setters.setLoop(item.loop);
+  setters.setStrategy(item.strategy);
 }
 
 function CodePanel({ value, label }: { value: string; label: string }) {

@@ -267,3 +267,14 @@ Extract a package when at least two of these are true:
 - publishing the package unlocks a real user workflow
 
 Do not extract only for neatness.
+
+## Product Loop Review
+
+The examples page and generator preset flow both reuse registry items directly, which reinforces the current package boundary plan:
+
+- keep registry data separate from UI examples
+- keep generator APIs pure and deterministic
+- keep CLI file writing outside generator packages
+- keep React preview components website-local until a real runtime package need appears
+
+The next extraction candidate remains `@glyphe/core`, followed by `@glyphe/registry` and `@glyphe/generator`. The examples and preset work did not reveal a need to extract `@glyphe/react` or `@glyphe/tailwind` yet.
