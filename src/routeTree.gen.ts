@@ -15,7 +15,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as GallerySlugRouteImport } from './routes/gallery.$slug'
+import { Route as GallerySlugRouteImport } from './routes/gallery_.$slug'
 
 const RegistryRoute = RegistryRouteImport.update({
   id: '/registry',
@@ -48,16 +48,16 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const GallerySlugRoute = GallerySlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => GalleryRoute,
+  id: '/gallery_/$slug',
+  path: '/gallery/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/docs': typeof DocsRoute
   '/examples': typeof ExamplesRoute
-  '/gallery': typeof GalleryRouteWithChildren
+  '/gallery': typeof GalleryRoute
   '/generator': typeof GeneratorRoute
   '/registry': typeof RegistryRoute
   '/gallery/$slug': typeof GallerySlugRoute
@@ -66,7 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/docs': typeof DocsRoute
   '/examples': typeof ExamplesRoute
-  '/gallery': typeof GalleryRouteWithChildren
+  '/gallery': typeof GalleryRoute
   '/generator': typeof GeneratorRoute
   '/registry': typeof RegistryRoute
   '/gallery/$slug': typeof GallerySlugRoute
@@ -76,10 +76,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/docs': typeof DocsRoute
   '/examples': typeof ExamplesRoute
-  '/gallery': typeof GalleryRouteWithChildren
+  '/gallery': typeof GalleryRoute
   '/generator': typeof GeneratorRoute
   '/registry': typeof RegistryRoute
-  '/gallery/$slug': typeof GallerySlugRoute
+  '/gallery_/$slug': typeof GallerySlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,16 +108,17 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/generator'
     | '/registry'
-    | '/gallery/$slug'
+    | '/gallery_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DocsRoute: typeof DocsRoute
   ExamplesRoute: typeof ExamplesRoute
-  GalleryRoute: typeof GalleryRouteWithChildren
+  GalleryRoute: typeof GalleryRoute
   GeneratorRoute: typeof GeneratorRoute
   RegistryRoute: typeof RegistryRoute
+  GallerySlugRoute: typeof GallerySlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,34 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/gallery/$slug': {
-      id: '/gallery/$slug'
-      path: '/$slug'
+    '/gallery_/$slug': {
+      id: '/gallery_/$slug'
+      path: '/gallery/$slug'
       fullPath: '/gallery/$slug'
       preLoaderRoute: typeof GallerySlugRouteImport
-      parentRoute: typeof GalleryRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface GalleryRouteChildren {
-  GallerySlugRoute: typeof GallerySlugRoute
-}
-
-const GalleryRouteChildren: GalleryRouteChildren = {
-  GallerySlugRoute: GallerySlugRoute,
-}
-
-const GalleryRouteWithChildren =
-  GalleryRoute._addFileChildren(GalleryRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DocsRoute: DocsRoute,
   ExamplesRoute: ExamplesRoute,
-  GalleryRoute: GalleryRouteWithChildren,
+  GalleryRoute: GalleryRoute,
   GeneratorRoute: GeneratorRoute,
   RegistryRoute: RegistryRoute,
+  GallerySlugRoute: GallerySlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

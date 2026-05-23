@@ -162,17 +162,17 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Animation Detail
 
-- [ ] Create detail page layout
-- [ ] Create large animation preview
-- [ ] Create preview controls
-- [ ] Create code tabs
-- [ ] Create CSS output panel
-- [ ] Create React output panel
-- [ ] Create Tailwind output panel
-- [ ] Add accessibility notes section
-- [ ] Add compatibility notes section
-- [ ] Add customization notes section
-- [ ] Add related animations section
+- [x] Create detail page layout
+- [x] Create large animation preview
+- [x] Create preview controls
+- [x] Create code tabs
+- [x] Create CSS output panel
+- [x] Create React output panel
+- [x] Create Tailwind output panel
+- [x] Add accessibility notes section
+- [x] Add compatibility notes section
+- [x] Add customization notes section
+- [x] Add related animations section
 
 ## Generator Page
 

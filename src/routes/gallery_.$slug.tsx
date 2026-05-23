@@ -1,0 +1,220 @@
+import { Link, createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
+import { AnimationPreviewWorkbench } from '@/components/animation';
+import { CopyButton, Tabs } from '@/components/ui';
+import { generateCss } from '@/generator/css';
+import { generateReactComponent } from '@/generator/react';
+import { generateTailwindCss } from '@/generator/tailwind';
+import { routeMetadata } from '@/lib/routes';
+import { useDocumentTitle } from '@/lib/use-document-title';
+import { getRegistryItem, registryItems } from '@/registry';
+
+export const Route = createFileRoute('/gallery_/$slug')({
+  component: AnimationDetailPage,
+});
+
+function AnimationDetailPage() {
+  const { slug } = Route.useParams();
+  const item = getRegistryItem(slug.replace('--', '/'));
+  const metadata = routeMetadata.animationDetail;
+  const [codeTab, setCodeTab] = useState('css');
+  useDocumentTitle(item ? `${item.name} - ${metadata.title}` : metadata.title);
+
+  const relatedItems = useMemo(() => {
+    if (!item) {
+      return [];
+    }
+
+    return registryItems
+      .filter(
+        (candidate) =>
+          candidate.slug !== item.slug && candidate.category === item.category,
+      )
+      .slice(0, 3);
+  }, [item]);
+
+  if (!item) {
+    return (
+      <section className="max-w-2xl">
+        <p className="text-accent mb-4 font-mono text-sm uppercase">
+          {metadata.title}
+        </p>
+        <h1 className="text-foreground text-4xl font-semibold">
+          Animation not found.
+        </h1>
+        <p className="text-muted-foreground mt-4">
+          The registry does not include an animation for this slug yet.
+        </p>
+        <Link
+          to="/gallery"
+          className="text-accent mt-8 inline-flex text-sm font-medium hover:underline"
+        >
+          Back to gallery
+        </Link>
+      </section>
+    );
+  }
+
+  return (
+    <section className="grid gap-10">
+      <header className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="max-w-3xl">
+          <p className="text-accent mb-4 font-mono text-sm uppercase">
+            {item.category}
+          </p>
+          <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
+            {item.name}
+          </h1>
+          <p className="text-muted-foreground mt-5 max-w-2xl text-lg leading-8">
+            {item.description}
+          </p>
+        </div>
+
+        <Link
+          to="/gallery"
+          className="text-accent text-sm font-medium hover:underline"
+        >
+          Back to gallery
+        </Link>
+      </header>
+
+      <AnimationPreviewWorkbench item={item} />
+
+      <Tabs
+        label="Generated code"
+        value={codeTab}
+        onValueChange={setCodeTab}
+        items={[
+          {
+            label: 'CSS',
+            value: 'css',
+            content: <CodePanel value={generateCss(item)} label="Copy CSS" />,
+          },
+          {
+            label: 'React',
+            value: 'react',
+            content: (
+              <CodePanel
+                value={generateReactComponent(item)}
+                label="Copy React"
+              />
+            ),
+          },
+          {
+            label: 'Tailwind',
+            value: 'tailwind',
+            content: (
+              <CodePanel
+                value={generateTailwindCss(item)}
+                label="Copy Tailwind"
+              />
+            ),
+          },
+        ]}
+      />
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <InfoSection title="Accessibility">
+          <InfoList
+            items={[
+              `Mode: ${item.accessibility.decorative ? 'decorative' : 'status'}`,
+              `Default label: ${item.accessibility.defaultLabel ?? item.name}`,
+              `Reduced motion: ${item.accessibility.reducedMotion}`,
+              `ARIA hidden recommended: ${
+                item.accessibility.ariaHiddenRecommended ? 'yes' : 'no'
+              }`,
+            ]}
+          />
+        </InfoSection>
+
+        <InfoSection title="Compatibility">
+          <InfoList
+            items={[
+              `Rendering strategy: ${item.strategy}`,
+              `Monospace recommended: ${
+                item.compatibility.requiresMonospace ? 'yes' : 'no'
+              }`,
+              `Unicode sensitive: ${
+                item.compatibility.unicodeSensitive ? 'yes' : 'no'
+              }`,
+              `CSS-only: ${item.compatibility.supportsCssOnly ? 'yes' : 'no'}`,
+            ]}
+          />
+        </InfoSection>
+
+        <InfoSection title="Customization">
+          <InfoList
+            items={[
+              `Duration: ${item.duration}ms`,
+              `Timing: ${item.timing}`,
+              `Loop: ${item.loop ? 'yes' : 'no'}`,
+              `Tags: ${item.tags.join(', ')}`,
+            ]}
+          />
+        </InfoSection>
+      </div>
+
+      <InfoSection title="Related animations">
+        {relatedItems.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {relatedItems.map((relatedItem) => (
+              <Link
+                key={relatedItem.slug}
+                to="/gallery/$slug"
+                params={{ slug: relatedItem.slug.replace('/', '--') }}
+                className="rounded-glyphe-md border-border bg-surface text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
+              >
+                {relatedItem.name}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="text-muted-foreground text-sm">
+            No related animations in this category yet.
+          </p>
+        )}
+      </InfoSection>
+    </section>
+  );
+}
+
+function CodePanel({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="rounded-glyphe-lg border-border bg-background overflow-hidden border">
+      <div className="border-border flex items-center justify-between border-b p-3">
+        <p className="text-muted-foreground font-mono text-xs uppercase">
+          Generated output
+        </p>
+        <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
+      </div>
+      <pre className="text-foreground max-h-[28rem] overflow-auto p-4 text-sm leading-6">
+        <code>{value}</code>
+      </pre>
+    </div>
+  );
+}
+
+function InfoSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-glyphe-lg border-border bg-surface border p-5">
+      <h2 className="text-foreground text-lg font-semibold">{title}</h2>
+      <div className="mt-4">{children}</div>
+    </section>
+  );
+}
+
+function InfoList({ items }: { items: string[] }) {
+  return (
+    <ul className="text-muted-foreground grid gap-2 text-sm leading-6">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
