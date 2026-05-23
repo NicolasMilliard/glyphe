@@ -1,11 +1,11 @@
-import { Link, createFileRoute } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
 import { AnimationPreview } from '@/components/animation';
 import { siteConfig } from '@/lib/site';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { loaderWaveform } from '@/registry/items/loader-waveform';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import { textGlitchSoft } from '@/registry/items/text-glitch-soft';
+import { Link, createFileRoute } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -39,7 +39,7 @@ function HomePage() {
           <p className="text-accent mb-4 font-mono text-sm uppercase">
             Registry-first text motion
           </p>
-          <h1 className="text-foreground text-5xl leading-none font-semibold sm:text-7xl lg:text-8xl">
+          <h1 className="text-foreground font-[Georgia,'Times_New_Roman',serif] text-6xl leading-none font-medium tracking-normal sm:text-8xl lg:text-9xl">
             Glyphe
           </h1>
           <p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-8">
@@ -87,29 +87,46 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="grid min-w-0 gap-4 sm:grid-cols-3">
-        <Feature title="Registry">
-          Structured animation metadata drives previews, generated code, docs,
-          and future CLI installs.
-        </Feature>
-        <Feature title="CSS-first">
-          Prefer plain CSS output, then generate React and Tailwind adapters
-          from the same source.
-        </Feature>
-        <Feature title="Ownable">
-          Copy readable code, keep it in your project, and customize it without
-          inheriting a runtime dependency.
-        </Feature>
-      </div>
+      <section className="border-border grid min-w-0 border-y py-8 sm:py-10">
+        <div className="divide-border grid min-w-0 divide-y lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+          <Feature eyebrow="01" title="Registry">
+            Structured animation metadata drives previews, generated code, docs,
+            and future CLI installs.
+          </Feature>
+          <Feature eyebrow="02" title="CSS-first">
+            Prefer plain CSS output, then generate React and Tailwind adapters
+            from the same source.
+          </Feature>
+          <Feature eyebrow="03" title="Ownable">
+            Copy readable code, keep it in your project, and customize it
+            without inheriting a runtime dependency.
+          </Feature>
+        </div>
+      </section>
     </section>
   );
 }
 
-function Feature({ title, children }: { title: string; children: ReactNode }) {
+function Feature({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) {
   return (
-    <section className="rounded-glyphe-lg border-border bg-surface min-w-0 border p-5">
-      <h2 className="text-foreground font-semibold">{title}</h2>
-      <p className="text-muted-foreground mt-2 text-sm leading-6">{children}</p>
+    <section className="grid min-w-0 gap-5 py-6 first:pt-0 last:pb-0 lg:px-8 lg:py-0 lg:first:pl-0 lg:last:pr-0">
+      <p className="text-muted-foreground font-mono text-xs uppercase">
+        {eyebrow}
+      </p>
+      <div>
+        <h2 className="text-foreground text-xl font-semibold">{title}</h2>
+        <p className="text-muted-foreground mt-3 max-w-sm text-sm leading-6">
+          {children}
+        </p>
+      </div>
     </section>
   );
 }
