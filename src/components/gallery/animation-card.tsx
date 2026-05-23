@@ -14,15 +14,15 @@ export function AnimationCard({ item }: AnimationCardProps) {
   const detailSlug = item.slug.replace('/', '--');
 
   return (
-    <article className="rounded-glyphe-lg border-border bg-background grid overflow-hidden border">
+    <article className="rounded-glyphe-lg border-border bg-background grid min-w-0 overflow-hidden border">
       <AnimationPreview
         item={item}
         loopPreview
         className="min-h-44 rounded-none border-x-0 border-t-0 border-b"
       />
 
-      <div className="grid gap-5 p-5">
-        <div className="grid gap-3">
+      <div className="grid min-w-0 gap-5 p-4 sm:p-5">
+        <div className="grid min-w-0 gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <Badge>{item.category}</Badge>
             <Badge>
@@ -33,7 +33,7 @@ export function AnimationCard({ item }: AnimationCardProps) {
             </Badge>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h2 className="text-foreground text-xl font-semibold">
               {item.name}
             </h2>
@@ -43,7 +43,7 @@ export function AnimationCard({ item }: AnimationCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex min-w-0 flex-wrap gap-2">
           <CopyButton
             value={generateCss(item)}
             label="Copy CSS"

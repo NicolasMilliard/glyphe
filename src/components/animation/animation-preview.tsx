@@ -26,7 +26,7 @@ export function AnimationPreview({
   return (
     <div
       className={cn(
-        'rounded-glyphe-lg border-border bg-surface grid min-h-40 place-items-center border p-6',
+        'rounded-glyphe-lg border-border bg-surface grid min-h-40 min-w-0 place-items-center overflow-hidden border p-6',
         className,
       )}
     >

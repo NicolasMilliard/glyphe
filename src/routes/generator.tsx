@@ -55,8 +55,8 @@ function GeneratorPage() {
   const tailwindOutput = generateTailwindCss(generatedItem);
 
   return (
-    <section className="grid gap-10">
-      <div className="max-w-3xl">
+    <section className="grid min-w-0 gap-8 sm:gap-10">
+      <div className="max-w-3xl min-w-0">
         <p className="text-accent mb-4 font-mono text-sm uppercase">
           {metadata.label}
         </p>
@@ -68,8 +68,8 @@ function GeneratorPage() {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <section className="rounded-glyphe-lg border-border bg-surface grid gap-5 border p-5">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <section className="rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-5 border p-4 sm:p-5">
           <div className="grid gap-2">
             <label
               htmlFor="frames"
@@ -89,7 +89,7 @@ function GeneratorPage() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2">
             <label className="text-foreground grid gap-2 text-sm font-medium">
               Duration
               <Input
@@ -124,8 +124,8 @@ function GeneratorPage() {
             </label>
           </div>
 
-          <div className="grid gap-4">
-            <div className="grid gap-2">
+          <div className="grid min-w-0 gap-4">
+            <div className="grid min-w-0 gap-2">
               <p className="text-foreground text-sm font-medium">
                 Rendering strategy
               </p>
@@ -136,7 +136,7 @@ function GeneratorPage() {
                   setStrategy(value as RenderingStrategy)
                 }
                 items={strategyOptions}
-                className="max-w-full overflow-x-auto"
+                className="w-full"
               />
             </div>
 
@@ -176,7 +176,7 @@ function GeneratorPage() {
           ) : null}
         </section>
 
-        <section className="grid gap-5">
+        <section className="grid min-w-0 gap-5">
           <AnimationPreview item={generatedItem} />
 
           <Tabs
@@ -305,14 +305,14 @@ function hasNonAsciiCharacter(value: string) {
 
 function CodePanel({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-glyphe-lg border-border bg-background overflow-hidden border">
-      <div className="border-border flex items-center justify-between border-b p-3">
+    <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
+      <div className="border-border flex min-w-0 flex-wrap items-center justify-between gap-2 border-b p-3">
         <p className="text-muted-foreground font-mono text-xs uppercase">
           Generated output
         </p>
         <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
       </div>
-      <pre className="text-foreground max-h-[28rem] overflow-auto p-4 text-sm leading-6">
+      <pre className="text-foreground max-h-[28rem] max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
       </pre>
     </div>

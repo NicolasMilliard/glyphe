@@ -41,8 +41,8 @@ function GalleryPage() {
   }, [category, query]);
 
   return (
-    <section className="grid gap-10">
-      <div className="max-w-3xl">
+    <section className="grid min-w-0 gap-8 sm:gap-10">
+      <div className="max-w-3xl min-w-0">
         <p className="text-accent mb-4 font-mono text-sm uppercase">
           {metadata.label}
         </p>
@@ -54,8 +54,8 @@ function GalleryPage() {
         </p>
       </div>
 
-      <div className="grid gap-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="grid min-w-0 gap-4">
+        <div className="grid min-w-0 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)] md:items-center">
           <SegmentedControl
             label="Filter animations by category"
             value={category}
@@ -63,7 +63,7 @@ function GalleryPage() {
               setCategory(value as AnimationCategory | 'all')
             }
             items={categoryItems}
-            className="max-w-full overflow-x-auto"
+            className="w-full md:w-fit"
           />
 
           <Input
@@ -71,7 +71,7 @@ function GalleryPage() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search animations"
-            className="sm:max-w-72"
+            className="min-w-0"
           />
         </div>
 
@@ -81,7 +81,7 @@ function GalleryPage() {
       </div>
 
       {filteredItems.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {filteredItems.map((item) => (
             <AnimationCard key={item.slug} item={item} />
           ))}

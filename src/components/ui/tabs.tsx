@@ -26,11 +26,11 @@ export function Tabs({
   const selectedItem = items.find((item) => item.value === value) ?? items[0];
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('w-full min-w-0', className)}>
       <div
         role="tablist"
         aria-label={label}
-        className="rounded-glyphe-md border-border bg-surface inline-flex border p-1"
+        className="rounded-glyphe-md border-border bg-surface inline-flex max-w-full overflow-x-auto border p-1"
       >
         {items.map((item) => {
           const selected = item.value === selectedItem?.value;
@@ -46,7 +46,7 @@ export function Tabs({
               disabled={item.disabled}
               onClick={() => onValueChange(item.value)}
               className={cn(
-                'rounded-glyphe-sm px-3 py-1.5 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50',
+                'rounded-glyphe-sm shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50',
                 selected
                   ? 'bg-background text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground',
@@ -63,7 +63,7 @@ export function Tabs({
           role="tabpanel"
           id={`${selectedItem.value}-panel`}
           aria-labelledby={`${selectedItem.value}-tab`}
-          className="mt-4"
+          className="mt-4 min-w-0"
         >
           {selectedItem.content}
         </div>
