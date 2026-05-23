@@ -225,6 +225,8 @@ Remote fetches should cache registry data and validate entries with the shared Z
 
 ## Local Registry Install Prototype
 
+Status: implemented as a local spike in `cli/`.
+
 Prototype scope:
 
 ```sh
@@ -242,3 +244,12 @@ Exit criteria:
 - generated output matches website generator output
 
 This should be implemented only after package boundaries are planned or after a small CLI spike is explicitly approved.
+
+Current prototype command:
+
+```sh
+bun ./cli/index.ts add spinner/braille --all --dry-run
+bun ./cli/index.ts add spinner/braille --all --cwd /path/to/fixture
+```
+
+The prototype intentionally writes through a planned-file layer before touching disk. It supports managed markers, dry runs, forced React overwrites, CSS/Tailwind block replacement, and refusal to overwrite unmanaged component files.

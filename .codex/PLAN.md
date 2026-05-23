@@ -261,7 +261,7 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Define dry run behavior
 - [x] Define file overwrite behavior
 - [x] Define registry fetch behavior
-- [ ] Prototype local registry install
+- [x] Prototype local registry install
 
 ## Future Packages
 
