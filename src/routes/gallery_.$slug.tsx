@@ -72,7 +72,14 @@ function AnimationDetailPage() {
 
   return (
     <section className="grid min-w-0 gap-10">
-      <header className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+      <header className="grid min-w-0 gap-5">
+        <Link
+          to="/gallery"
+          className="text-accent justify-self-start text-sm font-medium hover:underline"
+        >
+          Back to gallery
+        </Link>
+
         <div className="max-w-3xl min-w-0">
           <p className="text-accent mb-4 font-mono text-sm uppercase">
             {item.category}
@@ -84,13 +91,6 @@ function AnimationDetailPage() {
             {item.description}
           </p>
         </div>
-
-        <Link
-          to="/gallery"
-          className="text-accent text-sm font-medium hover:underline"
-        >
-          Back to gallery
-        </Link>
       </header>
 
       <AnimationPreviewWorkbench item={item} />

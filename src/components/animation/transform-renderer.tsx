@@ -29,8 +29,9 @@ export function TransformRenderer({
       : `glyphe-shift ${speed}ms steps(2, end) ${item.loop ? 'infinite' : '1 forwards'}`;
   const maxFrameLength = Math.max(...frames.map((frame) => frame.length), 1);
   const safeFrame = Math.min(activeFrame, frames.length - 1);
-  const visibleFrame =
-    paused || reducedMotion ? frames[frames.length - 1] : frames[safeFrame];
+  const visibleFrame = reducedMotion
+    ? frames[frames.length - 1]
+    : frames[safeFrame];
 
   useEffect(() => {
     if (paused || reducedMotion || frames.length <= 1) {

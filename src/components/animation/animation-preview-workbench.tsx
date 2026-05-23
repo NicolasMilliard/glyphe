@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, SegmentedControl, Select } from '@/components/ui';
+import { cn } from '@/lib/cn';
 import {
   getPreviewFontFamily,
   getUnicodeCompatibilityGuidance,
@@ -17,6 +18,7 @@ export function AnimationPreviewWorkbench({
 }: AnimationPreviewWorkbenchProps) {
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [previewTheme, setPreviewTheme] = useState('light');
   const [fontStack, setFontStack] = useState<RecommendedFontStack>(
     getUnicodeCompatibilityGuidance(item).recommendedFontStack,
   );
@@ -26,20 +28,28 @@ export function AnimationPreviewWorkbench({
 
   return (
     <div className="grid gap-4">
-      <AnimationPreview
-        item={item}
-        speed={speed}
-        paused={paused}
-        reducedMotion={reducedMotion}
-        monospace={monospace}
-        fontFamily={fontFamily}
-        loopPreview
-      />
+      <div
+        className={cn(
+          'rounded-glyphe-lg',
+          previewTheme === 'dark' ? 'theme-dark' : 'theme-light',
+        )}
+      >
+        <AnimationPreview
+          item={item}
+          speed={speed}
+          paused={paused}
+          reducedMotion={reducedMotion}
+          monospace={monospace}
+          fontFamily={fontFamily}
+          loopPreview
+        />
+      </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-end gap-3">
         <Button
           variant={paused ? 'primary' : 'secondary'}
           onClick={() => setPaused((value) => !value)}
+          className="h-10"
         >
           {paused ? 'Resume' : 'Pause'}
         </Button>
@@ -68,6 +78,16 @@ export function AnimationPreviewWorkbench({
           items={[
             { label: 'Motion', value: 'motion' },
             { label: 'Reduced', value: 'reduced' },
+          ]}
+        />
+
+        <SegmentedControl
+          label="Preview theme"
+          value={previewTheme}
+          onValueChange={setPreviewTheme}
+          items={[
+            { label: 'Light', value: 'light' },
+            { label: 'Dark', value: 'dark' },
           ]}
         />
 

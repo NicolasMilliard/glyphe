@@ -45,8 +45,7 @@ export function StackedSpansRenderer({
   }, [frames.length, item.loop, paused, reducedMotion, speed]);
 
   const maxFrameLength = Math.max(...frames.map((frame) => frame.length), 1);
-  const visibleFrame =
-    paused || reducedMotion ? 0 : activeFrame % frames.length;
+  const visibleFrame = reducedMotion ? 0 : activeFrame % frames.length;
 
   return (
     <span
@@ -62,7 +61,7 @@ export function StackedSpansRenderer({
         <span
           key={`${frame}-${index}`}
           className={cn(
-            'col-start-1 row-start-1 transition-opacity duration-75',
+            'col-start-1 row-start-1',
             index === visibleFrame ? 'opacity-100' : 'opacity-0',
           )}
         >

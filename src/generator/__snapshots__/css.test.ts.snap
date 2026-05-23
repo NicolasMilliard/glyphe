@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`css generator > generates stacked span CSS 1`] = `
+exports[`css generator generates stacked span CSS 1`] = `
 ".glyphe-spinner-braille {
   --glyphe-duration: 800ms;
 }
@@ -95,7 +95,7 @@ exports[`css generator > generates stacked span CSS 1`] = `
 }"
 `;
 
-exports[`css generator > generates transform CSS 1`] = `
+exports[`css generator generates transform CSS 1`] = `
 ".glyphe-text-glitch-soft {
   --glyphe-duration: 1200ms;
 }

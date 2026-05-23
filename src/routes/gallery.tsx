@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
 import { AnimationCard } from '@/components/gallery';
-import { Input, SegmentedControl } from '@/components/ui';
+import { Input } from '@/components/ui';
+import { cn } from '@/lib/cn';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { registryItems, type AnimationCategory } from '@/registry';
@@ -25,6 +26,7 @@ const familyItems = [
   { label: 'Text effects', value: 'text-effects' },
   { label: 'Progress', value: 'progress' },
   { label: 'Terminal', value: 'terminal' },
+  { label: 'General', value: 'general' },
 ];
 
 const tagItems = [
@@ -83,36 +85,14 @@ function GalleryPage() {
         </p>
       </div>
 
-      <div className="grid min-w-0 gap-4">
-        <div className="grid min-w-0 gap-3">
-          <SegmentedControl
-            label="Filter animations by category"
-            value={category}
-            onValueChange={(value) =>
-              setCategory(value as AnimationCategory | 'all')
-            }
-            items={categoryItems}
-            className="w-full"
-          />
-
-          <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(14rem,18rem)] lg:items-center">
-            <SegmentedControl
-              label="Filter animations by family"
-              value={family}
-              onValueChange={setFamily}
-              items={familyItems}
-              className="w-full"
-            />
-
-            <SegmentedControl
-              label="Filter animations by tag"
-              value={tag}
-              onValueChange={setTag}
-              items={tagItems}
-              className="w-full"
-            />
-
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-start">
+        <aside className="grid min-w-0 gap-6 lg:sticky lg:top-24">
+          <div className="grid gap-2">
+            <label htmlFor="gallery-search" className="sr-only">
+              Search animations
+            </label>
             <Input
+              id="gallery-search"
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
@@ -120,62 +100,159 @@ function GalleryPage() {
               className="min-w-0"
             />
           </div>
-        </div>
 
-        <p className="text-muted-foreground text-sm">
-          Showing {filteredItems.length} of {registryItems.length} animations.
-        </p>
-      </div>
-
-      {family === 'braille' || tag === 'unicode' ? (
-        <section className="rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-4 border p-5">
-          <div className="max-w-2xl min-w-0">
-            <p className="text-accent font-mono text-xs uppercase">
-              Braille collection
-            </p>
-            <h2 className="text-foreground mt-2 text-2xl font-semibold">
-              Braille motion systems
-            </h2>
-            <p className="text-muted-foreground mt-2 text-sm leading-6">
-              {brailleItems.length} unicode braille animations built from
-              single-cell frames, all CSS-only and reduced-motion aware.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {brailleItems.slice(0, 12).map((item) => (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => {
-                  setFamily('braille');
-                  setQuery(item.name.replace(/^Braille\s+/i, ''));
-                }}
-                className="rounded-glyphe-md border-border bg-background text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
+          <FilterGroup label="Families">
+            {familyItems.map((item) => (
+              <FilterNavButton
+                key={item.value}
+                active={family === item.value}
+                onClick={() => setFamily(item.value)}
               >
-                {item.name.replace(/^Braille\s+/i, '')}
-              </button>
+                {item.label}
+              </FilterNavButton>
             ))}
-          </div>
-        </section>
-      ) : null}
+          </FilterGroup>
 
-      {filteredItems.length > 0 ? (
-        <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {filteredItems.map((item) => (
-            <AnimationCard key={item.slug} item={item} />
-          ))}
+          <FilterGroup label="Categories">
+            {categoryItems.map((item) => (
+              <FilterNavButton
+                key={item.value}
+                active={category === item.value}
+                onClick={() =>
+                  setCategory(item.value as AnimationCategory | 'all')
+                }
+              >
+                {item.label}
+              </FilterNavButton>
+            ))}
+          </FilterGroup>
+
+          <FilterGroup label="Tags">
+            {tagItems.map((item) => (
+              <FilterNavButton
+                key={item.value}
+                active={tag === item.value}
+                onClick={() => setTag(item.value)}
+              >
+                {item.label}
+              </FilterNavButton>
+            ))}
+          </FilterGroup>
+        </aside>
+
+        <div className="grid min-w-0 gap-6">
+          <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+            <p className="text-muted-foreground text-sm">
+              Showing {filteredItems.length} of {registryItems.length}{' '}
+              animations.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                setCategory('all');
+                setFamily('all');
+                setTag('all');
+              }}
+              className="text-muted-foreground hover:text-foreground text-sm font-medium"
+            >
+              Reset filters
+            </button>
+          </div>
+
+          {family === 'braille' || tag === 'unicode' ? (
+            <section className="border-border bg-surface grid min-w-0 gap-4 border-y py-5">
+              <div className="max-w-2xl min-w-0">
+                <p className="text-accent font-mono text-xs uppercase">
+                  Braille collection
+                </p>
+                <h2 className="text-foreground mt-2 text-2xl font-semibold">
+                  Braille motion systems
+                </h2>
+                <p className="text-muted-foreground mt-2 text-sm leading-6">
+                  {brailleItems.length} unicode braille animations built from
+                  single-cell frames, all CSS-only and reduced-motion aware.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {brailleItems.slice(0, 12).map((item) => (
+                  <button
+                    key={item.slug}
+                    type="button"
+                    onClick={() => {
+                      setFamily('braille');
+                      setQuery(item.name.replace(/^Braille\s+/i, ''));
+                    }}
+                    className="rounded-glyphe-md border-border bg-background text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
+                  >
+                    {item.name.replace(/^Braille\s+/i, '')}
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {filteredItems.length > 0 ? (
+            <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {filteredItems.map((item) => (
+                <AnimationCard key={item.slug} item={item} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-glyphe-lg border-border bg-surface border p-8">
+              <h2 className="text-foreground text-xl font-semibold">
+                No animations found.
+              </h2>
+              <p className="text-muted-foreground mt-2 text-sm leading-6">
+                Try a different category or search term.
+              </p>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="rounded-glyphe-lg border-border bg-surface border p-8">
-          <h2 className="text-foreground text-xl font-semibold">
-            No animations found.
-          </h2>
-          <p className="text-muted-foreground mt-2 text-sm leading-6">
-            Try a different category or search term.
-          </p>
-        </div>
-      )}
+      </div>
     </section>
+  );
+}
+
+function FilterGroup({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <nav aria-label={label} className="grid gap-2">
+      <p className="text-muted-foreground font-mono text-xs uppercase">
+        {label}
+      </p>
+      <div className="grid gap-1">{children}</div>
+    </nav>
+  );
+}
+
+function FilterNavButton({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'rounded-glyphe-md px-3 py-2 text-left text-sm transition-colors',
+        active
+          ? 'bg-foreground text-background'
+          : 'text-muted-foreground hover:bg-surface hover:text-foreground',
+      )}
+    >
+      {children}
+    </button>
   );
 }
 

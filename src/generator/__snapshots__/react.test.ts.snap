@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`react generator > generates stacked span components 1`] = `
+exports[`react generator generates stacked span components 1`] = `
 "type SpinnerBrailleAnimationProps = {
   label?: string;
   decorative?: boolean;
@@ -37,7 +37,7 @@ export function SpinnerBrailleAnimation({
 // Reduced motion: Prefer a single static frame when reduced motion is requested. Keep the generated CSS media query with this component."
 `;
 
-exports[`react generator > generates status components 1`] = `
+exports[`react generator generates status components 1`] = `
 "type ProgressAsciiAnimationProps = {
   label?: string;
   decorative?: boolean;

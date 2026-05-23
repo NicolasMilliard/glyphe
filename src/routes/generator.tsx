@@ -37,6 +37,19 @@ const strategyOptions = renderingStrategies.map((strategy) => ({
   value: strategy,
 }));
 const customPresetValue = 'custom';
+const curatedPresetSlugs = [
+  'spinner/braille',
+  'loader/waveform',
+  'progress/ascii',
+  'text/typewriter',
+  'text/scramble',
+  'text/glitch-soft',
+  'matrix/rain',
+  'cursor/block',
+];
+const curatedPresets = registryItems.filter((item) =>
+  curatedPresetSlugs.includes(item.slug),
+);
 
 function GeneratorPage() {
   const metadata = routeMetadata.generator;
@@ -131,14 +144,15 @@ function GeneratorPage() {
               }}
             >
               <option value={customPresetValue}>Custom frames</option>
-              {registryItems.map((item) => (
+              {curatedPresets.map((item) => (
                 <option key={item.slug} value={item.slug}>
                   {item.name} ({item.slug})
                 </option>
               ))}
             </Select>
             <p className="text-muted-foreground text-sm">
-              Load a registry item, edit it, then export the modified output.
+              Load one representative primitive, edit it, then export the
+              modified output.
             </p>
           </div>
 
@@ -157,7 +171,8 @@ function GeneratorPage() {
               className="min-h-32 font-mono"
             />
             <p className="text-muted-foreground text-sm">
-              Separate frames with spaces or line breaks.
+              Use spaces for single-character frames, or one frame per line when
+              frames contain internal spaces.
             </p>
           </div>
 
@@ -387,7 +402,7 @@ function loadPreset(
     setStrategy: (value: RenderingStrategy) => void;
   },
 ) {
-  setters.setFramesInput((item.frames ?? [item.name]).join(' '));
+  setters.setFramesInput((item.frames ?? [item.name]).join('\n'));
   setters.setDuration(item.duration);
   setters.setTiming(item.timing);
   setters.setLoop(item.loop);

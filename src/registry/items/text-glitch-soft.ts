@@ -7,6 +7,7 @@ export const textGlitchSoft = {
   category: 'text',
   description: 'A restrained text glitch effect for labels and short headings.',
   tags: ['text', 'glitch', 'effect'],
+  frames: ['Glyphe'],
   duration: 1200,
   timing: 'steps',
   loop: true,

@@ -41,7 +41,7 @@ export function generateTailwindTheme(
 
 ${generateTailwindKeyframes(item, names)
   .split('\n')
-  .map((line) => `  ${line}`)
+  .map((line) => (line.length > 0 ? `  ${line}` : line))
   .join('\n')}
 }`;
 }

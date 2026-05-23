@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`tailwind generator > generates @theme animation output 1`] = `
+exports[`tailwind generator generates @theme animation output 1`] = `
 "@theme {
   --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
 
@@ -8,15 +8,15 @@ exports[`tailwind generator > generates @theme animation output 1`] = `
     0% {
       opacity: 1;
     }
-  
+
     10% {
       opacity: 1;
     }
-  
+
     10.01% {
       opacity: 0;
     }
-  
+
     100% {
       opacity: 0;
     }
@@ -24,7 +24,7 @@ exports[`tailwind generator > generates @theme animation output 1`] = `
 }"
 `;
 
-exports[`tailwind generator > generates Tailwind-friendly CSS 1`] = `
+exports[`tailwind generator generates Tailwind-friendly CSS 1`] = `
 "@theme {
   --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
 
@@ -32,15 +32,15 @@ exports[`tailwind generator > generates Tailwind-friendly CSS 1`] = `
     0% {
       opacity: 1;
     }
-  
+
     10% {
       opacity: 1;
     }
-  
+
     10.01% {
       opacity: 0;
     }
-  
+
     100% {
       opacity: 0;
     }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { cn } from '@/lib/cn';
 import { Button } from './button';
 import type { ButtonHTMLAttributes } from 'react';
 
@@ -15,6 +16,7 @@ export function CopyButton({
   value,
   label = 'Copy',
   copiedLabel = 'Copied',
+  className,
   ...props
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
@@ -26,7 +28,15 @@ export function CopyButton({
   }
 
   return (
-    <Button onClick={handleCopy} {...props}>
+    <Button
+      onClick={handleCopy}
+      className={cn(
+        className,
+        copied &&
+          'border-accent bg-accent text-accent-foreground ring-ring ring-offset-background shadow-sm ring-2 ring-offset-2',
+      )}
+      {...props}
+    >
       {copied ? copiedLabel : label}
     </Button>
   );
