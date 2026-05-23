@@ -242,9 +242,9 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Polish
 
-- [ ] Refine homepage copy
-- [ ] Refine homepage visual direction
-- [ ] Add subtle text animation showcase
+- [x] Refine homepage copy
+- [x] Refine homepage visual direction
+- [x] Add subtle text animation showcase
 - [ ] Add responsive QA pass
 - [ ] Add keyboard navigation QA pass
 - [ ] Add focus state QA pass
