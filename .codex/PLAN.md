@@ -201,7 +201,7 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Add reduced motion generator helper
 - [x] Add pause guidance
 - [x] Add flashing risk guidance
-- [ ] Add accessibility docs page
+- [x] Add accessibility docs page
 
 ## Unicode Compatibility
 
