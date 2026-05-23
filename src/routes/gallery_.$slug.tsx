@@ -5,6 +5,7 @@ import { CopyButton, Tabs } from '@/components/ui';
 import { generateCss } from '@/generator/css';
 import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
+import { getAccessibilityGuidance } from '@/lib/accessibility';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { getRegistryItem, registryItems } from '@/registry';
@@ -55,10 +56,12 @@ function AnimationDetailPage() {
     );
   }
 
+  const accessibility = getAccessibilityGuidance(item);
+
   return (
-    <section className="grid gap-10">
-      <header className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-        <div className="max-w-3xl">
+    <section className="grid min-w-0 gap-10">
+      <header className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="max-w-3xl min-w-0">
           <p className="text-accent mb-4 font-mono text-sm uppercase">
             {item.category}
           </p>
@@ -113,13 +116,16 @@ function AnimationDetailPage() {
         ]}
       />
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid min-w-0 gap-4 lg:grid-cols-3">
         <InfoSection title="Accessibility">
           <InfoList
             items={[
-              `Mode: ${item.accessibility.decorative ? 'decorative' : 'status'}`,
-              `Default label: ${item.accessibility.defaultLabel ?? item.name}`,
-              `Reduced motion: ${item.accessibility.reducedMotion}`,
+              `Mode: ${accessibility.mode}`,
+              `Screen reader label: ${accessibility.label}`,
+              accessibility.pattern,
+              accessibility.reducedMotion,
+              accessibility.pause,
+              accessibility.flashingRisk,
               `ARIA hidden recommended: ${
                 item.accessibility.ariaHiddenRecommended ? 'yes' : 'no'
               }`,
@@ -180,14 +186,14 @@ function AnimationDetailPage() {
 
 function CodePanel({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-glyphe-lg border-border bg-background overflow-hidden border">
-      <div className="border-border flex items-center justify-between border-b p-3">
+    <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
+      <div className="border-border flex min-w-0 flex-wrap items-center justify-between gap-2 border-b p-3">
         <p className="text-muted-foreground font-mono text-xs uppercase">
           Generated output
         </p>
         <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
       </div>
-      <pre className="text-foreground max-h-[28rem] overflow-auto p-4 text-sm leading-6">
+      <pre className="text-foreground max-h-[28rem] max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
       </pre>
     </div>
@@ -202,7 +208,7 @@ function InfoSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-glyphe-lg border-border bg-surface border p-5">
+    <section className="rounded-glyphe-lg border-border bg-surface min-w-0 border p-5">
       <h2 className="text-foreground text-lg font-semibold">{title}</h2>
       <div className="mt-4">{children}</div>
     </section>

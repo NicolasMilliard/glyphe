@@ -1,4 +1,8 @@
 import type { RegistryItem } from '@/registry';
+import {
+  getReducedMotionGuidance,
+  getScreenReaderLabel,
+} from '@/lib/accessibility';
 import { getGeneratedCssNames } from './css';
 
 type ReactGeneratorOptions = {
@@ -14,7 +18,7 @@ export function generateReactComponent(
   const rootClassName =
     options.className ?? getGeneratedCssNames(item).rootClassName;
   const frames = item.frames ?? [item.name];
-  const label = item.accessibility.defaultLabel ?? item.name;
+  const label = getScreenReaderLabel(item);
   const props = generateComponentProps(item);
   const markup = generateComponentMarkup(item, {
     componentName,
@@ -107,7 +111,7 @@ export function generateAccessibleLabelMarkup(item: RegistryItem) {
 }
 
 export function generateReducedMotionNote(item: RegistryItem) {
-  return `// Reduced motion: ${item.accessibility.reducedMotion}. Keep the generated CSS media query with this component.`;
+  return `// Reduced motion: ${getReducedMotionGuidance(item)} Keep the generated CSS media query with this component.`;
 }
 
 function generateComponentMarkup(

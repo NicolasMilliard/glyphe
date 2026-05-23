@@ -34,7 +34,7 @@ export function SpinnerBrailleAnimation({
   );
 }
 
-// Reduced motion: first-frame. Keep the generated CSS media query with this component."
+// Reduced motion: Prefer a single static frame when reduced motion is requested. Keep the generated CSS media query with this component."
 `;
 
 exports[`react generator > generates status components 1`] = `
@@ -67,5 +67,5 @@ export function ProgressAsciiAnimation({
   );
 }
 
-// Reduced motion: static-label. Keep the generated CSS media query with this component."
+// Reduced motion: Prefer a readable static label when reduced motion is requested. Keep the generated CSS media query with this component."
 `;

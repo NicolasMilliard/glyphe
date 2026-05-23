@@ -193,14 +193,14 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Accessibility
 
-- [ ] Define accessibility modes
-- [ ] Add screen reader label helper
-- [ ] Add decorative animation pattern
-- [ ] Add status animation pattern
-- [ ] Add text effect accessibility pattern
-- [ ] Add reduced motion generator helper
-- [ ] Add pause guidance
-- [ ] Add flashing risk guidance
+- [x] Define accessibility modes
+- [x] Add screen reader label helper
+- [x] Add decorative animation pattern
+- [x] Add status animation pattern
+- [x] Add text effect accessibility pattern
+- [x] Add reduced motion generator helper
+- [x] Add pause guidance
+- [x] Add flashing risk guidance
 - [ ] Add accessibility docs page
 
 ## Unicode Compatibility

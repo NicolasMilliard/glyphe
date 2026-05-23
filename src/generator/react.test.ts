@@ -21,7 +21,7 @@ describe('react generator', () => {
 
   it('generates reduced motion notes', () => {
     expect(generateReducedMotionNote(progressAscii)).toMatchInlineSnapshot(
-      `"// Reduced motion: static-label. Keep the generated CSS media query with this component."`,
+      `"// Reduced motion: Prefer a readable static label when reduced motion is requested. Keep the generated CSS media query with this component."`,
     );
   });
 
