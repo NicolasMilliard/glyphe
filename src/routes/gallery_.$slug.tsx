@@ -34,6 +34,16 @@ function AnimationDetailPage() {
       )
       .slice(0, 3);
   }, [item]);
+  const brailleFamilyItems = useMemo(() => {
+    if (!item?.tags.includes('braille')) {
+      return [];
+    }
+
+    return registryItems.filter(
+      (candidate) =>
+        candidate.slug !== item.slug && candidate.tags.includes('braille'),
+    );
+  }, [item]);
 
   if (!item) {
     return (
@@ -165,6 +175,26 @@ function AnimationDetailPage() {
           />
         </InfoSection>
       </div>
+
+      {brailleFamilyItems.length > 0 ? (
+        <InfoSection title="Braille family">
+          <p className="text-muted-foreground mb-4 text-sm leading-6">
+            Explore the other braille-frame spinners in the registry.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {brailleFamilyItems.map((brailleItem) => (
+              <Link
+                key={brailleItem.slug}
+                to="/gallery/$slug"
+                params={{ slug: brailleItem.slug.replace('/', '--') }}
+                className="rounded-glyphe-md border-border bg-background text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
+              >
+                {brailleItem.name}
+              </Link>
+            ))}
+          </div>
+        </InfoSection>
+      ) : null}
 
       <InfoSection title="Related animations">
         {relatedItems.length > 0 ? (
