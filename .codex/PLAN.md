@@ -254,13 +254,13 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Future CLI
 
-- [ ] Create CLI package plan
-- [ ] Define Glyphe config schema
-- [ ] Define `init` command behavior
-- [ ] Define `add` command behavior
-- [ ] Define dry run behavior
-- [ ] Define file overwrite behavior
-- [ ] Define registry fetch behavior
+- [x] Create CLI package plan
+- [x] Define Glyphe config schema
+- [x] Define `init` command behavior
+- [x] Define `add` command behavior
+- [x] Define dry run behavior
+- [x] Define file overwrite behavior
+- [x] Define registry fetch behavior
 - [ ] Prototype local registry install
 
 ## Future Packages
