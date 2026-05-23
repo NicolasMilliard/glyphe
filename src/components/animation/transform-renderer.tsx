@@ -8,6 +8,7 @@ type TransformRendererProps = {
   paused?: boolean;
   reducedMotion?: boolean;
   monospace?: boolean;
+  fontFamily?: string;
   className?: string;
 };
 
@@ -17,6 +18,7 @@ export function TransformRenderer({
   paused = false,
   reducedMotion = false,
   monospace = item.compatibility.requiresMonospace,
+  fontFamily,
   className,
 }: TransformRendererProps) {
   const frames = useMemo(() => item.frames ?? [item.name], [item]);
@@ -57,7 +59,7 @@ export function TransformRenderer({
         monospace && 'font-mono',
         className,
       )}
-      style={{ animation, minWidth: `${maxFrameLength}ch` }}
+      style={{ animation, fontFamily, minWidth: `${maxFrameLength}ch` }}
     >
       {visibleFrame}
     </span>

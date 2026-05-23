@@ -212,7 +212,7 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Add combining character warning
 - [x] Add monospace alignment notes
 - [x] Add font fallback notes
-- [ ] Add preview font selector
+- [x] Add preview font selector
 
 ## Testing
 

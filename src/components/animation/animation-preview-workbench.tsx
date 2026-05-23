@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { Button, Input, SegmentedControl } from '@/components/ui';
-import type { RegistryItem } from '@/registry';
+import { Button, Input, SegmentedControl, Select } from '@/components/ui';
+import {
+  getPreviewFontFamily,
+  getUnicodeCompatibilityGuidance,
+  previewFontStackOptions,
+} from '@/lib/unicode-compatibility';
+import type { RecommendedFontStack, RegistryItem } from '@/registry';
 import { AnimationPreview } from './animation-preview';
 
 type AnimationPreviewWorkbenchProps = {
@@ -12,10 +17,12 @@ export function AnimationPreviewWorkbench({
 }: AnimationPreviewWorkbenchProps) {
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [monospace, setMonospace] = useState(
-    item.compatibility.requiresMonospace,
+  const [fontStack, setFontStack] = useState<RecommendedFontStack>(
+    getUnicodeCompatibilityGuidance(item).recommendedFontStack,
   );
   const [speed, setSpeed] = useState(item.duration);
+  const fontFamily = getPreviewFontFamily(fontStack);
+  const monospace = fontStack === 'monospace';
 
   return (
     <div className="grid gap-4">
@@ -25,6 +32,7 @@ export function AnimationPreviewWorkbench({
         paused={paused}
         reducedMotion={reducedMotion}
         monospace={monospace}
+        fontFamily={fontFamily}
         loopPreview
       />
 
@@ -36,15 +44,22 @@ export function AnimationPreviewWorkbench({
           {paused ? 'Resume' : 'Pause'}
         </Button>
 
-        <SegmentedControl
-          label="Font mode"
-          value={monospace ? 'mono' : 'sans'}
-          onValueChange={(value) => setMonospace(value === 'mono')}
-          items={[
-            { label: 'Mono', value: 'mono' },
-            { label: 'Sans', value: 'sans' },
-          ]}
-        />
+        <label className="text-muted-foreground grid gap-1 text-sm">
+          Font stack
+          <Select
+            value={fontStack}
+            onChange={(event) =>
+              setFontStack(event.target.value as RecommendedFontStack)
+            }
+            className="w-36"
+          >
+            {previewFontStackOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
+        </label>
 
         <SegmentedControl
           label="Motion mode"

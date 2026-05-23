@@ -8,6 +8,7 @@ type ScriptedRendererProps = {
   paused?: boolean;
   reducedMotion?: boolean;
   monospace?: boolean;
+  fontFamily?: string;
   loopPreview?: boolean;
   className?: string;
 };
@@ -18,6 +19,7 @@ export function ScriptedRenderer({
   paused = false,
   reducedMotion = false,
   monospace = item.compatibility.requiresMonospace,
+  fontFamily,
   loopPreview = false,
   className,
 }: ScriptedRendererProps) {
@@ -56,7 +58,7 @@ export function ScriptedRenderer({
         monospace && 'font-mono',
         className,
       )}
-      style={{ minWidth: `${maxFrameLength}ch` }}
+      style={{ fontFamily, minWidth: `${maxFrameLength}ch` }}
     >
       {visibleFrame}
     </span>

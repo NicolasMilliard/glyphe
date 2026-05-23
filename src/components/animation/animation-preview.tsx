@@ -10,6 +10,7 @@ export type AnimationPreviewProps = {
   paused?: boolean;
   reducedMotion?: boolean;
   monospace?: boolean;
+  fontFamily?: string;
   loopPreview?: boolean;
   className?: string;
 };
@@ -20,6 +21,7 @@ export function AnimationPreview({
   paused,
   reducedMotion,
   monospace,
+  fontFamily,
   loopPreview,
   className,
 }: AnimationPreviewProps) {
@@ -36,6 +38,7 @@ export function AnimationPreview({
         paused,
         reducedMotion,
         monospace,
+        fontFamily,
         loopPreview,
       })}
     </div>
@@ -48,6 +51,7 @@ function renderPreview({
   paused,
   reducedMotion,
   monospace,
+  fontFamily,
   loopPreview,
 }: Omit<AnimationPreviewProps, 'className'>) {
   switch (item.strategy) {
@@ -59,6 +63,7 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+          fontFamily={fontFamily}
         />
       );
     case 'css-var-swap':
@@ -70,6 +75,7 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+          fontFamily={fontFamily}
           loopPreview={loopPreview}
         />
       );
@@ -81,6 +87,7 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+          fontFamily={fontFamily}
         />
       );
     case 'scripted':
@@ -91,6 +98,7 @@ function renderPreview({
           paused={paused}
           reducedMotion={reducedMotion}
           monospace={monospace}
+          fontFamily={fontFamily}
           loopPreview={loopPreview}
         />
       );

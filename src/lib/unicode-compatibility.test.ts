@@ -3,6 +3,7 @@ import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import {
   getUnicodeCompatibilityGuidance,
+  getPreviewFontFamily,
   hasCombiningCharacter,
   hasEmojiGlyph,
   hasNonAsciiCharacter,
@@ -47,5 +48,11 @@ describe('unicode compatibility helpers', () => {
         'Combining characters can alter glyph width and vertical alignment.',
       ]),
     );
+  });
+
+  it('returns preview font stacks', () => {
+    expect(getPreviewFontFamily('monospace')).toContain('ui-monospace');
+    expect(getPreviewFontFamily('system')).toContain('system-ui');
+    expect(getPreviewFontFamily('emoji-safe')).toContain('Apple Color Emoji');
   });
 });

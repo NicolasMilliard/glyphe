@@ -16,6 +16,21 @@ type UnicodeCompatibilityGuidance = {
   fontFallbackNote: string;
 };
 
+export const previewFontStackOptions = [
+  {
+    label: 'Monospace',
+    value: 'monospace',
+  },
+  {
+    label: 'System',
+    value: 'system',
+  },
+  {
+    label: 'Emoji-safe',
+    value: 'emoji-safe',
+  },
+] as const;
+
 const emojiPattern = /\p{Extended_Pictographic}/u;
 const combiningMarkPattern = /[\u0300-\u036f]/;
 
@@ -80,6 +95,17 @@ export function hasCombiningCharacter(value: string) {
 
 export function hasNonAsciiCharacter(value: string) {
   return Array.from(value).some((character) => character.charCodeAt(0) > 127);
+}
+
+export function getPreviewFontFamily(fontStack: RecommendedFontStack) {
+  switch (fontStack) {
+    case 'emoji-safe':
+      return 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+    case 'monospace':
+      return 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace';
+    case 'system':
+      return 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  }
 }
 
 function inferGlyphWidth({
