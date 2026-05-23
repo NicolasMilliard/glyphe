@@ -274,12 +274,12 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Product Loop Stabilization
 
-- [ ] Create real examples page
-- [ ] Add loading button example
-- [ ] Add command palette loading row example
-- [ ] Add terminal status line example
-- [ ] Add progress indicator example
-- [ ] Add text reveal example
+- [x] Create real examples page
+- [x] Add loading button example
+- [x] Add command palette loading row example
+- [x] Add terminal status line example
+- [x] Add progress indicator example
+- [x] Add text reveal example
 - [ ] Add gallery family grouping
 - [ ] Add gallery tag filtering
 - [ ] Add Braille collection view
