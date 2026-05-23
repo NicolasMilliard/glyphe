@@ -265,12 +265,12 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Future Packages
 
-- [ ] Plan `@glyphe/core`
-- [ ] Plan `@glyphe/registry`
-- [ ] Plan `@glyphe/generator`
-- [ ] Plan `@glyphe/react`
-- [ ] Plan `@glyphe/tailwind`
-- [ ] Plan `@glyphe/cli`
+- [x] Plan `@glyphe/core`
+- [x] Plan `@glyphe/registry`
+- [x] Plan `@glyphe/generator`
+- [x] Plan `@glyphe/react`
+- [x] Plan `@glyphe/tailwind`
+- [x] Plan `@glyphe/cli`
 
 ## Deferred
 
