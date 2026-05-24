@@ -1,6 +1,7 @@
-import { Link, createFileRoute } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
-import { AnimationPreviewWorkbench } from '@/components/animation';
+import {
+  AnimationPreview,
+  AnimationPreviewWorkbench,
+} from '@/components/animation';
 import { CopyButton, Tabs } from '@/components/ui';
 import { generateCss } from '@/generator/css';
 import { generateReactComponent } from '@/generator/react';
@@ -9,7 +10,9 @@ import { getAccessibilityGuidance } from '@/lib/accessibility';
 import { routeMetadata } from '@/lib/routes';
 import { getUnicodeCompatibilityGuidance } from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
-import { getRegistryItem, registryItems } from '@/registry';
+import { getRegistryItem, registryItems, type RegistryItem } from '@/registry';
+import { Link, createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 export const Route = createFileRoute('/gallery_/$slug')({
   component: AnimationDetailPage,
@@ -66,6 +69,7 @@ function AnimationDetailPage() {
 
   const accessibility = getAccessibilityGuidance(item);
   const unicodeCompatibility = getUnicodeCompatibilityGuidance(item);
+  const visibleFamilyItems = brailleFamilyItems.slice(0, 8);
 
   return (
     <section className="grid min-w-0 gap-10">
@@ -122,86 +126,82 @@ function AnimationDetailPage() {
         ]}
       />
 
-      <div className="grid min-w-0 gap-4 lg:grid-cols-3">
-        <InfoSection title="Accessibility">
-          <InfoList
-            items={[
+      <section className="grid min-w-0 gap-6">
+        <div className="max-w-2xl">
+          <h2 className="text-foreground text-2xl font-semibold">
+            Implementation notes
+          </h2>
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
+            The practical bits to check before copying this primitive into an
+            interface.
+          </p>
+        </div>
+
+        <div className="border-border divide-border grid min-w-0 divide-y border-y lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+          <NoteSection
+            kicker="Access"
+            title="Keep the animation quiet."
+            body={`${accessibility.pattern} Use “${accessibility.label}” as the stable readable label when the motion communicates state.`}
+            facts={[
               `Mode: ${accessibility.mode}`,
-              `Screen reader label: ${accessibility.label}`,
-              accessibility.pattern,
-              accessibility.reducedMotion,
-              accessibility.pause,
+              item.accessibility.ariaHiddenRecommended
+                ? 'Hide moving frames'
+                : 'Readable text stays exposed',
               accessibility.flashingRisk,
-              `ARIA hidden recommended: ${
-                item.accessibility.ariaHiddenRecommended ? 'yes' : 'no'
-              }`,
             ]}
           />
-        </InfoSection>
 
-        <InfoSection title="Compatibility">
-          <InfoList
-            items={[
-              `Rendering strategy: ${item.strategy}`,
+          <NoteSection
+            kicker="Compose"
+            title="Copy it without a runtime."
+            body={`${item.strategy} rendering with ${unicodeCompatibility.recommendedFontStack} font guidance. ${unicodeCompatibility.monospaceNote}`}
+            facts={[
+              item.compatibility.supportsCssOnly ? 'CSS-only' : 'Scripted',
               `Glyph width: ${unicodeCompatibility.glyphWidth}`,
               `Unicode risk: ${unicodeCompatibility.unicodeRisk}`,
-              `Emoji risk: ${unicodeCompatibility.emojiRisk}`,
-              `Recommended font stack: ${unicodeCompatibility.recommendedFontStack}`,
-              `Monospace recommended: ${
-                item.compatibility.requiresMonospace ? 'yes' : 'no'
-              }`,
-              unicodeCompatibility.monospaceNote,
-              unicodeCompatibility.fontFallbackNote,
-              `CSS-only: ${item.compatibility.supportsCssOnly ? 'yes' : 'no'}`,
-              ...unicodeCompatibility.warnings,
             ]}
           />
-        </InfoSection>
 
-        <InfoSection title="Customization">
-          <InfoList
-            items={[
+          <NoteSection
+            kicker="Tune"
+            title="Adjust the motion token."
+            body={`Default timing is ${item.duration}ms with ${item.timing} easing. ${
+              item.loop
+                ? 'It is designed to loop.'
+                : 'It resolves to a final state.'
+            }`}
+            facts={[
               `Duration: ${item.duration}ms`,
               `Timing: ${item.timing}`,
-              `Loop: ${item.loop ? 'yes' : 'no'}`,
               `Tags: ${item.tags.join(', ')}`,
             ]}
           />
-        </InfoSection>
-      </div>
+        </div>
+      </section>
 
       {brailleFamilyItems.length > 0 ? (
-        <InfoSection title="Braille family">
-          <p className="text-muted-foreground mb-4 text-sm leading-6">
-            Explore the other braille-frame spinners in the registry.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {brailleFamilyItems.map((brailleItem) => (
-              <Link
-                key={brailleItem.slug}
-                to="/gallery/$slug"
-                params={{ slug: brailleItem.slug.replace('/', '--') }}
-                className="rounded-glyphe-md border-border bg-background text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
-              >
-                {brailleItem.name}
-              </Link>
+        <section className="grid min-w-0 gap-4">
+          <SectionIntro
+            title="Braille family"
+            copy="A few nearby braille-frame motions with the same compact, single-cell feel."
+          />
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {visibleFamilyItems.map((brailleItem) => (
+              <AnimationTile key={brailleItem.slug} item={brailleItem} />
             ))}
           </div>
-        </InfoSection>
+        </section>
       ) : null}
 
-      <InfoSection title="Related animations">
+      <section className="grid min-w-0 gap-4">
+        <SectionIntro
+          title="Related animations"
+          copy="Same category, different rhythm."
+        />
         {relatedItems.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
+          <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {relatedItems.map((relatedItem) => (
-              <Link
-                key={relatedItem.slug}
-                to="/gallery/$slug"
-                params={{ slug: relatedItem.slug.replace('/', '--') }}
-                className="rounded-glyphe-md border-border bg-surface text-foreground hover:bg-surface-strong border px-3 py-2 text-sm"
-              >
-                {relatedItem.name}
-              </Link>
+              <AnimationTile key={relatedItem.slug} item={relatedItem} />
             ))}
           </div>
         ) : (
@@ -209,7 +209,7 @@ function AnimationDetailPage() {
             No related animations in this category yet.
           </p>
         )}
-      </InfoSection>
+      </section>
     </section>
   );
 }
@@ -223,34 +223,81 @@ function CodePanel({ value, label }: { value: string; label: string }) {
         </p>
         <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
       </div>
-      <pre className="text-foreground max-h-[28rem] max-w-full overflow-auto p-4 text-sm leading-6">
+      <pre className="text-foreground max-h-112 max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
       </pre>
     </div>
   );
 }
 
-function InfoSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function SectionIntro({ title, copy }: { title: string; copy: string }) {
   return (
-    <section className="rounded-glyphe-lg border-border bg-surface min-w-0 border p-5">
-      <h2 className="text-foreground text-lg font-semibold">{title}</h2>
-      <div className="mt-4">{children}</div>
-    </section>
+    <div className="max-w-2xl">
+      <h2 className="text-foreground text-2xl font-semibold">{title}</h2>
+      <p className="text-muted-foreground mt-2 text-sm leading-6">{copy}</p>
+    </div>
   );
 }
 
-function InfoList({ items }: { items: string[] }) {
+function AnimationTile({ item }: { item: RegistryItem }) {
   return (
-    <ul className="text-muted-foreground grid gap-2 text-sm leading-6">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
+    <Link
+      to="/gallery/$slug"
+      params={{ slug: item.slug.replace('/', '--') }}
+      className="border-border bg-background hover:bg-surface rounded-glyphe-lg grid min-w-0 grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3 border p-3 transition-colors"
+    >
+      <AnimationPreview
+        item={item}
+        loopPreview
+        className="rounded-glyphe-md bg-surface min-h-16 border-0 p-0"
+      />
+      <div className="min-w-0">
+        <p className="text-foreground truncate text-sm font-medium">
+          {getDisplayName(item)}
+        </p>
+        <p className="text-muted-foreground mt-1 truncate font-mono text-xs">
+          {item.category}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
+function getDisplayName(item: RegistryItem) {
+  return item.name.replace(/^Braille\s+/i, '');
+}
+
+function NoteSection({
+  kicker,
+  title,
+  body,
+  facts,
+}: {
+  kicker: string;
+  title: string;
+  body: string;
+  facts: string[];
+}) {
+  return (
+    <section className="grid min-w-0 content-start gap-5 py-5 lg:px-6 lg:first:pl-0 lg:last:pr-0">
+      <div>
+        <p className="text-muted-foreground font-mono text-xs uppercase">
+          {kicker}
+        </p>
+        <h3 className="text-foreground mt-2 text-lg font-semibold">{title}</h3>
+        <p className="text-muted-foreground mt-3 text-sm leading-6">{body}</p>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {facts.map((fact) => (
+          <span
+            key={fact}
+            className="rounded-glyphe-sm border-border bg-background text-muted-foreground border px-2 py-1 font-mono text-xs"
+          >
+            {fact}
+          </span>
+        ))}
+      </div>
+    </section>
   );
 }
