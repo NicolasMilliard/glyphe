@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { IconButton, Input, SegmentedControl, Select } from '@/components/ui';
+import {
+  IconButton,
+  Input,
+  SegmentedControl,
+  Select,
+  Tooltip,
+} from '@/components/ui';
 import { cn } from '@/lib/cn';
 import {
   getPreviewFontFamily,
@@ -81,7 +87,14 @@ export function AnimationPreviewWorkbench({
         </label>
 
         <div className="grid justify-start gap-1.5">
-          <span className="text-muted-foreground h-5 text-sm">Motion</span>
+          <span className="text-muted-foreground flex h-5 items-center gap-1.5 text-sm">
+            Motion
+            <Tooltip label="Reduced shows the safer static or slowed state used for people who prefer less motion.">
+              <span className="border-border text-muted-foreground inline-grid size-4 place-items-center rounded-full border text-[0.65rem] leading-none">
+                i
+              </span>
+            </Tooltip>
+          </span>
           <SegmentedControl
             label="Motion mode"
             value={reducedMotion ? 'reduced' : 'motion'}
@@ -92,10 +105,6 @@ export function AnimationPreviewWorkbench({
             ]}
             className="w-fit"
           />
-          <p className="text-muted-foreground max-w-xs text-xs leading-5">
-            Reduced shows the safer static or slowed state used for people who
-            prefer less motion.
-          </p>
         </div>
 
         <label className="text-muted-foreground grid gap-1.5 text-sm">
