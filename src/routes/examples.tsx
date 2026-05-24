@@ -1,14 +1,19 @@
-import { Link, createFileRoute } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
-import { AnimationPreview } from '@/components/animation';
+import {
+  ScriptedRenderer,
+  StackedSpansRenderer,
+  TransformRenderer,
+} from '@/components/animation';
+import { cn } from '@/lib/cn';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
+import type { RegistryItem } from '@/registry';
+import { cursorBlock } from '@/registry/items/cursor-block';
 import { loaderWaveform } from '@/registry/items/loader-waveform';
 import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import { textScramble } from '@/registry/items/text-scramble';
-import { cursorBlock } from '@/registry/items/cursor-block';
-import type { RegistryItem } from '@/registry';
+import { Link, createFileRoute } from '@tanstack/react-router';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 
 export const Route = createFileRoute('/examples')({
   component: ExamplesPage,
@@ -42,7 +47,7 @@ function ExamplesPage() {
           >
             <InlineAnimation
               item={spinnerBraille}
-              rendererClassName="text-accent-foreground"
+              className="text-accent-foreground text-base"
             />
             Saving changes
           </button>
@@ -63,7 +68,7 @@ function ExamplesPage() {
                   Updating local animation metadata
                 </p>
               </div>
-              <InlineAnimation item={loaderWaveform} />
+              <InlineAnimation item={loaderWaveform} className="text-xl" />
             </div>
           </div>
         </ExampleCard>
@@ -76,7 +81,7 @@ function ExamplesPage() {
           <div className="rounded-glyphe-md border-border bg-background text-foreground flex min-w-0 items-center gap-2 border p-4 font-mono text-sm">
             <span className="text-accent">$</span>
             <span className="min-w-0 truncate">building registry</span>
-            <InlineAnimation item={cursorBlock} />
+            <InlineAnimation item={cursorBlock} className="text-sm" />
           </div>
         </ExampleCard>
 
@@ -92,7 +97,7 @@ function ExamplesPage() {
               </p>
               <p className="text-muted-foreground font-mono text-xs">72%</p>
             </div>
-            <InlineAnimation item={progressAscii} />
+            <InlineAnimation item={progressAscii} className="text-base" />
           </div>
         </ExampleCard>
 
@@ -155,18 +160,87 @@ function ExampleCard({
 function InlineAnimation({
   item,
   className,
-  rendererClassName,
 }: {
   item: RegistryItem;
   className?: string;
-  rendererClassName?: string;
 }) {
+  const rendererClassName = cn('inline-grid min-h-0', className);
+
+  if (item.tags.includes('braille')) {
+    return <BrailleDotAnimation item={item} className={className} />;
+  }
+
+  switch (item.strategy) {
+    case 'stacked-spans':
+      return <StackedSpansRenderer item={item} className={rendererClassName} />;
+    case 'css-var-swap':
+    case 'pseudo-content':
+    case 'scripted':
+      return (
+        <ScriptedRenderer
+          item={item}
+          loopPreview
+          className={rendererClassName}
+        />
+      );
+    case 'transform':
+      return <TransformRenderer item={item} className={rendererClassName} />;
+  }
+}
+
+function BrailleDotAnimation({
+  item,
+  className,
+}: {
+  item: RegistryItem;
+  className?: string;
+}) {
+  const frames = useMemo(() => item.frames ?? [item.name], [item]);
+  const [activeFrame, setActiveFrame] = useState(0);
+
+  useEffect(() => {
+    if (frames.length <= 1) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActiveFrame((frame) => (frame + 1) % frames.length);
+    }, item.duration / frames.length);
+
+    return () => window.clearInterval(interval);
+  }, [frames.length, item.duration]);
+
+  const mask = getBrailleMask(frames[activeFrame] ?? frames[0] ?? '');
+
   return (
-    <AnimationPreview
-      item={item}
-      loopPreview
-      className={`inline-grid min-h-0 border-0 bg-transparent p-0 ${className ?? ''}`}
-      rendererClassName={rendererClassName}
-    />
+    <span
+      aria-hidden={item.accessibility.ariaHiddenRecommended}
+      className={cn(
+        'inline-grid grid-cols-2 grid-rows-4 gap-x-[0.08em] gap-y-[0.07em] align-[-0.08em]',
+        className,
+      )}
+    >
+      {brailleDotBits.map((bit) => (
+        <span
+          key={bit}
+          className={cn(
+            'size-[0.19em] rounded-full',
+            mask & bit ? 'bg-current' : 'bg-transparent',
+          )}
+        />
+      ))}
+    </span>
   );
+}
+
+const brailleDotBits = [1, 8, 2, 16, 4, 32, 64, 128];
+
+function getBrailleMask(frame: string) {
+  const codePoint = frame.codePointAt(0) ?? 0;
+
+  if (codePoint < 0x2800 || codePoint > 0x28ff) {
+    return 0;
+  }
+
+  return codePoint - 0x2800;
 }
