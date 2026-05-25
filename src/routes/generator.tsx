@@ -11,7 +11,11 @@ import {
   Textarea,
 } from '@/components/ui';
 import { generateCss } from '@/generator/css';
-import { parseFrames } from '@/generator/frames';
+import {
+  getFrameInputMode,
+  parseFrames,
+  validateFrameInput,
+} from '@/generator/frames';
 import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
 import { routeMetadata } from '@/lib/routes';
@@ -54,6 +58,7 @@ function GeneratorPage() {
   useDocumentTitle(metadata.title);
 
   const frames = useMemo(() => parseFrames(framesInput), [framesInput]);
+  const frameInputMode = getFrameInputMode(framesInput);
   const presetItem = useMemo(
     () =>
       presetSlug === customPresetValue
@@ -61,7 +66,11 @@ function GeneratorPage() {
         : registryItems.find((item) => item.slug === presetSlug),
     [presetSlug],
   );
-  const validationMessages = getValidationMessages(frames, duration);
+  const validationMessages = validateFrameInput({
+    value: framesInput,
+    frames,
+    duration,
+  });
   const glyphWarnings = getGlyphWarnings(frames);
   const generatedItem = useMemo(
     () =>
@@ -157,8 +166,9 @@ function GeneratorPage() {
               className="min-h-32 font-mono"
             />
             <p className="text-muted-foreground text-sm">
-              Use spaces for single-character frames, or one frame per line when
-              frames contain internal spaces.
+              {frameInputMode === 'line'
+                ? 'Line mode: each non-empty line is one frame, preserving internal spaces.'
+                : 'Space mode: spaces separate frames. Use one frame per line for ASCII bars.'}
             </p>
           </div>
 
@@ -281,24 +291,6 @@ function GeneratorPage() {
       </div>
     </section>
   );
-}
-
-function getValidationMessages(frames: string[], duration: number) {
-  const messages: string[] = [];
-
-  if (frames.length === 0) {
-    messages.push('Add at least one frame.');
-  }
-
-  if (duration < 100) {
-    messages.push('Duration should be at least 100ms.');
-  }
-
-  if (new Set(frames).size !== frames.length) {
-    messages.push('Duplicate frames are allowed, but may make motion unclear.');
-  }
-
-  return messages;
 }
 
 function getGlyphWarnings(frames: string[]) {

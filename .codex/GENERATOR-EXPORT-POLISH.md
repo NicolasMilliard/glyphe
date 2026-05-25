@@ -18,11 +18,11 @@ creating, why each output differs, and how to copy usable code confidently.
 - [ ] Revisit whether preset selection should stay
 - [ ] If presets stay, reduce to one strong preset per category
 - [ ] Add clearer empty state for custom frames
-- [ ] Improve handling of frames that contain spaces
-- [ ] Make frame parsing rules visible but compact
-- [ ] Add validation for invisible or whitespace-only frames
-- [ ] Add validation for very wide frames
-- [ ] Add validation for potentially flashy frame sets
+- [x] Improve handling of frames that contain spaces
+- [x] Make frame parsing rules visible but compact
+- [x] Add validation for invisible or whitespace-only frames
+- [x] Add validation for very wide frames
+- [x] Add validation for potentially flashy frame sets
 - [ ] Clarify loop behavior in UI and generated output
 - [ ] Clarify timing behavior in UI and generated output
 
@@ -88,6 +88,14 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Preserve ASCII frames with internal spaces in generated React
 - [x] Add tests for CSS content escaping
 - [x] Add tests for JSX-reserved frame characters
+
+## Slice 3: Frame Input Validation
+
+- [x] Expose space mode versus line mode in the generator UI
+- [x] Move generator frame validation into tested generator code
+- [x] Warn when ASCII frames with internal spaces are entered on one line
+- [x] Warn for empty, too-wide, duplicate, and very fast frame sets
+- [x] Keep line-based parsing preserving internal spaces
 
 ## Preset Strategy
 
