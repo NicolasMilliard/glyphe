@@ -22,14 +22,27 @@ looking at the actual gallery and detail pages.
 
 - [x] Review every current animation visually in light preview mode
 - [x] Review every current animation visually in dark preview mode
-- [ ] Review every current animation with reduced motion enabled
+- [x] Review every current animation with reduced motion enabled
 - [x] Mark animations that feel too similar
 - [x] Mark animations that feel too weak or noisy
 - [x] Mark animations that need a better name
-- [ ] Mark animations that need a different category
-- [ ] Mark animations that need a different rendering strategy
-- [ ] Mark animations that should become generator-only examples
+- [x] Mark animations that need a different category
+- [x] Mark animations that need a different rendering strategy
+- [x] Mark animations that should become generator-only examples
 - [x] Mark animations that should be removed before package extraction
+
+### Round 1 Final Decisions
+
+- [x] Keep all retained animations visible in the gallery for now
+- [x] Do not move any retained animation to another category in this round
+- [x] Do not make any retained animation generator-only in this round
+- [x] Keep braille variants as `spinner` items until a broader taxonomy pass
+- [x] Keep `text/glitch-3d` in the `text` category
+- [x] Use a specialized transform rendering path for `text/glitch-3d`
+- [x] Keep `spinner/braille-rain` after reworking it into a calmer droplet/rest loop
+- [x] Keep `spinner/braille-dna` slug for continuity, but display it as `Braille Twist`
+- [x] Use `cursor/braille` as the slug for the new braille cursor
+- [x] Defer deeper reduced-motion visual QA to the registry-wide accessibility audit
 
 ## Visual Review Notes - Round 1
 
