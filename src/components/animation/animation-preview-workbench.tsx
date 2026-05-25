@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   IconButton,
   Input,
@@ -13,6 +12,7 @@ import {
   previewFontStackOptions,
 } from '@/lib/unicode-compatibility';
 import type { RecommendedFontStack, RegistryItem } from '@/registry';
+import { useState } from 'react';
 import { AnimationPreview } from './animation-preview';
 
 type AnimationPreviewWorkbenchProps = {
@@ -138,13 +138,13 @@ function ThemeToggle({
       aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
       aria-pressed={dark}
       onClick={onChange}
-      className="glyphe-pressable border-border bg-background/90 text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 backdrop-blur"
+      className="glyphe-pressable border-border bg-background/90 text-muted-foreground hover:text-foreground focus-visible:ring-ring/20 relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 backdrop-blur focus-visible:ring-4"
     >
       <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
       <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
       <span
         className={cn(
-          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-[var(--duration-ui)] ease-[var(--ease-out)]',
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-(--duration-ui) ease-out',
           dark ? 'translate-x-0' : 'translate-x-10',
         )}
       />

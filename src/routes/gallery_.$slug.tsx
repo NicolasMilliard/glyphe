@@ -74,20 +74,12 @@ function AnimationDetailPage() {
   return (
     <section className="grid min-w-0 gap-10">
       <header className="grid min-w-0 gap-5">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <Link
-            to="/gallery"
-            className="text-accent text-sm font-medium hover:underline"
-          >
-            Back to gallery
-          </Link>
-          <Link
-            to="/registry"
-            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm text-sm font-medium underline underline-offset-4"
-          >
-            Registry metadata
-          </Link>
-        </div>
+        <Link
+          to="/gallery"
+          className="text-accent justify-self-start text-sm font-medium hover:underline"
+        >
+          Back to gallery
+        </Link>
 
         <div className="max-w-3xl min-w-0">
           <h1 className="text-foreground text-4xl font-semibold sm:text-6xl">
@@ -96,6 +88,12 @@ function AnimationDetailPage() {
           <p className="text-muted-foreground mt-5 max-w-2xl text-lg leading-8">
             {item.description}
           </p>
+          <Link
+            to="/registry"
+            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground mt-4 inline-flex rounded-glyphe-sm text-sm font-medium underline underline-offset-4"
+          >
+            Registry metadata
+          </Link>
         </div>
       </header>
 

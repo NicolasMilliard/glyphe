@@ -235,7 +235,7 @@ function FilterNavButton({
       className={cn(
         'glyphe-pressable rounded-glyphe-md shrink-0 px-3 py-2 text-left text-sm',
         active
-          ? 'bg-foreground text-background'
+          ? 'bg-foreground text-background shadow-sm'
           : 'text-muted-foreground hover:bg-surface hover:text-foreground',
       )}
     >
@@ -254,7 +254,14 @@ function FilterCheckbox({
   children: React.ReactNode;
 }) {
   return (
-    <label className="glyphe-pressable text-muted-foreground hover:text-foreground rounded-glyphe-md hover:bg-surface flex shrink-0 cursor-pointer items-center gap-2 px-3 py-2 text-sm">
+    <label
+      className={cn(
+        'glyphe-pressable rounded-glyphe-md focus-within:ring-ring focus-within:ring-offset-background flex shrink-0 cursor-pointer items-center gap-2 px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-offset-2',
+        checked
+          ? 'bg-surface text-foreground'
+          : 'text-muted-foreground hover:bg-surface hover:text-foreground',
+      )}
+    >
       <input
         type="checkbox"
         checked={checked}
@@ -281,7 +288,7 @@ function ThemeToggle({
       aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
       aria-pressed={dark}
       onClick={onChange}
-      className="glyphe-pressable border-border bg-background text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5"
+      className="glyphe-pressable border-border bg-background text-muted-foreground hover:text-foreground focus-visible:ring-ring/20 relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 focus-visible:ring-4"
     >
       <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
       <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />

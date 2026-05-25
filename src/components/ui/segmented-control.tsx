@@ -60,7 +60,7 @@ export function SegmentedControl({
       aria-label={label}
       onKeyDown={handleKeyDown}
       className={cn(
-        'rounded-glyphe-md border-border bg-surface inline-flex max-w-full overflow-x-auto border p-1',
+        'rounded-glyphe-md border-border bg-surface inline-flex max-w-full gap-1 overflow-x-auto border p-1',
         className,
       )}
     >
@@ -77,10 +77,10 @@ export function SegmentedControl({
             disabled={item.disabled}
             onClick={() => onValueChange(item.value)}
             className={cn(
-              'glyphe-pressable rounded-glyphe-sm shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50',
+              'glyphe-pressable rounded-glyphe-sm relative shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50',
               selected
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground',
+                ? 'border-border bg-background text-foreground ring-border z-10 shadow-sm ring-1'
+                : 'text-muted-foreground hover:bg-background/70 hover:text-foreground',
             )}
           >
             {item.label}

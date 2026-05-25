@@ -36,11 +36,11 @@ motion that fights the animation primitives themselves.
 
 ## Slice 3: Navigation And State Controls
 
-- [ ] Refine `SegmentedControl` active-state transition
-- [ ] Refine `Tabs` active-state transition
-- [ ] Keep keyboard-triggered state changes instant
-- [ ] Make gallery filter controls feel consistent with detail controls
-- [ ] Audit select, toggle, and checkbox focus/active states
+- [x] Refine `SegmentedControl` active-state transition
+- [x] Refine `Tabs` active-state transition
+- [x] Keep keyboard-triggered state changes instant
+- [x] Make gallery filter controls feel consistent with detail controls
+- [x] Audit select, toggle, and checkbox focus/active states
 
 ## Slice 4: Gallery Experience
 

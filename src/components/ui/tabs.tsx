@@ -85,8 +85,8 @@ export function Tabs({
               className={cn(
                 'glyphe-pressable rounded-glyphe-sm shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50',
                 selected
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground',
+                  ? 'border-border bg-background text-foreground ring-border shadow-sm ring-1'
+                  : 'text-muted-foreground hover:bg-background/70 hover:text-foreground',
               )}
             >
               {item.label}
