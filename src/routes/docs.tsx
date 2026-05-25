@@ -38,7 +38,10 @@ function DocsPage() {
 
       <DocsContent>
         <h1>{metadata.title}</h1>
-        <p>{metadata.description}</p>
+        <p>
+          Glyphe is a small bet: terminal-inspired animation belongs in the
+          browser, but it should still feel like code you can hold in your hand.
+        </p>
 
         <div className="border-border rounded-glyphe-lg my-8 grid gap-0 overflow-hidden border">
           {quickLinks.map((item) => (
@@ -59,331 +62,223 @@ function DocsPage() {
 
         <h2 id="project-introduction">Project introduction</h2>
         <p>
-          Glyphe is a registry-first, CSS-first toolkit for terminal-inspired
-          text animation on the web. It is built around copyable primitives:
-          unicode spinners, ASCII loaders, progress indicators, cursor effects,
-          glitch text, typewriter text, and other animated glyph systems.
+          Most loading animations on the web are either too heavy or too cute.
+          Glyphe sits in the smaller space between them: unicode spinners, ASCII
+          loaders, progress bars, cursors, typing effects, glitches, and matrix
+          text that can live inside real product interfaces.
         </p>
         <p>
-          The product goal is ownership. Generated CSS, React components, and
-          Tailwind-friendly snippets should be readable enough to paste into an
-          app, rename, customize, and keep without depending on a runtime
-          package.
+          The output is intentionally boring. CSS you can read. React you can
+          delete. Tailwind snippets that do not turn Tailwind into a hard
+          dependency. The website helps you choose; the copied code belongs to
+          you.
         </p>
 
         <h2 id="registry-concepts">Registry concepts</h2>
         <p>
-          The registry is the source of truth for every animation. A registry
-          item describes the frames, duration, timing, loop behavior, rendering
-          strategy, accessibility mode, unicode compatibility, and customization
-          options for a primitive.
+          The registry is where an animation becomes a product primitive instead
+          of a random snippet. A registry item knows its frames, duration,
+          timing, loop behavior, rendering strategy, accessibility mode, unicode
+          risk, and customization surface.
         </p>
         <p>
-          The gallery, detail pages, generator output, compatibility notes, and
-          future CLI should all consume this metadata. That keeps docs,
-          previews, and generated code from drifting apart.
+          That matters because previews lie when they are hand-built. Glyphe
+          keeps the gallery, detail pages, generator, compatibility notes, and
+          future CLI pointed at the same data. One source of truth, fewer quiet
+          inconsistencies.
         </p>
+        <pre>
+          <code>{`{
+  slug: 'spinner/braille',
+  strategy: 'stacked-spans',
+  duration: 900,
+  accessibility: { mode: 'status' },
+  compatibility: { unicodeRisk: 'low' }
+}`}</code>
+        </pre>
         <p>
-          For a technical view of the current entries and active rendering
-          strategies, open the <Link to="/registry">registry overview</Link>.
-        </p>
-        <p>
-          For visual selection, start in the <Link to="/gallery">gallery</Link>.
-          For custom frames, use the <Link to="/generator">generator</Link>. For
-          realistic product usage, browse the{' '}
-          <Link to="/examples">examples</Link>.
+          Start with the <Link to="/gallery">gallery</Link> when you want to
+          choose visually. Use the <Link to="/generator">generator</Link> when
+          you already have frames. Open the <Link to="/registry">registry</Link>{' '}
+          when you want to inspect the metadata directly.
         </p>
 
         <h2 id="copy-paste-ownership">Copy-paste ownership</h2>
         <p>
-          Glyphe follows the shadcn/ui style of distribution: users should own
-          the generated code. The website provides good defaults and clear
-          warnings, but the copied output should remain ordinary CSS and
-          TypeScript.
+          Glyphe treats distribution as a handoff: the useful part should not
+          hide behind a permanent dependency. Copy the primitive, place it in
+          your project, and change it when your interface asks for something
+          more specific.
         </p>
-        <ul>
-          <li>Generated CSS should use readable class names and variables.</li>
-          <li>
-            Generated React should be a small adapter around the CSS pattern.
-          </li>
-          <li>
-            Generated Tailwind output should be pasteable into a Tailwind v4
-            stylesheet without making Tailwind mandatory for the core project.
-          </li>
-        </ul>
+        <p>
+          This is especially important for animation. Motion is taste. A package
+          can give you a default, but your product should decide the rhythm,
+          spacing, label, and failure mode.
+        </p>
+        <pre>
+          <code>{`.glyphe-spinner {
+  --glyphe-duration: 900ms;
+  font-family: ui-monospace, monospace;
+}`}</code>
+        </pre>
 
         <h2 id="installation-usage">Installation and usage</h2>
         <p>
-          Glyphe is currently designed around copying code from the website.
-          Pick an animation in the gallery, inspect the detail page, then copy
-          the output that matches your project.
+          Today, the install flow is the website. Pick an animation, inspect the
+          detail page, and copy the output that matches how your app is built.
         </p>
-        <ul>
-          <li>
-            Copy CSS when you want the smallest dependency-free primitive.
-          </li>
-          <li>
-            Copy React when you want accessible markup and props alongside the
-            CSS pattern.
-          </li>
-          <li>
-            Copy Tailwind when your project keeps animation tokens in a Tailwind
-            v4 stylesheet.
-          </li>
-        </ul>
         <p>
-          A CLI is planned, but it should preserve the same ownership model:
-          generate ordinary files, place them in your project, and keep the code
-          readable after install.
+          Copy CSS for the smallest primitive. Copy React when you want the
+          markup and accessibility wiring with it. Copy Tailwind when your team
+          keeps motion tokens in a Tailwind v4 stylesheet.
+        </p>
+        <p>
+          The future CLI should not change the philosophy. It should write files
+          into your project, not make Glyphe a runtime you need to think about
+          every time a button spins.
         </p>
 
         <h2 id="rendering-strategies">Rendering strategies</h2>
         <p>
-          Glyphe supports several rendering strategies because terminal-inspired
-          animation is not one single technical problem.
+          There is no universal renderer for text animation. A braille spinner,
+          a glitch word, and a typewriter effect have different failure modes.
+          Glyphe keeps those choices explicit.
         </p>
-        <ul>
-          <li>
-            <code>stacked-spans</code>: renders real text frames in stacked
-            spans. This is the safest default for unicode frame animations.
-          </li>
-          <li>
-            <code>css-var-swap</code>: swaps a CSS custom property used by
-            generated content. This is compact and useful for utility output.
-          </li>
-          <li>
-            <code>pseudo-content</code>: animates <code>::before</code> content.
-            This keeps markup small, but needs clear accessibility handling.
-          </li>
-          <li>
-            <code>transform</code>: moves or fades visible text. This works well
-            for glitch, cursor, bars, and subtle motion effects.
-          </li>
-          <li>
-            <code>scripted</code>: uses runtime frame stepping for effects like
-            typewriter and scramble text.
-          </li>
-        </ul>
         <p>
-          When in doubt, start with <code>stacked-spans</code> for frame-based
-          glyph animation, <code>transform</code> for visual distortion, and{' '}
-          <code>scripted</code> for effects that need text state over time.
+          Use <code>stacked-spans</code> when frames are real glyphs and unicode
+          rendering matters. Use <code>transform</code> when the text stays the
+          same but the surface moves. Use <code>scripted</code> when the
+          animation has state, like scramble or typewriter text.
+        </p>
+        <p>
+          <code>pseudo-content</code> and <code>css-var-swap</code> are compact,
+          but they are not magic. Generated content needs careful labels because
+          the DOM is no longer telling the whole story.
         </p>
 
         <h2 id="accessibility">Accessibility</h2>
         <p>
-          Glyphe animations should be easy to copy, but they should also be hard
-          to misuse. Every registry item carries accessibility metadata so the
-          gallery, generator, and generated code can recommend the right
-          pattern.
-        </p>
-
-        <h3>Accessibility modes</h3>
-        <p>
-          Glyphe currently uses three modes: <code>decorative</code>,{' '}
-          <code>status</code>, and <code>text-effect</code>.
-        </p>
-        <ul>
-          <li>
-            Decorative animations are visual accents. Hide the moving glyphs
-            from assistive tech with <code>aria-hidden</code> and make sure
-            nearby text explains any meaningful state.
-          </li>
-          <li>
-            Status animations communicate waiting, loading, or progress. Expose
-            a stable label with <code>role="status"</code> or an equivalent
-            readable status, while keeping changing frames out of the
-            accessibility tree.
-          </li>
-          <li>
-            Text effects animate readable content. Keep the final text available
-            to assistive tech and treat scrambled, glitch, or typing frames as
-            visual-only decoration.
-          </li>
-        </ul>
-        <p>
-          If an animation is only reinforcing nearby text, treat it as
-          decorative. If the animation is the only signal that work is
-          happening, expose a status label. If the animation changes readable
-          words, keep the final text available even while the visual frame is
-          moving.
-        </p>
-
-        <h3>Labels</h3>
-        <p>
-          Prefer a stable screen reader label over announcing every frame. A
-          spinner can say <code>Loading</code>, a progress primitive can say{' '}
-          <code>Progress loading</code>, and a text effect should expose the
-          final readable text.
+          Animation should not talk too much. A spinner that announces every
+          frame is broken, even if it looks beautiful.
         </p>
         <p>
-          Generated React includes label-oriented markup. Plain CSS copies still
-          need surrounding HTML that gives users the same stable meaning.
+          Glyphe classifies animations as <code>decorative</code>,{' '}
+          <code>status</code>, or <code>text-effect</code>. Decorative motion is
+          hidden from assistive tech. Status motion exposes one stable label.
+          Text effects keep the final readable text available.
         </p>
-
-        <h3>Reduced motion</h3>
+        <pre>
+          <code>{`<span role="status" aria-label="Loading">
+  <span aria-hidden="true">⠋</span>
+</span>`}</code>
+        </pre>
         <p>
-          Generated CSS includes a <code>prefers-reduced-motion</code> media
-          query. Registry items choose one of four reduced motion strategies:
-        </p>
-        <ul>
-          <li>
-            <code>first-frame</code>: show a single static frame.
-          </li>
-          <li>
-            <code>static-label</code>: prefer a readable non-animated label.
-          </li>
-          <li>
-            <code>disabled</code>: remove the animation entirely.
-          </li>
-          <li>
-            <code>slowed</code>: keep motion but make it calmer.
-          </li>
-        </ul>
-        <p>
-          Reduced motion should preserve meaning. A spinner can become one still
-          glyph beside a loading label; a progress primitive can become readable
-          text; a glitch effect can fall back to the final word.
-        </p>
-
-        <h3>Pause and flashing risk</h3>
-        <p>
-          Long-running or prominent looping animations should have a pause path.
-          Text effects near reading content should be especially easy to pause
-          or replace with reduced motion. Avoid high-contrast flashes, rapid
-          full-screen changes, and aggressive jitter for glitch-style effects.
+          Reduced motion is part of the primitive, not a patch at the end. If
+          someone asks for less motion, preserve meaning first. A loading state
+          can become a static glyph beside a label. A glitch can become the
+          final word. A progress animation can become text.
         </p>
         <p>
-          Test the copied result with motion enabled, motion reduced, keyboard
-          focus visible, and screen reader labels present in the surrounding
-          interface.
+          Long-running loops need a pause path when they sit near reading
+          content. Glitch effects should be restrained by default. A little
+          distortion has taste; aggressive flashing just makes the interface
+          worse.
+        </p>
+        <p>
+          Test motion enabled, motion reduced, keyboard focus, and screen reader
+          labels. Not because the checklist is interesting, but because copied
+          animation travels into contexts you did not design.
         </p>
 
         <h2 id="unicode-rendering">Unicode rendering</h2>
         <p>
-          Unicode and terminal glyphs are visually expressive, but they are not
-          perfectly stable across fonts, operating systems, and browsers. Glyphe
-          tracks glyph width, unicode risk, emoji risk, monospace requirements,
-          and recommended font stacks so users can inspect risky animations
-          before copying them.
-        </p>
-        <ul>
-          <li>
-            Prefer monospace font stacks for frame animations that must align.
-          </li>
-          <li>
-            Treat emoji as risky because they can render as colored,
-            double-width, or platform-specific glyphs.
-          </li>
-          <li>
-            Watch combining characters because they can affect width and
-            vertical alignment.
-          </li>
-          <li>
-            Use fixed preview dimensions so glyph changes do not resize the UI.
-          </li>
-        </ul>
-        <h3>Braille and block glyphs</h3>
-        <p>
-          Braille spinners are compact and expressive, but the dot shape can
-          vary by font. Keep them in a monospace stack, preserve line height,
-          and check that empty dots do not appear as outlines in your target
-          font.
+          Unicode is expressive because it is not neutral. The same glyph can
+          look slightly different across fonts, operating systems, and browsers.
+          Braille dots are the clearest example: compact, elegant, and still
+          dependent on the font stack.
         </p>
         <p>
-          Block glyphs work well for loaders and progress, but they can feel
-          heavier than ASCII. Use them when the surrounding UI can support that
-          visual weight.
+          The rule is simple: if frames need to align, use a monospace stack and
+          give the preview a fixed box. Do not let glyph width resize the UI. Do
+          not assume emoji are text. Do not assume combining characters will
+          behave like ordinary letters.
         </p>
-        <h3>Compatibility checks</h3>
-        <ul>
-          <li>
-            Check the animation in your app font and a monospace fallback.
-          </li>
-          <li>Check light and dark backgrounds.</li>
-          <li>
-            Check Safari, Chrome, and Firefox when Unicode alignment matters.
-          </li>
-          <li>Check reduced motion before shipping looping effects.</li>
-        </ul>
+        <pre>
+          <code>{`.glyphe-frame {
+  display: inline-grid;
+  place-items: center;
+  width: 1ch;
+  line-height: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}`}</code>
+        </pre>
+        <p>
+          Check light and dark backgrounds. Check Safari when alignment matters.
+          Check your actual product font. The gallery is a good preview, not a
+          substitute for your interface.
+        </p>
 
         <h2 id="generator-output">Generator output</h2>
         <p>
-          The generator turns frame lists into previewable registry-shaped
-          items. It uses the same CSS, React, Tailwind, accessibility, and
-          compatibility paths as gallery items, so exported code should match
-          the preview.
-        </p>
-        <ul>
-          <li>Use spaces for simple one-glyph frames like braille spinners.</li>
-          <li>
-            Use one frame per line when frames contain internal spaces, such as
-            ASCII progress bars.
-          </li>
-          <li>
-            Choose presets from the curated registry list when you want a safe
-            starting point.
-          </li>
-        </ul>
-        <h3>Timing and loop controls</h3>
-        <p>
-          Duration controls how long one full pass takes. Timing controls how
-          frames advance. Use <code>steps</code> for discrete glyph swaps,{' '}
-          <code>linear</code> for continuous values, and <code>custom</code>{' '}
-          when you want to expose a CSS variable for local tuning.
+          The generator is for turning a sketch into code. Paste frames, choose
+          timing, decide how it should render, then export CSS, React, or
+          Tailwind.
         </p>
         <p>
-          Looping should match the job. Loading states usually loop; reveal
-          effects like typewriter or scramble often run once and settle on the
-          final text.
+          Use spaces for simple one-glyph frames. Use one frame per line when a
+          frame contains spaces, like ASCII progress bars. That tiny distinction
+          avoids most broken previews.
         </p>
-        <h3>Custom animations</h3>
+        <pre>
+          <code>{`⠋ ⠙ ⠹ ⠸ ⠼
+
+[    ]
+[=   ]
+[==  ]
+[=== ]`}</code>
+        </pre>
         <p>
-          If a generated animation becomes part of your product language, keep
-          the exported code in your project and treat it like local UI code.
-          Rename classes, adjust variables, and delete options you do not need.
+          Loading states usually loop. Reveal effects usually finish. If your
+          generated animation becomes part of the product language, promote it
+          into local UI code and remove the options you do not need.
         </p>
 
         <h2 id="tailwind-integration">Tailwind integration</h2>
         <p>
-          Tailwind support is additive. Glyphe generates ordinary CSS first,
-          then offers Tailwind-friendly output for projects that want to keep
-          animation tokens and utilities inside their stylesheet.
+          Tailwind support is additive. Glyphe starts with ordinary CSS and then
+          gives Tailwind projects a way to keep the same primitive inside the
+          stylesheet where motion tokens already live.
         </p>
         <p>
-          The generated Tailwind output uses <code>@theme</code> animation
-          tokens and utility classes where useful. It should stay readable,
-          copyable, and close to the plain CSS output.
+          The output should stay close to the CSS version. If the Tailwind
+          version feels like a second implementation, it is doing too much.
         </p>
-        <ul>
-          <li>
-            Use generated <code>@theme</code> tokens when the animation should
-            be reused through Tailwind utilities.
-          </li>
-          <li>
-            Use generated utility classes when you want a named local primitive
-            such as <code>glyphe-spinner-braille</code>.
-          </li>
-          <li>
-            Override <code>--glyphe-duration</code>, <code>--glyphe-width</code>
-            , and <code>--glyphe-font-family</code> near the component when a
-            single instance needs different behavior.
-          </li>
-        </ul>
+        <pre>
+          <code>{`@theme {
+  --animate-glyphe-spinner: glyphe-spinner 900ms steps(5) infinite;
+}
+
+.glyphe-spinner {
+  animation: var(--animate-glyphe-spinner);
+}`}</code>
+        </pre>
+        <p>
+          Override variables near the component when a single instance needs a
+          different pace. Put reusable timing in <code>@theme</code>. Keep taste
+          local until it proves it should be global.
+        </p>
 
         <h2 id="registry-metadata">Registry metadata</h2>
         <p>
-          Registry items are ordinary typed objects. Each item carries a slug,
-          category, tags, frames, duration, timing, loop behavior, rendering
-          strategy, accessibility metadata, compatibility metadata, and
-          customization options.
+          Registry metadata is intentionally plain. Slugs give animations stable
+          names. Categories keep navigation understandable. Tags help discovery.
+          Compatibility fields make rendering risk visible before someone copies
+          the code.
         </p>
         <p>
-          Categories describe the broad primitive type. Tags describe discovery
-          traits like <code>braille</code>, <code>ascii</code>,{' '}
-          <code>blocks</code>, <code>glitch</code>, or <code>loading</code>.
-          Compatibility metadata describes how risky the glyphs are across fonts
-          and platforms.
+          A registry item should describe enough to generate code and docs, but
+          not so much that editing it feels ceremonial. The registry is a
+          contract, not a database cosplay.
         </p>
         <p>
           Future CLI installs should read from the same registry entries as the
@@ -393,15 +288,18 @@ function DocsPage() {
 
         <h2 id="future-cli">Future CLI</h2>
         <p>
-          A CLI should come after the registry and generators are stable. The
-          future flow should feel like <code>glyphe add spinner/braille</code>:
-          select a registry item, generate code, write it into user-owned files,
-          and avoid hiding behavior in a runtime dependency.
+          The CLI should come after the registry and generators are boringly
+          stable. The target flow is direct:
         </p>
+        <pre>
+          <code>{`bunx glyphe add spinner/braille
+bunx glyphe add loader/waveform --react
+bunx glyphe generate --frames "⠋ ⠙ ⠹ ⠸ ⠼"`}</code>
+        </pre>
         <p>
-          The CLI should eventually detect React, Tailwind, TypeScript, and
-          local project paths. It should preserve user edits, support dry runs,
-          and use the same registry metadata as the website.
+          It should detect React, Tailwind, TypeScript, and local paths. It
+          should support dry runs. Most importantly, it should preserve user
+          edits. A code generator that overwrites taste is not a good tool.
         </p>
       </DocsContent>
     </div>
