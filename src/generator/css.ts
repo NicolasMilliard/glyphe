@@ -37,8 +37,12 @@ export function getGeneratedCssNames(
   const identifier = escapeCssIdentifier(item.slug);
 
   return {
-    rootClassName: options.className ?? `glyphe-${identifier}`,
-    keyframeName: options.keyframeName ?? `glyphe-${identifier}-frames`,
+    rootClassName: escapeCssIdentifier(
+      options.className ?? `glyphe-${identifier}`,
+    ),
+    keyframeName: escapeCssIdentifier(
+      options.keyframeName ?? `glyphe-${identifier}-frames`,
+    ),
   };
 }
 
@@ -48,7 +52,7 @@ export function generateStackedSpanCss(
 ) {
   const frames = item.frames ?? [item.name];
   const animation = getAnimationDeclaration(item, names, frames.length);
-  const width = `${Math.max(...frames.map((frame) => frame.length), 1)}ch`;
+  const width = getFrameWidthCss(frames);
   const delayStep = item.duration / frames.length;
   const frameRules = frames
     .map(
@@ -120,7 +124,7 @@ export function generateCssVariableSwapCss(
 
 .${names.rootClassName} {
   display: inline-block;
-  min-width: var(--glyphe-width, ${Math.max(...frames.map((frame) => frame.length), 1)}ch);
+  min-width: var(--glyphe-width, ${getFrameWidthCss(frames)});
   font-family: var(--glyphe-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
   line-height: 1;
   animation: ${getAnimationDeclaration(item, names, frames.length)};
@@ -156,7 +160,7 @@ export function generatePseudoContentCss(
 
 .${names.rootClassName} {
   display: inline-block;
-  min-width: var(--glyphe-width, ${Math.max(...frames.map((frame) => frame.length), 1)}ch);
+  min-width: var(--glyphe-width, ${getFrameWidthCss(frames)});
   font-family: var(--glyphe-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
   line-height: 1;
 }
@@ -346,11 +350,13 @@ export function getAnimationDeclaration(
 }
 
 export function escapeCssIdentifier(value: string) {
-  return value
+  const identifier = value
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
+
+  return identifier || 'animation';
 }
 
 export function escapeCssString(value: string) {
@@ -360,4 +366,12 @@ export function escapeCssString(value: string) {
     .replace(/\n/g, '\\A ')
     .replace(/\r/g, '\\D ')
     .replace(/\f/g, '\\C ');
+}
+
+export function getFrameWidth(frame: string) {
+  return Array.from(frame).length;
+}
+
+function getFrameWidthCss(frames: string[]) {
+  return `${Math.max(...frames.map(getFrameWidth), 1)}ch`;
 }

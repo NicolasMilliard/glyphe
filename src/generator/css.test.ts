@@ -7,6 +7,7 @@ import {
   escapeCssIdentifier,
   escapeCssString,
   generateCss,
+  getFrameWidth,
   getGeneratedCssNames,
 } from './css';
 
@@ -20,10 +21,28 @@ describe('css generator', () => {
 
   it('escapes generated identifiers', () => {
     expect(escapeCssIdentifier('Text/Glitch Soft!')).toBe('text-glitch-soft');
+    expect(escapeCssIdentifier('!!!')).toBe('animation');
+  });
+
+  it('sanitizes generated name overrides', () => {
+    expect(
+      getGeneratedCssNames(spinnerBraille, {
+        className: '.Custom Spinner!',
+        keyframeName: 'Custom Frames!',
+      }),
+    ).toEqual({
+      rootClassName: 'custom-spinner',
+      keyframeName: 'custom-frames',
+    });
   });
 
   it('escapes generated CSS strings', () => {
     expect(escapeCssString('a"b\\c\nd')).toBe('a\\"b\\\\c\\A d');
+  });
+
+  it('estimates frame width by code point instead of string length', () => {
+    expect(getFrameWidth('😀')).toBe(1);
+    expect(getFrameWidth('ab')).toBe(2);
   });
 
   it('generates stacked span CSS', () => {
@@ -47,6 +66,15 @@ describe('css generator', () => {
     expect(generateCss(progressAscii)).toContain(
       '@media (prefers-reduced-motion: reduce)',
     );
+  });
+
+  it('uses code point width for generated frame boxes', () => {
+    const output = generateCss({
+      ...spinnerBraille,
+      frames: ['😀', '→'],
+    });
+
+    expect(output).toContain('width: var(--glyphe-width, 1ch);');
   });
 
   it('generates CSS variable swap CSS', () => {

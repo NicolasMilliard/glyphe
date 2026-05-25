@@ -47,13 +47,13 @@ creating, why each output differs, and how to copy usable code confidently.
 
 ## Generated CSS Quality
 
-- [ ] Audit generated class names
-- [ ] Audit generated keyframe names
-- [ ] Audit CSS variable names
-- [ ] Audit width behavior for single-cell and multi-character frames
-- [ ] Audit reduced-motion media query output
+- [x] Audit generated class names
+- [x] Audit generated keyframe names
+- [x] Audit CSS variable names
+- [x] Audit width behavior for single-cell and multi-character frames
+- [x] Audit reduced-motion media query output
 - [x] Audit escaping for quotes, slashes, backslashes, and Unicode
-- [ ] Audit generated comments or remove unnecessary comments
+- [x] Audit generated comments or remove unnecessary comments
 
 ## Generated React Quality
 
@@ -134,6 +134,14 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Call out unicode glyph-width testing for stacked spans
 - [x] Call out generated-content and CSS-variable support expectations
 - [x] Call out scripted runtime and reduced-motion fallback needs
+
+## Slice 8: Generated CSS Quality
+
+- [x] Sanitize generated class and keyframe name overrides
+- [x] Keep CSS variable names stable and scoped to `--glyphe-*`
+- [x] Estimate frame box width by code point instead of UTF-16 length
+- [x] Keep reduced-motion output covered by generator tests
+- [x] Confirm generated CSS does not add unnecessary comments
 
 ## Definition Of Done
 
