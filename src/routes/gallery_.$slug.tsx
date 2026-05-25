@@ -135,15 +135,10 @@ function AnimationDetailPage() {
       />
 
       <section className="grid min-w-0 gap-6">
-        <div className="max-w-2xl">
-          <h2 className="text-foreground text-2xl font-semibold">
-            Implementation notes
-          </h2>
-          <p className="text-muted-foreground mt-2 text-sm leading-6">
-            The practical bits to check before copying this primitive into an
-            interface.
-          </p>
-        </div>
+        <SectionIntro
+          title="Implementation notes"
+          copy="The practical bits to check before copying this primitive into an interface."
+        />
 
         <div className="border-border divide-border grid min-w-0 divide-y border-y lg:grid-cols-3 lg:divide-x lg:divide-y-0">
           <NoteSection
@@ -181,7 +176,8 @@ function AnimationDetailPage() {
             facts={[
               `Duration: ${item.duration}ms`,
               `Timing: ${item.timing}`,
-              `Tags: ${item.tags.join(', ')}`,
+              item.loop ? 'Loops' : 'Resolves',
+              ...item.tags.slice(0, 3),
             ]}
           />
         </div>
@@ -229,7 +225,11 @@ function CodePanel({ value, label }: { value: string; label: string }) {
         <p className="text-muted-foreground font-mono text-xs uppercase">
           Generated output
         </p>
-        <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
+        <CopyButton
+          value={value}
+          label={label}
+          className="border-accent bg-accent text-accent-foreground hover:bg-accent/90 h-8 px-3 text-xs"
+        />
       </div>
       <pre className="text-foreground max-h-112 max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
@@ -269,12 +269,12 @@ function AnimationTile({ item }: { item: RegistryItem }) {
     <Link
       to="/gallery/$slug"
       params={{ slug: item.slug.replace('/', '--') }}
-      className="glyphe-pressable glyphe-hover-lift border-border bg-background hover:bg-surface rounded-glyphe-lg grid min-w-0 grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3 border p-3"
+      className="glyphe-pressable glyphe-hover-lift border-border bg-background hover:bg-surface rounded-glyphe-lg grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] items-center gap-3 border p-2.5 sm:p-3"
     >
       <AnimationPreview
         item={item}
         loopPreview
-        className="rounded-glyphe-md bg-surface min-h-16 border-0 p-0"
+        className="rounded-glyphe-md bg-surface min-h-14 border-0 p-0"
       />
       <div className="min-w-0">
         <p className="text-foreground truncate text-sm font-medium">

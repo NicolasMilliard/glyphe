@@ -36,10 +36,13 @@ export function AnimationPreviewWorkbench({
     <div className="grid gap-4">
       <div
         className={cn(
-          'rounded-glyphe-lg relative',
+          'rounded-glyphe-lg relative overflow-hidden',
           previewTheme === 'dark' ? 'theme-dark' : 'theme-light',
         )}
       >
+        <p className="text-muted-foreground absolute top-4 left-4 z-10 hidden font-mono text-xs uppercase sm:block">
+          Preview
+        </p>
         <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
           <ThemeToggle
             value={previewTheme}
@@ -64,7 +67,10 @@ export function AnimationPreviewWorkbench({
           monospace={monospace}
           fontFamily={fontFamily}
           loopPreview
-          className={previewTheme === 'dark' ? 'border-black bg-black' : ''}
+          className={cn(
+            'pt-16 sm:pt-6',
+            previewTheme === 'dark' ? 'border-black bg-black' : '',
+          )}
           rendererClassName={previewTheme === 'dark' ? 'text-white' : ''}
         />
       </div>
@@ -144,7 +150,7 @@ function ThemeToggle({
       <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
       <span
         className={cn(
-          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-(--duration-ui) ease-out',
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-[var(--duration-ui)] ease-[var(--ease-out)]',
           dark ? 'translate-x-0' : 'translate-x-10',
         )}
       />

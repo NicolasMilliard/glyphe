@@ -52,11 +52,11 @@ motion that fights the animation primitives themselves.
 
 ## Slice 5: Detail Page Experience
 
-- [ ] Keep preview controls visually attached to the preview area
-- [ ] Make generated code copy actions feel like primary actions
-- [ ] Review implementation note sections for scanability
-- [ ] Keep related/family preview tiles compact
-- [ ] Audit detail page mobile stacking
+- [x] Keep preview controls visually attached to the preview area
+- [x] Make generated code copy actions feel like primary actions
+- [x] Review implementation note sections for scanability
+- [x] Keep related/family preview tiles compact
+- [x] Audit detail page mobile stacking
 
 ## Slice 6: Examples Page
 
