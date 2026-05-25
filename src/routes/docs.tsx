@@ -200,6 +200,13 @@ function DocsPage() {
             visual-only decoration.
           </li>
         </ul>
+        <p>
+          If an animation is only reinforcing nearby text, treat it as
+          decorative. If the animation is the only signal that work is
+          happening, expose a status label. If the animation changes readable
+          words, keep the final text available even while the visual frame is
+          moving.
+        </p>
 
         <h3>Labels</h3>
         <p>
@@ -207,6 +214,10 @@ function DocsPage() {
           spinner can say <code>Loading</code>, a progress primitive can say{' '}
           <code>Progress loading</code>, and a text effect should expose the
           final readable text.
+        </p>
+        <p>
+          Generated React includes label-oriented markup. Plain CSS copies still
+          need surrounding HTML that gives users the same stable meaning.
         </p>
 
         <h3>Reduced motion</h3>
@@ -228,6 +239,11 @@ function DocsPage() {
             <code>slowed</code>: keep motion but make it calmer.
           </li>
         </ul>
+        <p>
+          Reduced motion should preserve meaning. A spinner can become one still
+          glyph beside a loading label; a progress primitive can become readable
+          text; a glitch effect can fall back to the final word.
+        </p>
 
         <h3>Pause and flashing risk</h3>
         <p>
@@ -235,6 +251,11 @@ function DocsPage() {
           Text effects near reading content should be especially easy to pause
           or replace with reduced motion. Avoid high-contrast flashes, rapid
           full-screen changes, and aggressive jitter for glitch-style effects.
+        </p>
+        <p>
+          Test the copied result with motion enabled, motion reduced, keyboard
+          focus visible, and screen reader labels present in the surrounding
+          interface.
         </p>
 
         <h2 id="unicode-rendering">Unicode rendering</h2>
@@ -260,6 +281,29 @@ function DocsPage() {
           <li>
             Use fixed preview dimensions so glyph changes do not resize the UI.
           </li>
+        </ul>
+        <h3>Braille and block glyphs</h3>
+        <p>
+          Braille spinners are compact and expressive, but the dot shape can
+          vary by font. Keep them in a monospace stack, preserve line height,
+          and check that empty dots do not appear as outlines in your target
+          font.
+        </p>
+        <p>
+          Block glyphs work well for loaders and progress, but they can feel
+          heavier than ASCII. Use them when the surrounding UI can support that
+          visual weight.
+        </p>
+        <h3>Compatibility checks</h3>
+        <ul>
+          <li>
+            Check the animation in your app font and a monospace fallback.
+          </li>
+          <li>Check light and dark backgrounds.</li>
+          <li>
+            Check Safari, Chrome, and Firefox when Unicode alignment matters.
+          </li>
+          <li>Check reduced motion before shipping looping effects.</li>
         </ul>
 
         <h2 id="generator-output">Generator output</h2>

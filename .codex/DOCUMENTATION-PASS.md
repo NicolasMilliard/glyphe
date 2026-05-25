@@ -61,20 +61,29 @@ safe, accessible text animations.
 - [x] Add CLI wording that does not promise shipped behavior
 - [x] Add practical rendering strategy selection guidance
 
-- [ ] Accessibility
-  - [ ] Explain decorative animations
-  - [ ] Explain status/loading animations
-  - [ ] Explain text effects
-  - [ ] Explain stable labels
-  - [ ] Explain reduced-motion behavior
-  - [ ] Explain pause controls
+- [x] Accessibility
+  - [x] Explain decorative animations
+  - [x] Explain status/loading animations
+  - [x] Explain text effects
+  - [x] Explain stable labels
+  - [x] Explain reduced-motion behavior
+  - [x] Explain pause controls
 
-- [ ] Unicode Compatibility
-  - [ ] Explain font fallback risk
-  - [ ] Explain monospace alignment
-  - [ ] Explain emoji/text presentation risk
-  - [ ] Explain braille rendering caveats
-  - [ ] Explain testing across OS/browser/font stacks
+- [x] Unicode Compatibility
+  - [x] Explain font fallback risk
+  - [x] Explain monospace alignment
+  - [x] Explain emoji/text presentation risk
+  - [x] Explain braille rendering caveats
+  - [x] Explain testing across OS/browser/font stacks
+
+## Slice 3: Accessibility And Unicode Content
+
+- [x] Add practical accessibility mode selection guidance
+- [x] Add stable label guidance for CSS and React copies
+- [x] Add reduced-motion meaning-preservation guidance
+- [x] Add pause, focus, and screen reader test guidance
+- [x] Add braille and block glyph compatibility guidance
+- [x] Add browser/font/background compatibility checklist
 
 - [ ] Tailwind Usage
   - [ ] Explain generated theme tokens
