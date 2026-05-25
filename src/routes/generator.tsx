@@ -1,5 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
 import { AnimationPreview } from '@/components/animation';
 import {
   Button,
@@ -14,8 +12,8 @@ import { generateCss } from '@/generator/css';
 import {
   getFrameInputMode,
   parseFrames,
-  type FrameValidationMessage,
   validateFrameInput,
+  type FrameValidationMessage,
 } from '@/generator/frames';
 import { generateReactComponent } from '@/generator/react';
 import { generateTailwindCss } from '@/generator/tailwind';
@@ -28,6 +26,8 @@ import { useDocumentTitle } from '@/lib/use-document-title';
 import { type RegistryItem, type RenderingStrategy } from '@/registry';
 import { getGeneratorPresets } from '@/registry/presets';
 import { renderingStrategies } from '@/registry/schema';
+import { createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 export const Route = createFileRoute('/generator')({
   component: GeneratorPage,
@@ -87,6 +87,7 @@ function GeneratorPage() {
     componentName: 'GeneratedGlypheAnimation',
   });
   const tailwindOutput = generateTailwindCss(generatedItem);
+  const strategyNote = getStrategyExportNote(generatedItem);
 
   return (
     <section className="grid min-w-0 gap-8 sm:gap-10">
@@ -281,6 +282,7 @@ function GeneratorPage() {
                     title="CSS output"
                     bestFor="Best for dependency-free primitives and framework-agnostic projects."
                     motionSummary={getMotionSummary(generatedItem)}
+                    strategyNote={strategyNote}
                   />
                 ),
               },
@@ -294,6 +296,7 @@ function GeneratorPage() {
                     title="React component"
                     bestFor="Best when you want the markup, class hook, and accessibility label together."
                     motionSummary={getMotionSummary(generatedItem)}
+                    strategyNote={strategyNote}
                   />
                 ),
               },
@@ -307,6 +310,7 @@ function GeneratorPage() {
                     title="Tailwind output"
                     bestFor="Best when animation tokens live in your Tailwind v4 stylesheet."
                     motionSummary={getMotionSummary(generatedItem)}
+                    strategyNote={strategyNote}
                   />
                 ),
               },
@@ -432,12 +436,14 @@ function CodePanel({
   title,
   bestFor,
   motionSummary,
+  strategyNote,
 }: {
   value: string;
   label: string;
   title: string;
   bestFor: string;
   motionSummary: string;
+  strategyNote: string;
 }) {
   return (
     <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
@@ -448,6 +454,9 @@ function CodePanel({
           <p className="text-muted-foreground font-mono text-xs">
             {motionSummary}
           </p>
+          <p className="text-muted-foreground text-sm leading-6">
+            {strategyNote}
+          </p>
         </div>
         <CopyButton
           value={value}
@@ -455,7 +464,7 @@ function CodePanel({
           className="border-accent bg-accent text-accent-foreground hover:bg-accent/90 h-8 px-3 text-xs"
         />
       </div>
-      <pre className="text-foreground max-h-[28rem] max-w-full overflow-auto p-4 text-sm leading-6">
+      <pre className="text-foreground max-h-112 max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
       </pre>
     </div>
@@ -470,6 +479,21 @@ function getMotionSummary(item: RegistryItem) {
   const loop = item.loop ? 'loops forever' : 'runs once and holds';
 
   return `${item.duration}ms · ${timing} · ${loop}`;
+}
+
+function getStrategyExportNote(item: RegistryItem) {
+  switch (item.strategy) {
+    case 'stacked-spans':
+      return 'Strategy: real text frames in stacked spans. Best default for unicode and ASCII frame animation.';
+    case 'css-var-swap':
+      return 'Strategy: CSS variable frame swap. Keep a stable readable label outside generated content.';
+    case 'pseudo-content':
+      return 'Strategy: pseudo-element content. Compact markup, but the animated glyphs are visual-only.';
+    case 'transform':
+      return 'Strategy: visual transform. The text stays readable while motion is applied around it.';
+    case 'scripted':
+      return 'Strategy: scripted preview. CSS and Tailwind exports provide styling hooks; React owns frame stepping.';
+  }
 }
 
 function getPreviewKey(item: RegistryItem) {

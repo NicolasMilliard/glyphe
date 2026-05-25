@@ -37,12 +37,12 @@ creating, why each output differs, and how to copy usable code confidently.
 
 ## Rendering Strategy Polish
 
-- [ ] Ensure stacked spans output matches stacked spans preview
-- [ ] Ensure CSS variable swap output matches preview intent
-- [ ] Ensure pseudo-content output is visibly different where possible
-- [ ] Ensure transform output uses the actual frames when expected
-- [ ] Ensure scripted preview is clearly labeled as preview-only when needed
-- [ ] Add strategy-specific accessibility notes
+- [x] Ensure stacked spans output matches stacked spans preview
+- [x] Ensure CSS variable swap output matches preview intent
+- [x] Ensure pseudo-content output is visibly different where possible
+- [x] Ensure transform output uses the actual frames when expected
+- [x] Ensure scripted preview is clearly labeled as preview-only when needed
+- [x] Add strategy-specific accessibility notes
 - [ ] Add strategy-specific browser compatibility notes
 
 ## Generated CSS Quality
@@ -120,6 +120,13 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Remove cursor and extra text-effect presets from the generator dropdown
 - [x] Keep broader registry discovery in gallery and CLI planning lists
 - [x] Add a test that locks the generator preset set
+
+## Slice 6: Strategy Export Notes
+
+- [x] Add strategy notes to CSS, React, and Tailwind output panels
+- [x] Clarify that scripted CSS and Tailwind exports are styling hooks
+- [x] Explain generated-content accessibility risk for CSS variable and pseudo-content strategies
+- [x] Keep transform and stacked-span guidance concise
 
 ## Definition Of Done
 
