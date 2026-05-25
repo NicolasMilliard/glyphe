@@ -88,6 +88,7 @@ function GeneratorPage() {
   });
   const tailwindOutput = generateTailwindCss(generatedItem);
   const strategyNote = getStrategyExportNote(generatedItem);
+  const compatibilityNote = getStrategyCompatibilityNote(generatedItem);
 
   return (
     <section className="grid min-w-0 gap-8 sm:gap-10">
@@ -283,6 +284,7 @@ function GeneratorPage() {
                     bestFor="Best for dependency-free primitives and framework-agnostic projects."
                     motionSummary={getMotionSummary(generatedItem)}
                     strategyNote={strategyNote}
+                    compatibilityNote={compatibilityNote}
                   />
                 ),
               },
@@ -297,6 +299,7 @@ function GeneratorPage() {
                     bestFor="Best when you want the markup, class hook, and accessibility label together."
                     motionSummary={getMotionSummary(generatedItem)}
                     strategyNote={strategyNote}
+                    compatibilityNote={compatibilityNote}
                   />
                 ),
               },
@@ -311,6 +314,7 @@ function GeneratorPage() {
                     bestFor="Best when animation tokens live in your Tailwind v4 stylesheet."
                     motionSummary={getMotionSummary(generatedItem)}
                     strategyNote={strategyNote}
+                    compatibilityNote={compatibilityNote}
                   />
                 ),
               },
@@ -437,6 +441,7 @@ function CodePanel({
   bestFor,
   motionSummary,
   strategyNote,
+  compatibilityNote,
 }: {
   value: string;
   label: string;
@@ -444,6 +449,7 @@ function CodePanel({
   bestFor: string;
   motionSummary: string;
   strategyNote: string;
+  compatibilityNote: string;
 }) {
   return (
     <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
@@ -456,6 +462,9 @@ function CodePanel({
           </p>
           <p className="text-muted-foreground text-sm leading-6">
             {strategyNote}
+          </p>
+          <p className="text-muted-foreground text-sm leading-6">
+            {compatibilityNote}
           </p>
         </div>
         <CopyButton
@@ -493,6 +502,21 @@ function getStrategyExportNote(item: RegistryItem) {
       return 'Strategy: visual transform. The text stays readable while motion is applied around it.';
     case 'scripted':
       return 'Strategy: scripted preview. CSS and Tailwind exports provide styling hooks; React owns frame stepping.';
+  }
+}
+
+function getStrategyCompatibilityNote(item: RegistryItem) {
+  switch (item.strategy) {
+    case 'stacked-spans':
+      return 'Check glyph width in Safari, Chrome, and Firefox when frames use unicode or fixed-width ASCII.';
+    case 'css-var-swap':
+      return 'CSS custom property animation works in modern browsers; test generated content with reduced motion.';
+    case 'pseudo-content':
+      return 'Pseudo content is widely supported, but copied HTML still needs a real readable label.';
+    case 'transform':
+      return 'Transforms are broadly supported; test high-contrast themes and reduced motion for jitter effects.';
+    case 'scripted':
+      return 'Scripted effects need JavaScript at runtime; keep reduced-motion and final text fallbacks available.';
   }
 }
 

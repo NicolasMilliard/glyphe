@@ -43,7 +43,7 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Ensure transform output uses the actual frames when expected
 - [x] Ensure scripted preview is clearly labeled as preview-only when needed
 - [x] Add strategy-specific accessibility notes
-- [ ] Add strategy-specific browser compatibility notes
+- [x] Add strategy-specific browser compatibility notes
 
 ## Generated CSS Quality
 
@@ -127,6 +127,13 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Clarify that scripted CSS and Tailwind exports are styling hooks
 - [x] Explain generated-content accessibility risk for CSS variable and pseudo-content strategies
 - [x] Keep transform and stacked-span guidance concise
+
+## Slice 7: Strategy Compatibility Notes
+
+- [x] Add browser/rendering caveats to generator output panels
+- [x] Call out unicode glyph-width testing for stacked spans
+- [x] Call out generated-content and CSS-variable support expectations
+- [x] Call out scripted runtime and reduced-motion fallback needs
 
 ## Definition Of Done
 
