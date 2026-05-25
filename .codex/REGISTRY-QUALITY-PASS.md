@@ -72,9 +72,9 @@ looking at the actual gallery and detail pages.
   - Remove the current `spinner/braille-wave` item to avoid duplicate meaning.
 - [x] Rework `loader/bars`
   - Current animation has a small visual issue.
-- [ ] Add another cursor animation
+- [x] Add another cursor animation
   - Proposed frames: `⡇ ⣿`
-- [ ] Add `3D Glitch` text effect
+- [x] Add `3D Glitch` text effect
   - Red and blue offset effect inspired by old 3D glasses.
 
 ### Rename
@@ -85,7 +85,7 @@ looking at the actual gallery and detail pages.
   - Candidate: `Fireworks`.
 - [x] Rename `spinner/braille-waverows` to `spinner/braille-wave`
   - Candidate: `Wave`.
-- [ ] Rename `spinner/braille-dna`
+- [x] Rename `spinner/braille-dna`
   - Current name should change if kept.
 
 ### Remove
@@ -107,11 +107,11 @@ looking at the actual gallery and detail pages.
 
 ### Open Questions
 
-- [ ] Decide whether reworked `spinner/braille-rain` is strong enough to keep
+- [x] Decide whether reworked `spinner/braille-rain` is strong enough to keep
 - [x] Decide final name for `spinner/braille-fillsweep`
-- [ ] Decide final name for `spinner/braille-dna`
-- [ ] Decide whether `3D Glitch` belongs in `text` or a future `effect` family
-- [ ] Decide slug for the new cursor animation
+- [x] Decide final name for `spinner/braille-dna`
+- [x] Decide whether `3D Glitch` belongs in `text` or a future `effect` family
+- [x] Decide slug for the new cursor animation
 
 ## Registry-Wide Tasks
 
@@ -138,6 +138,15 @@ looking at the actual gallery and detail pages.
 ### Cursor
 
 - [ ] `cursor/block` - Block Cursor
+  - [ ] Keep, remove, or update
+  - [ ] Review name
+  - [ ] Review description
+  - [ ] Review tags
+  - [ ] Review accessibility mode
+  - [ ] Review reduced-motion behavior
+  - [ ] Review rendering strategy
+
+- [ ] `cursor/braille` - Braille Cursor
   - [ ] Keep, remove, or update
   - [ ] Review name
   - [ ] Review description
@@ -236,7 +245,7 @@ looking at the actual gallery and detail pages.
 - [ ] `spinner/braille-rain` - Braille Rain
 - [ ] `spinner/braille-sparkle` - Braille Fireworks
 - [ ] `spinner/braille-wave` - Braille Wave
-- [ ] `spinner/braille-dna` - Braille DNA
+- [ ] `spinner/braille-dna` - Braille Twist
 - [ ] `spinner/braille-matrix` - Braille Matrix
 
 For each braille variant:
@@ -252,6 +261,15 @@ For each braille variant:
 ### Text Effects
 
 - [ ] `text/glitch-soft` - Soft Glitch Text
+  - [ ] Keep, remove, or update
+  - [ ] Review name
+  - [ ] Review description
+  - [ ] Review tags
+  - [ ] Review accessibility mode
+  - [ ] Review reduced-motion behavior
+  - [ ] Review rendering strategy
+
+- [ ] `text/glitch-3d` - 3D Glitch Text
   - [ ] Keep, remove, or update
   - [ ] Review name
   - [ ] Review description

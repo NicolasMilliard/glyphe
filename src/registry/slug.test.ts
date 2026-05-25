@@ -15,6 +15,8 @@ describe('registry slugs', () => {
 
   it('looks up registry items by slug', () => {
     expect(getRegistryItem('spinner/braille')?.name).toBe('Braille Spinner');
+    expect(getRegistryItem('cursor/braille')?.frames).toEqual(['⡇', '⣿']);
+    expect(getRegistryItem('text/glitch-3d')?.name).toBe('3D Glitch Text');
   });
 
   it('requires registry items by slug', () => {

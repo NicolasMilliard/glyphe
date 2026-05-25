@@ -53,6 +53,48 @@ export function TransformRenderer({
     return () => window.clearInterval(interval);
   }, [frames.length, item.loop, paused, reducedMotion, speed]);
 
+  if (item.slug === 'text/glitch-3d') {
+    if (reducedMotion) {
+      return (
+        <span
+          className={cn(
+            'text-foreground inline-block text-3xl font-semibold',
+            monospace && 'font-mono',
+            className,
+          )}
+          style={{ fontFamily, minWidth: `${maxFrameLength}ch` }}
+        >
+          {visibleFrame}
+        </span>
+      );
+    }
+
+    return (
+      <span
+        className={cn(
+          'text-foreground relative inline-block text-3xl font-semibold',
+          monospace && 'font-mono',
+          className,
+        )}
+        style={{ animation, fontFamily, minWidth: `${maxFrameLength}ch` }}
+      >
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 -translate-x-[0.05em] text-cyan-500/80"
+        >
+          {visibleFrame}
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 translate-x-[0.05em] text-red-500/80"
+        >
+          {visibleFrame}
+        </span>
+        <span className="relative">{visibleFrame}</span>
+      </span>
+    );
+  }
+
   return (
     <span
       className={cn(

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
+import { textGlitch3d } from '@/registry/items/text-glitch-3d';
 import { textGlitchSoft } from '@/registry/items/text-glitch-soft';
 import { escapeCssIdentifier, generateCss, getGeneratedCssNames } from './css';
 
@@ -22,6 +23,15 @@ describe('css generator', () => {
 
   it('generates transform CSS', () => {
     expect(generateCss(textGlitchSoft)).toMatchSnapshot();
+  });
+
+  it('generates chromatic 3D glitch CSS', () => {
+    const output = generateCss(textGlitch3d);
+
+    expect(output).toContain('::before');
+    expect(output).toContain('::after');
+    expect(output).toContain('cyan');
+    expect(output).toContain('red');
   });
 
   it('generates status CSS', () => {

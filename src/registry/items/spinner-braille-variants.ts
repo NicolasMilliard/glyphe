@@ -59,8 +59,9 @@ const brailleVariants = [
   {
     name: 'Braille Rain',
     slug: 'braille-rain',
-    description: 'A compact falling braille rain pattern.',
-    frames: ['⠉', '⠒', '⠤', '⠒'],
+    description: 'A compact braille droplet with a brief rest between falls.',
+    frames: ['⠉', '⠒', '⠤', '⠀'],
+    duration: 900,
   },
   {
     name: 'Braille Fireworks',
@@ -77,9 +78,9 @@ const brailleVariants = [
     frames: ['⠁', '⠉', '⠙', '⠹', '⠽', '⠿', '⠾', '⠶', '⠦', '⠆', '⠂'],
   },
   {
-    name: 'Braille DNA',
+    name: 'Braille Twist',
     slug: 'braille-dna',
-    description: 'A twisting braille loop inspired by strand motion.',
+    description: 'A twisting braille loop with alternating diagonal tension.',
     frames: ['⠁', '⠢', '⠔', '⡈', '⢐', '⠢', '⠔', '⡈'],
   },
   {

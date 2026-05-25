@@ -1,4 +1,5 @@
 import { cursorBlock } from './items/cursor-block';
+import { cursorBraille } from './items/cursor-braille';
 import { loaderBars } from './items/loader-bars';
 import { loaderWaveform } from './items/loader-waveform';
 import { progressAscii } from './items/progress-ascii';
@@ -8,6 +9,7 @@ import { spinnerBrailleVariants } from './items/spinner-braille-variants';
 import { spinnerClock } from './items/spinner-clock';
 import { spinnerDots } from './items/spinner-dots';
 import { spinnerLine } from './items/spinner-line';
+import { textGlitch3d } from './items/text-glitch-3d';
 import { textGlitchSoft } from './items/text-glitch-soft';
 import { textScramble } from './items/text-scramble';
 import { textTypewriter } from './items/text-typewriter';
@@ -25,7 +27,9 @@ export const registryItems = assertUniqueSlugs([
   progressAscii,
   progressBlocks,
   cursorBlock,
+  cursorBraille,
   textGlitchSoft,
+  textGlitch3d,
   textTypewriter,
   textScramble,
 ] satisfies RegistryItem[]);

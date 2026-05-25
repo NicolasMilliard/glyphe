@@ -179,6 +179,10 @@ export function generateTransformCss(
 ) {
   const frames = item.frames ?? [item.name];
 
+  if (item.slug === 'text/glitch-3d') {
+    return generate3dGlitchCss(item, names, frames);
+  }
+
   return `${generateCssVariables(item, names)}
 
 .${names.rootClassName} {
@@ -201,6 +205,68 @@ export function generateTransformCss(
 }
 
 ${generateReducedMotionCss(item, names)}`;
+}
+
+function generate3dGlitchCss(
+  item: RegistryItem,
+  names = getGeneratedCssNames(item),
+  frames = item.frames ?? [item.name],
+) {
+  const text = escapeCssString(frames[0] ?? item.name);
+
+  return `${generateCssVariables(item, names)}
+
+.${names.rootClassName} {
+  position: relative;
+  display: inline-block;
+  animation: ${getAnimationDeclaration(item, names, frames.length)};
+  will-change: transform, opacity;
+}
+
+.${names.rootClassName}::before,
+.${names.rootClassName}::after {
+  content: "${text}";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.${names.rootClassName}::before {
+  color: color-mix(in oklch, cyan 75%, currentColor);
+  transform: translateX(-0.05em);
+}
+
+.${names.rootClassName}::after {
+  color: color-mix(in oklch, red 75%, currentColor);
+  transform: translateX(0.05em);
+}
+
+@keyframes ${names.keyframeName} {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  35% {
+    transform: translate(-0.04em, 0);
+    opacity: 0.9;
+  }
+
+  70% {
+    transform: translate(0.04em, -0.02em);
+    opacity: 0.96;
+  }
+}
+
+${generateReducedMotionCss(item, names)}
+
+@media (prefers-reduced-motion: reduce) {
+  .${names.rootClassName}::before,
+  .${names.rootClassName}::after {
+    content: none;
+  }
+}`;
 }
 
 export function generateScriptedPlaceholderCss(
