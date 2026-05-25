@@ -17,7 +17,7 @@ creating, why each output differs, and how to copy usable code confidently.
 
 - [x] Revisit whether preset selection should stay
 - [x] If presets stay, reduce to one strong preset per category
-- [ ] Add clearer empty state for custom frames
+- [x] Add clearer empty state for custom frames
 - [x] Improve handling of frames that contain spaces
 - [x] Make frame parsing rules visible but compact
 - [x] Add validation for invisible or whitespace-only frames
@@ -33,7 +33,7 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Improve Tailwind output heading and description
 - [x] Add a short "best for" note to each output
 - [x] Make copy actions visually primary enough
-- [ ] Consider "Copy all" for multi-file React/Tailwind output
+- [x] Consider "Copy all" for multi-file React/Tailwind output
 
 ## Rendering Strategy Polish
 
@@ -158,11 +158,17 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Confirm generated Tailwind CSS is pasteable into a local stylesheet
 - [x] Keep future `@glyphe/tailwind` package boundary as thin helpers over generator functions
 
+## Slice 11: Generator Completion
+
+- [x] Add an empty state for blank custom frame input
+- [x] Defer "Copy all" until React/Tailwind exports become multi-file outputs
+- [x] Re-check generator definition of done against tests and output behavior
+
 ## Definition Of Done
 
-- [ ] Preview and exports match for each strategy
-- [ ] Timing, loop, and duration changes affect generated code
-- [ ] Space-containing frames are handled safely
-- [ ] Presets feel curated
-- [ ] Generated code feels small enough to own
-- [ ] Generator tests cover edge cases and strategy differences
+- [x] Preview and exports match for each strategy
+- [x] Timing, loop, and duration changes affect generated code
+- [x] Space-containing frames are handled safely
+- [x] Presets feel curated
+- [x] Generated code feels small enough to own
+- [x] Generator tests cover edge cases and strategy differences

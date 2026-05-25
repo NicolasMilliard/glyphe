@@ -71,6 +71,7 @@ function GeneratorPage() {
     frames,
     duration,
   });
+  const hasFrameInput = framesInput.trim().length > 0;
   const glyphWarnings = getGlyphWarnings(frames);
   const generatedItem = useMemo(
     () =>
@@ -173,6 +174,17 @@ function GeneratorPage() {
                 ? 'Line mode: each non-empty line is one frame, preserving internal spaces.'
                 : 'Space mode: spaces separate frames. Use one frame per line for ASCII bars.'}
             </p>
+            {!hasFrameInput ? (
+              <div className="rounded-glyphe-md border-border bg-background border p-3">
+                <p className="text-foreground text-sm font-medium">
+                  Start with frames, not settings.
+                </p>
+                <p className="text-muted-foreground mt-1 text-sm leading-6">
+                  Paste single glyphs separated by spaces, or switch to one
+                  frame per line for ASCII bars and text reveals.
+                </p>
+              </div>
+            ) : null}
           </div>
 
           <div className="grid min-w-0 gap-4 sm:grid-cols-2">
