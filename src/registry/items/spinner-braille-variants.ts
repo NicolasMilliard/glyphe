@@ -1,5 +1,5 @@
-import { createRegistrySlug } from '../slug';
 import type { RegistryItem } from '../schema';
+import { createRegistrySlug } from '../slug';
 
 type BrailleVariant = {
   name: string;
@@ -15,102 +15,66 @@ const brailleVariants = [
     name: 'Braille Orbit',
     slug: 'braille-orbit',
     description: 'A braille spinner that moves a single dot around the cell.',
-    frames: ['⠁', '⠂', '⠄', '⡀', '⠠', '⠐', '⠈', '⠁'],
-  },
-  {
-    name: 'Braille Breathe',
-    slug: 'braille-breathe',
-    description: 'A soft braille spinner that expands and contracts.',
-    frames: ['⠂', '⠆', '⠇', '⠧', '⠷', '⠿', '⠷', '⠧', '⠇', '⠆'],
-    duration: 1000,
+    frames: ['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'],
   },
   {
     name: 'Braille Snake',
     slug: 'braille-snake',
-    description: 'A braille spinner with a crawling snake-like trail.',
-    frames: ['⠁', '⠃', '⠇', '⠧', '⠷', '⠿', '⠾', '⠼', '⠸', '⠰'],
+    description: 'A zig-zag braille spinner that fills like a moving trail.',
+    frames: ['⠁', '⠉', '⠙', '⠛', '⠟', '⠿', '⠟', '⠛', '⠙', '⠉'],
   },
   {
-    name: 'Braille Fillsweep',
-    slug: 'braille-fillsweep',
+    name: 'Braille Fill Sweep',
+    slug: 'braille-fill-sweep',
     description: 'A compact fill sweep that grows toward a full braille cell.',
     frames: ['⠁', '⠃', '⠇', '⠏', '⠟', '⠿'],
     duration: 700,
   },
   {
-    name: 'Braille Diagonal Swipe',
-    slug: 'braille-diagswipe',
-    description: 'A diagonal braille swipe for subtle loading states.',
-    frames: ['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'],
-  },
-  {
     name: 'Braille Scan',
     slug: 'braille-scan',
     description: 'A scanning braille motion that crosses the cell.',
-    frames: ['⠈', '⠘', '⠸', '⠰', '⠠', '⢀', '⣀', '⡀'],
+    frames: ['⠇', '⠿', '⠸', '⠿'],
   },
   {
     name: 'Braille Pulse',
     slug: 'braille-pulse',
     description: 'A pulsing braille spinner that blooms then recedes.',
-    frames: ['⠂', '⠆', '⠖', '⠶', '⠷', '⠿', '⠷', '⠶', '⠖', '⠆'],
+    frames: ['⠁', '⠛', '⠿', '⣿', '⠿', '⠛', '⠁'],
     duration: 1000,
   },
   {
     name: 'Braille Cascade',
     slug: 'braille-cascade',
     description: 'A cascading braille fill that builds into a solid block.',
-    frames: ['⠁', '⠃', '⠇', '⡇', '⣇', '⣧', '⣷', '⣿'],
-  },
-  {
-    name: 'Braille Columns',
-    slug: 'braille-columns',
-    description: 'A column-weight braille loader with a dense center frame.',
-    frames: ['⡇', '⣇', '⣧', '⣷', '⣿', '⣷', '⣧', '⣇'],
-  },
-  {
-    name: 'Braille Scanline',
-    slug: 'braille-scanline',
-    description: 'A scanline-style braille spinner with sweeping density.',
-    frames: ['⠉', '⠋', '⠛', '⠟', '⠿', '⢿', '⡿', '⣟'],
+    frames: ['⠉', '⠛', '⠿', '⣿'],
   },
   {
     name: 'Braille Checkerboard',
     slug: 'braille-checkerboard',
-    description: 'A checkerboard braille flicker for compact activity states.',
-    frames: ['⠅', '⠪', '⠕', '⠪', '⠅', '⠪'],
-    duration: 700,
+    description: 'A checkerboard braille pulse for compact activity states.',
+    frames: ['⠅', '⠅', '⠪', '⠪', '⠕', '⠕', '⠪', '⠪'],
+    duration: 900,
   },
   {
     name: 'Braille Rain',
     slug: 'braille-rain',
-    description: 'A falling braille droplet animation.',
-    frames: ['⠂', '⠂', '⠆', '⠖', '⠶', '⠦', '⠤', '⠠'],
+    description: 'A compact falling braille rain pattern.',
+    frames: ['⠉', '⠒', '⠤', '⠒'],
   },
   {
-    name: 'Braille Sparkle',
+    name: 'Braille Fireworks',
     slug: 'braille-sparkle',
-    description: 'A light sparkle pattern using sparse braille dots.',
-    frames: ['⠁', '⠂', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠', '⢀'],
-    tags: ['sparkle'],
-  },
-  {
-    name: 'Braille Wave Rows',
-    slug: 'braille-waverows',
-    description: 'A row-based braille wave for subtle terminal motion.',
-    frames: ['⠁', '⠉', '⠙', '⠹', '⠸', '⠰', '⠠', '⠄'],
-  },
-  {
-    name: 'Braille Helix',
-    slug: 'braille-helix',
-    description: 'A braille helix loop with alternating diagonal motion.',
-    frames: ['⠁', '⠃', '⠆', '⠌', '⠘', '⠰', '⢀', '⡀'],
+    description: 'A small braille burst that opens from a single dot.',
+    frames: ['⠁', '⠂', '⠐', '⠨', '⠵', '⠪', '⠐', '⠁'],
+    tags: ['fireworks'],
   },
   {
     name: 'Braille Wave',
     slug: 'braille-wave',
-    description: 'A dense braille wave that rolls across filled cells.',
-    frames: ['⠁', '⠃', '⠇', '⠧', '⠷', '⠯', '⠟', '⠻'],
+    description:
+      'A row-based braille wave that rises and falls through a cell.',
+    frames: ['⠁', '⠉', '⠙', '⠹', '⠽', '⠿', '⠾', '⠶', '⠦', '⠆', '⠂'],
   },
   {
     name: 'Braille DNA',
@@ -119,48 +83,11 @@ const brailleVariants = [
     frames: ['⠁', '⠢', '⠔', '⡈', '⢐', '⠢', '⠔', '⡈'],
   },
   {
-    name: 'Braille Vortex',
-    slug: 'braille-vortex',
-    description: 'A tight braille vortex with a rotating weight shift.',
-    frames: ['⠋', '⠙', '⠚', '⠞', '⠶', '⠦'],
-    duration: 700,
-    tags: ['vortex'],
-  },
-  {
     name: 'Braille Matrix',
     slug: 'braille-matrix',
     description: 'A matrix-like braille fill that resolves into a block.',
     frames: ['⡀', '⣀', '⣄', '⣤', '⣦', '⣶', '⣷', '⣿'],
     tags: ['matrix'],
-  },
-  {
-    name: 'Braille Ping Pong',
-    slug: 'braille-pingpong',
-    description: 'A braille dot that bounces back through its path.',
-    frames: ['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈', '⠐', '⠠'],
-    duration: 1000,
-  },
-  {
-    name: 'Braille Tunnel',
-    slug: 'braille-tunnel',
-    description: 'A dense tunnel loop through heavy braille frames.',
-    frames: ['⠿', '⠷', '⠯', '⠟', '⠻', '⠽', '⠾', '⠿'],
-  },
-  {
-    name: 'Braille Binary',
-    slug: 'braille-binary',
-    description: 'A minimal binary-style braille blink.',
-    frames: ['⠁', '⠈', '⠁', '⠈', '⠁', '⠈'],
-    duration: 600,
-    tags: ['binary'],
-  },
-  {
-    name: 'Braille Ripple',
-    slug: 'braille-ripple',
-    description:
-      'A ripple that expands through a full braille cell and returns.',
-    frames: ['⠁', '⠃', '⠇', '⠧', '⠷', '⠿', '⠷', '⠧', '⠇', '⠃'],
-    duration: 1000,
   },
 ] satisfies BrailleVariant[];
 

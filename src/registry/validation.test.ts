@@ -36,17 +36,30 @@ describe('registry validation', () => {
       item.slug.startsWith('spinner/braille'),
     );
 
-    expect(brailleItems).toHaveLength(24);
+    expect(brailleItems).toHaveLength(13);
     expect(getRegistryItem('spinner/braille-orbit')?.frames).toEqual([
       '⠁',
       '⠂',
       '⠄',
       '⡀',
+      '⢀',
       '⠠',
       '⠐',
       '⠈',
-      '⠁',
     ]);
-    expect(getRegistryItem('spinner/braille-ripple')?.frames).toContain('⠿');
+    expect(getRegistryItem('spinner/braille-wave')?.frames).toEqual([
+      '⠁',
+      '⠉',
+      '⠙',
+      '⠹',
+      '⠽',
+      '⠿',
+      '⠾',
+      '⠶',
+      '⠦',
+      '⠆',
+      '⠂',
+    ]);
+    expect(getRegistryItem('spinner/braille-ripple')).toBeUndefined();
   });
 });

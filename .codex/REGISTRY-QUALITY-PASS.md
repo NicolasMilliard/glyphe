@@ -20,16 +20,98 @@ feed the gallery, detail pages, generator presets, docs, and future CLI.
 Use this pass to decide what should be kept, removed, renamed, or adjusted after
 looking at the actual gallery and detail pages.
 
-- [ ] Review every current animation visually in light preview mode
-- [ ] Review every current animation visually in dark preview mode
+- [x] Review every current animation visually in light preview mode
+- [x] Review every current animation visually in dark preview mode
 - [ ] Review every current animation with reduced motion enabled
-- [ ] Mark animations that feel too similar
-- [ ] Mark animations that feel too weak or noisy
-- [ ] Mark animations that need a better name
+- [x] Mark animations that feel too similar
+- [x] Mark animations that feel too weak or noisy
+- [x] Mark animations that need a better name
 - [ ] Mark animations that need a different category
 - [ ] Mark animations that need a different rendering strategy
 - [ ] Mark animations that should become generator-only examples
-- [ ] Mark animations that should be removed before package extraction
+- [x] Mark animations that should be removed before package extraction
+
+## Visual Review Notes - Round 1
+
+### Keep
+
+- [x] Keep `spinner/braille` as-is
+  - Looks good in light and dark themes.
+  - Name is understandable.
+- [x] Keep `spinner/braille-fill-sweep`
+  - Animation feels strong.
+  - Rename because `Fillsweep` is not immediately clear.
+- [x] Keep `spinner/braille-checkerboard`
+  - Animation feels good.
+  - Reduce blinkiness if possible, ideally with interval/rest frames.
+
+### Rework
+
+- [x] Rework `spinner/braille-orbit`
+  - Current loop has a visible jump.
+  - Current frames: `⠁ ⠂ ⠄ ⡀ ⠠ ⠐ ⠈ ⠁`
+  - Add a step between `⡀` and `⠠`, ideally a bottom-right dot.
+- [x] Rework `spinner/braille-snake`
+  - New proposed frames: `⠁ ⠉ ⠙ ⠛ ⠟ ⠿`
+  - Should feel like a snake progressing in a zig-zag.
+- [x] Rework `spinner/braille-scan`
+  - New proposed frames: `⠇ ⠿ ⠸ ⠿`
+- [x] Rework `spinner/braille-pulse`
+  - New proposed frames: `⠁ ⠛ ⠿ ⣿ ⠿ ⠛ ⠁`
+- [x] Rework `spinner/braille-cascade`
+  - New proposed frames: `⠉ ⠛ ⠿ ⣿`
+- [x] Rework `spinner/braille-rain`
+  - Starting idea: `⠉ ⠒ ⠤`
+  - Still needs improvement before keeping.
+- [x] Rework `spinner/braille-sparkle`
+  - Consider renaming to `Fireworks`.
+  - Rework animation so the name and motion match.
+- [x] Rework `spinner/braille-wave`
+  - New proposed frames: `⠁ ⠉ ⠙ ⠹ ⠽ ⠿ ⠾ ⠶ ⠦ ⠆ ⠂`
+  - Rename to `Wave`.
+  - Remove the current `spinner/braille-wave` item to avoid duplicate meaning.
+- [x] Rework `loader/bars`
+  - Current animation has a small visual issue.
+- [ ] Add another cursor animation
+  - Proposed frames: `⡇ ⣿`
+- [ ] Add `3D Glitch` text effect
+  - Red and blue offset effect inspired by old 3D glasses.
+
+### Rename
+
+- [x] Rename `spinner/braille-fillsweep` to `spinner/braille-fill-sweep`
+  - Animation is good, name is not clear enough.
+- [x] Rename `spinner/braille-sparkle`
+  - Candidate: `Fireworks`.
+- [x] Rename `spinner/braille-waverows` to `spinner/braille-wave`
+  - Candidate: `Wave`.
+- [ ] Rename `spinner/braille-dna`
+  - Current name should change if kept.
+
+### Remove
+
+- [x] Remove `spinner/braille-breathe`
+  - Name feels weird.
+  - Use case is not obvious.
+- [x] Remove `spinner/braille-diagswipe`
+- [x] Remove `spinner/braille-columns`
+- [x] Remove `spinner/braille-scanline`
+- [x] Remove `spinner/braille-helix`
+- [x] Remove `spinner/braille-wave`
+  - Replace with renamed/reworked `spinner/braille-waverows`.
+- [x] Remove `spinner/braille-vortex`
+- [x] Remove `spinner/braille-pingpong`
+- [x] Remove `spinner/braille-tunnel`
+- [x] Remove `spinner/braille-binary`
+- [x] Remove `spinner/braille-ripple`
+
+### Open Questions
+
+- [ ] Decide whether reworked `spinner/braille-rain` is strong enough to keep
+- [x] Decide final name for `spinner/braille-fillsweep`
+- [ ] Decide final name for `spinner/braille-dna`
+- [ ] Decide whether `3D Glitch` belongs in `text` or a future `effect` family
+- [ ] Decide slug for the new cursor animation
 
 ## Registry-Wide Tasks
 
@@ -145,28 +227,17 @@ looking at the actual gallery and detail pages.
 ### Braille Spinner Variants
 
 - [ ] `spinner/braille-orbit` - Braille Orbit
-- [ ] `spinner/braille-breathe` - Braille Breathe
 - [ ] `spinner/braille-snake` - Braille Snake
-- [ ] `spinner/braille-fillsweep` - Braille Fillsweep
-- [ ] `spinner/braille-diagswipe` - Braille Diagonal Swipe
+- [ ] `spinner/braille-fill-sweep` - Braille Fill Sweep
 - [ ] `spinner/braille-scan` - Braille Scan
 - [ ] `spinner/braille-pulse` - Braille Pulse
 - [ ] `spinner/braille-cascade` - Braille Cascade
-- [ ] `spinner/braille-columns` - Braille Columns
-- [ ] `spinner/braille-scanline` - Braille Scanline
 - [ ] `spinner/braille-checkerboard` - Braille Checkerboard
 - [ ] `spinner/braille-rain` - Braille Rain
-- [ ] `spinner/braille-sparkle` - Braille Sparkle
-- [ ] `spinner/braille-waverows` - Braille Wave Rows
-- [ ] `spinner/braille-helix` - Braille Helix
+- [ ] `spinner/braille-sparkle` - Braille Fireworks
 - [ ] `spinner/braille-wave` - Braille Wave
 - [ ] `spinner/braille-dna` - Braille DNA
-- [ ] `spinner/braille-vortex` - Braille Vortex
 - [ ] `spinner/braille-matrix` - Braille Matrix
-- [ ] `spinner/braille-pingpong` - Braille Ping Pong
-- [ ] `spinner/braille-tunnel` - Braille Tunnel
-- [ ] `spinner/braille-binary` - Braille Binary
-- [ ] `spinner/braille-ripple` - Braille Ripple
 
 For each braille variant:
 
