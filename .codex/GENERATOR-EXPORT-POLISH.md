@@ -69,9 +69,9 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Confirm Tailwind v4 output shape
 - [x] Confirm utility naming
 - [x] Confirm theme token naming
-- [ ] Confirm example class usage
-- [ ] Confirm compatibility with local user-owned CSS files
-- [ ] Decide how future `@glyphe/tailwind` package should expose helpers
+- [x] Confirm example class usage
+- [x] Confirm compatibility with local user-owned CSS files
+- [x] Decide how future `@glyphe/tailwind` package should expose helpers
 
 ## Slice 1: Tailwind Export Shape
 
@@ -150,6 +150,13 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Render stable status labels only when `decorative` is false
 - [x] Hide recommended moving frames from assistive tech
 - [x] Keep React output separate from CSS and point users to the generated CSS media query
+
+## Slice 10: Generated Tailwind Quality
+
+- [x] Show Tailwind class usage beside the generated output without adding copied comments
+- [x] Sanitize Tailwind utility and animation token overrides through generator names
+- [x] Confirm generated Tailwind CSS is pasteable into a local stylesheet
+- [x] Keep future `@glyphe/tailwind` package boundary as thin helpers over generator functions
 
 ## Definition Of Done
 

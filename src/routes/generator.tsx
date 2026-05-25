@@ -16,7 +16,10 @@ import {
   type FrameValidationMessage,
 } from '@/generator/frames';
 import { generateReactComponent } from '@/generator/react';
-import { generateTailwindCss } from '@/generator/tailwind';
+import {
+  generateTailwindClassNameExample,
+  generateTailwindCss,
+} from '@/generator/tailwind';
 import { routeMetadata } from '@/lib/routes';
 import {
   getUnicodeCompatibilityGuidance,
@@ -87,6 +90,7 @@ function GeneratorPage() {
     componentName: 'GeneratedGlypheAnimation',
   });
   const tailwindOutput = generateTailwindCss(generatedItem);
+  const tailwindUsage = generateTailwindClassNameExample(generatedItem);
   const strategyNote = getStrategyExportNote(generatedItem);
   const compatibilityNote = getStrategyCompatibilityNote(generatedItem);
 
@@ -315,6 +319,7 @@ function GeneratorPage() {
                     motionSummary={getMotionSummary(generatedItem)}
                     strategyNote={strategyNote}
                     compatibilityNote={compatibilityNote}
+                    usageExample={tailwindUsage}
                   />
                 ),
               },
@@ -442,6 +447,7 @@ function CodePanel({
   motionSummary,
   strategyNote,
   compatibilityNote,
+  usageExample,
 }: {
   value: string;
   label: string;
@@ -450,6 +456,7 @@ function CodePanel({
   motionSummary: string;
   strategyNote: string;
   compatibilityNote: string;
+  usageExample?: string;
 }) {
   return (
     <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
@@ -466,6 +473,11 @@ function CodePanel({
           <p className="text-muted-foreground text-sm leading-6">
             {compatibilityNote}
           </p>
+          {usageExample ? (
+            <p className="text-muted-foreground font-mono text-xs">
+              Use: {usageExample}
+            </p>
+          ) : null}
         </div>
         <CopyButton
           value={value}

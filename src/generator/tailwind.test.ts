@@ -18,6 +18,19 @@ describe('tailwind generator', () => {
     });
   });
 
+  it('sanitizes Tailwind name overrides', () => {
+    expect(
+      getTailwindNames(spinnerBraille, {
+        utilityName: '.Custom Spinner!',
+        animationName: 'Custom Frames!',
+      }),
+    ).toEqual({
+      utilityClassName: 'custom-spinner',
+      keyframeName: 'custom-frames',
+      animationToken: 'custom-spinner',
+    });
+  });
+
   it('generates @theme animation output', () => {
     expect(generateTailwindTheme(spinnerBraille)).toMatchSnapshot();
   });
@@ -38,10 +51,28 @@ describe('tailwind generator', () => {
     );
   });
 
+  it('generates className examples from sanitized utility names', () => {
+    expect(
+      generateTailwindClassNameExample(spinnerBraille, {
+        utilityName: '.Custom Spinner!',
+      }),
+    ).toBe('className="custom-spinner"');
+  });
+
   it('uses the Tailwind animation token in the generated utility', () => {
     expect(generateTailwindCss(spinnerBraille)).toContain(
       'animation: var(--animate-spinner-braille);',
     );
+  });
+
+  it('keeps Tailwind output pasteable into user-owned CSS files', () => {
+    const output = generateTailwindCss(spinnerBraille);
+
+    expect(output).toContain('@theme');
+    expect(output).toContain('.glyphe-spinner-braille');
+    expect(output).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(output).not.toContain('import ');
+    expect(output).not.toContain('@plugin');
   });
 
   it('preserves CSS variable swap keyframes in Tailwind output', () => {
