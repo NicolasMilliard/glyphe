@@ -100,7 +100,7 @@ function createBrailleVariant(variant: BrailleVariant): RegistryItem {
     slug: createRegistrySlug('spinner', variant.slug),
     category: 'spinner',
     description: variant.description,
-    tags: ['spinner', 'braille', 'loading', 'unicode', ...(variant.tags ?? [])],
+    tags: ['spinner', 'braille', 'loading', ...(variant.tags ?? [])],
     frames: variant.frames,
     duration: variant.duration ?? 800,
     timing: 'steps',

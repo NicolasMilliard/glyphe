@@ -22,6 +22,10 @@ export const spinnerLine = {
     requiresMonospace: true,
     unicodeSensitive: false,
     supportsCssOnly: true,
+    glyphWidth: 'single',
+    unicodeRisk: 'low',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

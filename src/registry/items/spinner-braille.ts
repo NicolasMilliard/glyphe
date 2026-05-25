@@ -6,7 +6,7 @@ export const spinnerBraille = {
   slug: createRegistrySlug('spinner', 'braille'),
   category: 'spinner',
   description: 'A compact braille-frame spinner with stable monospace rhythm.',
-  tags: ['spinner', 'braille', 'loading', 'unicode'],
+  tags: ['spinner', 'braille', 'loading'],
   frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
   duration: 800,
   timing: 'steps',
@@ -22,6 +22,10 @@ export const spinnerBraille = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'single',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

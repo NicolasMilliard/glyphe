@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { getRegistryItem, requireRegistryItem } from './index';
+import {
+  firstClassCliInstallSlugs,
+  generatorPresetSlugs,
+  getGeneratorPresets,
+} from './presets';
 import { createRegistrySlug, slugify } from './slug';
 
 describe('registry slugs', () => {
@@ -27,5 +32,19 @@ describe('registry slugs', () => {
     expect(() => requireRegistryItem('spinner/missing')).toThrow(
       'Registry item not found: spinner/missing',
     );
+  });
+
+  it('keeps curated preset slugs resolvable', () => {
+    for (const slug of generatorPresetSlugs) {
+      expect(getRegistryItem(slug)).toBeDefined();
+    }
+
+    for (const slug of firstClassCliInstallSlugs) {
+      expect(getRegistryItem(slug)).toBeDefined();
+    }
+
+    expect(getGeneratorPresets().map((item) => item.slug)).toEqual([
+      ...generatorPresetSlugs,
+    ]);
   });
 });

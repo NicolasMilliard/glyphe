@@ -6,7 +6,7 @@ export const loaderBars = {
   slug: createRegistrySlug('loader', 'bars'),
   category: 'loader',
   description: 'A compact three-bar loader with stable block-height frames.',
-  tags: ['loader', 'bars', 'loading', 'unicode'],
+  tags: ['loader', 'bars', 'loading', 'blocks'],
   frames: ['▁▃▅', '▃▅▇', '▅▇▅', '▇▅▃', '▅▃▁', '▃▁▃'],
   duration: 850,
   timing: 'steps',
@@ -22,6 +22,10 @@ export const loaderBars = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'multi',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

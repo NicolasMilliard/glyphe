@@ -22,6 +22,10 @@ export const progressAscii = {
     requiresMonospace: true,
     unicodeSensitive: false,
     supportsCssOnly: true,
+    glyphWidth: 'multi',
+    unicodeRisk: 'low',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

@@ -5,8 +5,8 @@ export const progressBlocks = {
   name: 'Block Progress',
   slug: createRegistrySlug('progress', 'blocks'),
   category: 'progress',
-  description: 'A unicode block progress indicator with fixed-width frames.',
-  tags: ['progress', 'blocks', 'unicode', 'bar'],
+  description: 'A block glyph progress indicator with fixed-width frames.',
+  tags: ['progress', 'blocks', 'bar'],
   frames: ['░░░░░', '█░░░░', '██░░░', '███░░', '████░', '█████'],
   duration: 1400,
   timing: 'steps',
@@ -22,6 +22,10 @@ export const progressBlocks = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'multi',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

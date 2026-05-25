@@ -19,7 +19,7 @@ describe('unicode compatibility helpers', () => {
   it('infers low-risk ASCII progress compatibility', () => {
     expect(getUnicodeCompatibilityGuidance(progressAscii)).toMatchObject({
       glyphWidth: 'multi',
-      unicodeRisk: 'medium',
+      unicodeRisk: 'low',
       emojiRisk: 'none',
       recommendedFontStack: 'monospace',
     });
@@ -38,6 +38,11 @@ describe('unicode compatibility helpers', () => {
     const guidance = getUnicodeCompatibilityGuidance({
       ...spinnerBraille,
       frames: ['✨', 'e\u0301'],
+      compatibility: {
+        requiresMonospace: true,
+        unicodeSensitive: true,
+        supportsCssOnly: true,
+      },
     });
 
     expect(guidance.glyphWidth).toBe('variable');

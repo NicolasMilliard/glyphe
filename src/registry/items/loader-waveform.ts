@@ -5,8 +5,8 @@ export const loaderWaveform = {
   name: 'Waveform Loader',
   slug: createRegistrySlug('loader', 'waveform'),
   category: 'loader',
-  description: 'A text waveform loader using block-height unicode frames.',
-  tags: ['loader', 'waveform', 'audio', 'unicode'],
+  description: 'A text waveform loader using block-height glyph frames.',
+  tags: ['loader', 'waveform', 'audio', 'blocks', 'loading'],
   frames: [
     '▁▂▃▄▅▆',
     '▂▃▄▅▆▅',
@@ -33,6 +33,10 @@ export const loaderWaveform = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'multi',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

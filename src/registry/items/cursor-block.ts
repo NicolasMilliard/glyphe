@@ -21,6 +21,10 @@ export const cursorBlock = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'single',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

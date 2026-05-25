@@ -25,6 +25,7 @@ import {
   type RegistryItem,
   type RenderingStrategy,
 } from '@/registry';
+import { getGeneratorPresets } from '@/registry/presets';
 import { renderingStrategies } from '@/registry/schema';
 
 export const Route = createFileRoute('/generator')({
@@ -37,19 +38,7 @@ const strategyOptions = renderingStrategies.map((strategy) => ({
   value: strategy,
 }));
 const customPresetValue = 'custom';
-const curatedPresetSlugs = [
-  'spinner/braille',
-  'loader/waveform',
-  'progress/ascii',
-  'text/typewriter',
-  'text/scramble',
-  'text/glitch-soft',
-  'matrix/rain',
-  'cursor/block',
-];
-const curatedPresets = registryItems.filter((item) =>
-  curatedPresetSlugs.includes(item.slug),
-);
+const curatedPresets = getGeneratorPresets();
 
 function GeneratorPage() {
   const metadata = routeMetadata.generator;

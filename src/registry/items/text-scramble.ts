@@ -22,6 +22,10 @@ export const textScramble = {
     requiresMonospace: true,
     unicodeSensitive: true,
     supportsCssOnly: false,
+    glyphWidth: 'multi',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

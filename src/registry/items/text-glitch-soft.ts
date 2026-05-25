@@ -21,6 +21,10 @@ export const textGlitchSoft = {
     requiresMonospace: false,
     unicodeSensitive: false,
     supportsCssOnly: true,
+    glyphWidth: 'multi',
+    unicodeRisk: 'low',
+    emojiRisk: 'none',
+    recommendedFontStack: 'system',
   },
   options: {
     speed: {

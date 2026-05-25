@@ -20,6 +20,10 @@ export const textTypewriter = {
     requiresMonospace: false,
     unicodeSensitive: false,
     supportsCssOnly: false,
+    glyphWidth: 'multi',
+    unicodeRisk: 'low',
+    emojiRisk: 'none',
+    recommendedFontStack: 'system',
   },
   options: {
     speed: {

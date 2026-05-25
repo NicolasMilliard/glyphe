@@ -22,6 +22,10 @@ export const spinnerDots = {
     requiresMonospace: true,
     unicodeSensitive: false,
     supportsCssOnly: true,
+    glyphWidth: 'variable',
+    unicodeRisk: 'low',
+    emojiRisk: 'none',
+    recommendedFontStack: 'monospace',
   },
   options: {
     speed: {

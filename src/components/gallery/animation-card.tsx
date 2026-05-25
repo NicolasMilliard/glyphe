@@ -97,8 +97,12 @@ function getCardBadges(item: RegistryItem) {
     badges.push('Braille');
   } else if (item.tags.includes('ascii')) {
     badges.push('ASCII');
-  } else if (item.tags.includes('unicode')) {
-    badges.push('Unicode');
+  } else if (item.tags.includes('blocks')) {
+    badges.push('Blocks');
+  } else if (item.tags.includes('symbol')) {
+    badges.push('Symbol');
+  } else if (item.tags.includes('chromatic')) {
+    badges.push('Chromatic');
   }
 
   if (item.compatibility.supportsCssOnly) {

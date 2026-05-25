@@ -5,8 +5,8 @@ export const spinnerClock = {
   name: 'Clock Spinner',
   slug: createRegistrySlug('spinner', 'clock'),
   category: 'spinner',
-  description: 'A unicode clock spinner for status and waiting states.',
-  tags: ['spinner', 'clock', 'loading', 'unicode'],
+  description: 'A compact clock spinner for status and waiting states.',
+  tags: ['spinner', 'clock', 'loading', 'symbol'],
   frames: ['◴', '◷', '◶', '◵'],
   duration: 700,
   timing: 'steps',
@@ -22,6 +22,10 @@ export const spinnerClock = {
     requiresMonospace: false,
     unicodeSensitive: true,
     supportsCssOnly: true,
+    glyphWidth: 'single',
+    unicodeRisk: 'medium',
+    emojiRisk: 'none',
+    recommendedFontStack: 'system',
   },
   options: {
     speed: {

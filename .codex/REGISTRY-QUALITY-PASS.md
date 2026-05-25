@@ -128,23 +128,44 @@ looking at the actual gallery and detail pages.
 
 ## Registry-Wide Tasks
 
-- [ ] Normalize animation naming rules
-- [ ] Normalize slug naming rules
-- [ ] Normalize family naming rules
-- [ ] Normalize category usage
-- [ ] Normalize tags used for filtering
-- [ ] Replace broad `unicode` tags with more specific tags where possible
-- [ ] Decide whether `decorative` belongs in metadata, UI, or nowhere
-- [ ] Audit every description for clarity and usefulness
-- [ ] Audit every accessibility label
-- [ ] Audit every reduced-motion mode
-- [ ] Audit every recommended font stack
-- [ ] Audit every `requiresMonospace` value
-- [ ] Audit every duration and timing value
-- [ ] Audit every rendering strategy
-- [ ] Audit every generated CSS variable option
-- [ ] Decide which animations should appear as generator presets
-- [ ] Decide which animations should be first-class CLI install targets
+- [x] Normalize animation naming rules
+- [x] Normalize slug naming rules
+- [x] Normalize family naming rules
+- [x] Normalize category usage
+- [x] Normalize tags used for filtering
+- [x] Replace broad `unicode` tags with more specific tags where possible
+- [x] Decide whether `decorative` belongs in metadata, UI, or nowhere
+- [x] Audit every description for clarity and usefulness
+- [x] Audit every accessibility label
+- [x] Audit every reduced-motion mode
+- [x] Audit every recommended font stack
+- [x] Audit every `requiresMonospace` value
+- [x] Audit every duration and timing value
+- [x] Audit every rendering strategy
+- [x] Audit every generated CSS variable option
+- [x] Decide which animations should appear as generator presets
+- [x] Decide which animations should be first-class CLI install targets
+
+### Registry-Wide Decisions
+
+- [x] Names should use readable display labels and avoid repeating the category
+      except where the phrase is naturally understood.
+- [x] Slugs stay stable once published; `spinner/braille-dna` keeps its slug but
+      displays as `Braille Twist`.
+- [x] Family remains tag-derived for now; no schema field is added until the
+      taxonomy needs more than `braille`, `ascii`, `blocks`, `glitch`, etc.
+- [x] Categories remain `spinner`, `loader`, `progress`, `cursor`, and `text`
+      for the retained items.
+- [x] Tags should describe discovery traits, not broad implementation buckets;
+      broad `unicode` tags were replaced with `braille`, `blocks`, `symbol`, or
+      other concrete tags.
+- [x] `decorative` stays in accessibility metadata because generated React and
+      detail guidance need it.
+- [x] Every item now carries explicit glyph width, Unicode risk, emoji risk, and
+      recommended font stack metadata.
+- [x] Generator presets are curated in `src/registry/presets.ts`.
+- [x] First-class future CLI install targets are curated in
+      `src/registry/presets.ts`.
 
 ## Current Animation Checklist
 
