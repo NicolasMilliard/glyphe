@@ -25,11 +25,7 @@ import {
   hasNonAsciiCharacter,
 } from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
-import {
-  registryItems,
-  type RegistryItem,
-  type RenderingStrategy,
-} from '@/registry';
+import { type RegistryItem, type RenderingStrategy } from '@/registry';
 import { getGeneratorPresets } from '@/registry/presets';
 import { renderingStrategies } from '@/registry/schema';
 
@@ -64,7 +60,7 @@ function GeneratorPage() {
     () =>
       presetSlug === customPresetValue
         ? undefined
-        : registryItems.find((item) => item.slug === presetSlug),
+        : curatedPresets.find((item) => item.slug === presetSlug),
     [presetSlug],
   );
   const validationMessages = validateFrameInput({
@@ -124,7 +120,7 @@ function GeneratorPage() {
                   return;
                 }
 
-                const nextPreset = registryItems.find(
+                const nextPreset = curatedPresets.find(
                   (item) => item.slug === nextPresetSlug,
                 );
 
@@ -147,8 +143,8 @@ function GeneratorPage() {
               ))}
             </Select>
             <p className="text-muted-foreground text-sm">
-              Load one representative primitive, edit it, then export the
-              modified output.
+              Five teaching presets. Use the gallery when you want to browse
+              every registry item.
             </p>
           </div>
 
@@ -265,7 +261,10 @@ function GeneratorPage() {
         </section>
 
         <section className="grid min-w-0 gap-5">
-          <AnimationPreview item={generatedItem} />
+          <AnimationPreview
+            key={getPreviewKey(generatedItem)}
+            item={generatedItem}
+          />
 
           <Tabs
             label="Generated output"
@@ -406,11 +405,25 @@ function loadPreset(
     setStrategy: (value: RenderingStrategy) => void;
   },
 ) {
-  setters.setFramesInput((item.frames ?? [item.name]).join('\n'));
+  setters.setFramesInput(getPresetFramesInput(item));
   setters.setDuration(item.duration);
   setters.setTiming(item.timing);
   setters.setLoop(item.loop);
   setters.setStrategy(item.strategy);
+}
+
+function getPresetFramesInput(item: RegistryItem) {
+  if (item.slug === 'text/typewriter') {
+    return getTypewriterFrames('Glyphe').join('\n');
+  }
+
+  return (item.frames ?? [item.name]).join('\n');
+}
+
+function getTypewriterFrames(text: string) {
+  return Array.from({ length: text.length }, (_value, index) =>
+    text.slice(0, index + 1),
+  );
 }
 
 function CodePanel({
@@ -457,6 +470,17 @@ function getMotionSummary(item: RegistryItem) {
   const loop = item.loop ? 'loops forever' : 'runs once and holds';
 
   return `${item.duration}ms · ${timing} · ${loop}`;
+}
+
+function getPreviewKey(item: RegistryItem) {
+  return [
+    item.slug,
+    item.strategy,
+    item.duration,
+    item.timing,
+    item.loop,
+    item.frames?.join('\u0000'),
+  ].join('|');
 }
 
 function ValidationMessageList({

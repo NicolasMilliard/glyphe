@@ -15,8 +15,8 @@ creating, why each output differs, and how to copy usable code confidently.
 
 ## Generator UX
 
-- [ ] Revisit whether preset selection should stay
-- [ ] If presets stay, reduce to one strong preset per category
+- [x] Revisit whether preset selection should stay
+- [x] If presets stay, reduce to one strong preset per category
 - [ ] Add clearer empty state for custom frames
 - [x] Improve handling of frames that contain spaces
 - [x] Make frame parsing rules visible but compact
@@ -106,13 +106,20 @@ creating, why each output differs, and how to copy usable code confidently.
 
 ## Preset Strategy
 
-- [ ] Keep one braille spinner preset
-- [ ] Keep one ASCII spinner preset
-- [ ] Keep one loader preset
-- [ ] Keep one progress preset
-- [ ] Keep one text effect preset
-- [ ] Consider hiding dense braille variants from presets
-- [ ] Keep full registry available in gallery instead of generator dropdown
+- [x] Keep one braille spinner preset
+- [x] Keep one ASCII spinner preset
+- [x] Keep one loader preset
+- [x] Keep one progress preset
+- [x] Keep one text effect preset
+- [x] Consider hiding dense braille variants from presets
+- [x] Keep full registry available in gallery instead of generator dropdown
+
+## Slice 5: Curated Presets
+
+- [x] Keep generator presets as five teaching examples
+- [x] Remove cursor and extra text-effect presets from the generator dropdown
+- [x] Keep broader registry discovery in gallery and CLI planning lists
+- [x] Add a test that locks the generator preset set
 
 ## Definition Of Done
 

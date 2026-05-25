@@ -5,9 +5,7 @@ export const generatorPresetSlugs = [
   'spinner/line',
   'loader/waveform',
   'progress/ascii',
-  'cursor/braille',
   'text/typewriter',
-  'text/glitch-3d',
 ] as const;
 
 export const firstClassCliInstallSlugs = [

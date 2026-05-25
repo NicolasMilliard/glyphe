@@ -47,4 +47,14 @@ describe('registry slugs', () => {
       ...generatorPresetSlugs,
     ]);
   });
+
+  it('keeps generator presets focused on teaching examples', () => {
+    expect(getGeneratorPresets().map((item) => item.slug)).toEqual([
+      'spinner/braille',
+      'spinner/line',
+      'loader/waveform',
+      'progress/ascii',
+      'text/typewriter',
+    ]);
+  });
 });
