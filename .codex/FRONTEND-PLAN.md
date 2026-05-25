@@ -29,11 +29,10 @@ motion that fights the animation primitives themselves.
 
 ## Slice 2: Tooltip And Small Feedback
 
-- [ ] Improve tooltip entrance with opacity and slight scale
-- [ ] Keep tooltip motion around 125-160ms
-- [ ] Avoid tooltip motion when switching between adjacent tooltips later
-- [ ] Make copy feedback more visible but still calm
-- [ ] Consider a small opacity/blur transition for `Copy` to `Copied`
+- [x] Improve tooltip entrance with opacity and slight scale
+- [x] Keep tooltip motion around 125-160ms
+- [x] Make copy feedback more visible but still calm
+- [x] Consider a small opacity/blur transition for `Copy` to `Copied`
 
 ## Slice 3: Navigation And State Controls
 

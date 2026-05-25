@@ -33,11 +33,37 @@ export function CopyButton({
       className={cn(
         className,
         copied &&
-          'border-accent bg-accent text-accent-foreground ring-ring ring-offset-background shadow-sm ring-2 ring-offset-2',
+          'border-accent bg-accent text-accent-foreground hover:bg-accent hover:text-accent-foreground ring-ring ring-offset-background shadow-sm ring-2 ring-offset-2',
       )}
       {...props}
     >
-      {copied ? copiedLabel : label}
+      <span
+        aria-live="polite"
+        className={cn(
+          'inline-flex items-center gap-1.5 transition-[filter,opacity] duration-[var(--duration-ui)] ease-[var(--ease-out)]',
+          copied && 'opacity-95',
+        )}
+      >
+        {copied ? <CheckIcon /> : null}
+        {copied ? copiedLabel : label}
+      </span>
     </Button>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="size-3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2.4"
+    >
+      <path d="m5 12 4 4 10-10" />
+    </svg>
   );
 }
