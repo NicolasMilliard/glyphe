@@ -2,6 +2,7 @@ import type { RegistryItem } from '@/registry';
 import {
   generateCss,
   generateReducedMotionCss,
+  getAnimationDeclaration,
   getAnimationTimingFunction,
   getGeneratedCssNames,
 } from './css';
@@ -38,11 +39,6 @@ export function generateTailwindTheme(
 
   return `@theme {
   --animate-${names.animationToken}: ${names.keyframeName} var(--glyphe-duration, ${item.duration}ms) ${getAnimationTimingFunction(item, steps)} ${iteration}${fillMode};
-
-${generateTailwindKeyframes(item, names)
-  .split('\n')
-  .map((line) => (line.length > 0 ? `  ${line}` : line))
-  .join('\n')}
 }`;
 }
 
@@ -50,6 +46,14 @@ export function generateTailwindUtilityCss(
   item: RegistryItem,
   names = getTailwindNames(item),
 ) {
+  const animationDeclaration = getAnimationDeclaration(
+    item,
+    {
+      rootClassName: names.utilityClassName,
+      keyframeName: names.keyframeName,
+    },
+    item.frames?.length ?? 1,
+  );
   const css = generateCss(item, {
     className: names.utilityClassName,
     keyframeName: names.keyframeName,
@@ -63,6 +67,10 @@ export function generateTailwindUtilityCss(
       }),
       '',
     )
+    .replaceAll(
+      `animation: ${animationDeclaration};`,
+      `animation: var(--animate-${names.animationToken});`,
+    )
     .trim();
 }
 
@@ -72,9 +80,7 @@ export function generateTailwindClassNameExample(
 ) {
   const names = getTailwindNames(item, options);
 
-  return item.strategy === 'transform'
-    ? `className="${names.utilityClassName} animate-${names.animationToken}"`
-    : `className="${names.utilityClassName}"`;
+  return `className="${names.utilityClassName}"`;
 }
 
 export function generateTailwindUtilityExample(
@@ -100,45 +106,4 @@ export function getTailwindNames(
     keyframeName: generated.keyframeName,
     animationToken: generated.rootClassName.replace(/^glyphe-/, ''),
   };
-}
-
-function generateTailwindKeyframes(
-  item: RegistryItem,
-  names = getTailwindNames(item),
-) {
-  if (item.strategy === 'transform') {
-    return `@keyframes ${names.keyframeName} {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-
-  50% {
-    transform: translate(0.08em, -0.04em);
-    opacity: 0.82;
-  }
-}`;
-  }
-
-  const frames = item.frames ?? [item.name];
-  const visiblePercent = 100 / frames.length;
-
-  return `@keyframes ${names.keyframeName} {
-  0% {
-    opacity: 1;
-  }
-
-  ${visiblePercent}% {
-    opacity: 1;
-  }
-
-  ${visiblePercent + 0.01}% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}`;
 }

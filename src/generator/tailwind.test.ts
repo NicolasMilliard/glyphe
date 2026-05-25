@@ -34,8 +34,34 @@ describe('tailwind generator', () => {
 
   it('generates className examples', () => {
     expect(generateTailwindClassNameExample(textGlitchSoft)).toBe(
-      'className="glyphe-text-glitch-soft animate-text-glitch-soft"',
+      'className="glyphe-text-glitch-soft"',
     );
+  });
+
+  it('uses the Tailwind animation token in the generated utility', () => {
+    expect(generateTailwindCss(spinnerBraille)).toContain(
+      'animation: var(--animate-spinner-braille);',
+    );
+  });
+
+  it('preserves CSS variable swap keyframes in Tailwind output', () => {
+    const output = generateTailwindCss({
+      ...spinnerBraille,
+      strategy: 'css-var-swap',
+    });
+
+    expect(output).toContain('--glyphe-frame');
+    expect(output).not.toContain('0% {\n    opacity: 1;');
+  });
+
+  it('preserves pseudo-content keyframes in Tailwind output', () => {
+    const output = generateTailwindCss({
+      ...spinnerBraille,
+      strategy: 'pseudo-content',
+    });
+
+    expect(output).toContain('content: "⠋";');
+    expect(output).toContain('animation: var(--animate-spinner-braille);');
   });
 
   it('reflects timing and loop options in @theme output', () => {

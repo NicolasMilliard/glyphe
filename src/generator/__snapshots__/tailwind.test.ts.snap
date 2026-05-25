@@ -3,48 +3,12 @@
 exports[`tailwind generator generates @theme animation output 1`] = `
 "@theme {
   --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
-
-  @keyframes glyphe-spinner-braille-frames {
-    0% {
-      opacity: 1;
-    }
-
-    10% {
-      opacity: 1;
-    }
-
-    10.01% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0;
-    }
-  }
 }"
 `;
 
 exports[`tailwind generator generates Tailwind-friendly CSS 1`] = `
 "@theme {
   --animate-spinner-braille: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
-
-  @keyframes glyphe-spinner-braille-frames {
-    0% {
-      opacity: 1;
-    }
-
-    10% {
-      opacity: 1;
-    }
-
-    10.01% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0;
-    }
-  }
 }
 
 .glyphe-spinner-braille {
@@ -63,7 +27,7 @@ exports[`tailwind generator generates Tailwind-friendly CSS 1`] = `
 .glyphe-spinner-braille > span {
   grid-area: 1 / 1;
   opacity: 0;
-  animation: glyphe-spinner-braille-frames var(--glyphe-duration, 800ms) steps(10, end) infinite;
+  animation: var(--animate-spinner-braille);
 }
 
 .glyphe-spinner-braille > span:nth-child(1) {

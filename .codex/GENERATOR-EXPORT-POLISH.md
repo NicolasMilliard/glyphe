@@ -66,12 +66,20 @@ creating, why each output differs, and how to copy usable code confidently.
 
 ## Generated Tailwind Quality
 
-- [ ] Confirm Tailwind v4 output shape
-- [ ] Confirm utility naming
-- [ ] Confirm theme token naming
+- [x] Confirm Tailwind v4 output shape
+- [x] Confirm utility naming
+- [x] Confirm theme token naming
 - [ ] Confirm example class usage
 - [ ] Confirm compatibility with local user-owned CSS files
 - [ ] Decide how future `@glyphe/tailwind` package should expose helpers
+
+## Slice 1: Tailwind Export Shape
+
+- [x] Keep `@theme` focused on the animation token
+- [x] Make generated utilities consume `var(--animate-*)`
+- [x] Preserve strategy-specific keyframes from the CSS generator
+- [x] Remove extra generated `animate-*` class from examples
+- [x] Add tests for CSS variable swap and pseudo-content Tailwind output
 
 ## Preset Strategy
 
