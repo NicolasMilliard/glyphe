@@ -90,7 +90,7 @@ function AnimationDetailPage() {
           </p>
           <Link
             to="/registry"
-            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground mt-4 inline-flex rounded-glyphe-sm text-sm font-medium underline underline-offset-4"
+            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm mt-4 inline-flex text-sm font-medium underline underline-offset-4"
           >
             Registry metadata
           </Link>
