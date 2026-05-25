@@ -11,7 +11,9 @@ import {
   getUnicodeCompatibilityGuidance,
   previewFontStackOptions,
 } from '@/lib/unicode-compatibility';
+import { getReducedMotionGuidance } from '@/lib/accessibility';
 import type { RecommendedFontStack, RegistryItem } from '@/registry';
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion';
 import { useState } from 'react';
 import { AnimationPreview } from './animation-preview';
 
@@ -23,12 +25,20 @@ export function AnimationPreviewWorkbench({
   item,
 }: AnimationPreviewWorkbenchProps) {
   const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [motionOverride, setMotionOverride] = useState<
+    'motion' | 'reduced' | null
+  >(null);
   const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   const [fontStack, setFontStack] = useState<RecommendedFontStack>(
     getUnicodeCompatibilityGuidance(item).recommendedFontStack,
   );
   const [speed, setSpeed] = useState(item.duration);
+  const reducedMotion =
+    motionOverride === null
+      ? prefersReducedMotion
+      : motionOverride === 'reduced';
+  const reducedMotionGuidance = getReducedMotionGuidance(item);
   const fontFamily = getPreviewFontFamily(fontStack);
   const monospace = fontStack === 'monospace';
 
@@ -104,13 +114,18 @@ export function AnimationPreviewWorkbench({
           <SegmentedControl
             label="Motion mode"
             value={reducedMotion ? 'reduced' : 'motion'}
-            onValueChange={(value) => setReducedMotion(value === 'reduced')}
+            onValueChange={(value) =>
+              setMotionOverride(value === 'reduced' ? 'reduced' : 'motion')
+            }
             items={[
               { label: 'Motion', value: 'motion' },
               { label: 'Reduced', value: 'reduced' },
             ]}
             className="w-fit"
           />
+          <p className="text-muted-foreground max-w-xs text-xs leading-5">
+            {reducedMotionGuidance}
+          </p>
         </div>
 
         <label className="text-muted-foreground grid gap-1.5 text-sm">
@@ -151,6 +166,7 @@ function ThemeToggle({
       <span
         className={cn(
           'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-[var(--duration-ui)] ease-[var(--ease-out)]',
+          'motion-reduce:transition-none',
           dark ? 'translate-x-0' : 'translate-x-10',
         )}
       />

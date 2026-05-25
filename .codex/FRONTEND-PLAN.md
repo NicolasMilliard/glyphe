@@ -68,11 +68,11 @@ motion that fights the animation primitives themselves.
 
 ## Slice 7: Reduced Motion And Accessibility
 
-- [ ] Audit UI transitions under `prefers-reduced-motion`
-- [ ] Keep helpful opacity/color transitions where appropriate
-- [ ] Remove transform-based motion for reduced-motion users
-- [ ] Confirm preview reduced-motion controls match generated guidance
-- [ ] Check focus-visible states on all interactive controls
+- [x] Audit UI transitions under `prefers-reduced-motion`
+- [x] Keep helpful opacity/color transitions where appropriate
+- [x] Remove transform-based motion for reduced-motion users
+- [x] Confirm preview reduced-motion controls match generated guidance
+- [x] Check focus-visible states on all interactive controls
 
 ## Review Checklist
 

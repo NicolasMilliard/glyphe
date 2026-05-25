@@ -158,7 +158,14 @@ body {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .glyphe-pressable,
+  .glyphe-hover-lift {
+    transition-property:
+      color, background-color, border-color, box-shadow, opacity;
   }
 
   .glyphe-pressable:active,
