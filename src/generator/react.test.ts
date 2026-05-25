@@ -16,7 +16,7 @@ describe('react generator', () => {
 
   it('generates decorative accessible label markup', () => {
     expect(generateAccessibleLabelMarkup(spinnerBraille)).toMatchInlineSnapshot(
-      `"{decorative ? <span className="sr-only">{label}</span> : null}"`,
+      `"{decorative ? null : <span className="sr-only" role="status">{label}</span>}"`,
     );
   });
 
@@ -24,6 +24,14 @@ describe('react generator', () => {
     expect(generateReducedMotionNote(progressAscii)).toMatchInlineSnapshot(
       `"// Reduced motion: Prefer a readable static label when reduced motion is requested. Keep the generated CSS media query with this component."`,
     );
+  });
+
+  it('sanitizes generated class name overrides', () => {
+    expect(
+      generateReactComponent(spinnerBraille, {
+        className: '.Custom Spinner!',
+      }),
+    ).toContain("'custom-spinner'");
   });
 
   it('formats generated JSX string literals', () => {
@@ -64,5 +72,21 @@ describe('react generator', () => {
 
   it('generates status components', () => {
     expect(generateReactComponent(progressAscii)).toMatchSnapshot();
+  });
+
+  it('generates status labels without forcing announcements when decorative', () => {
+    const output = generateReactComponent(progressAscii);
+
+    expect(output).toContain(
+      '{decorative ? null : <span className="sr-only" role="status">{label}</span>}',
+    );
+    expect(output).toContain('aria-hidden={decorative ? true : undefined}');
+    expect(output).not.toContain('aria-label={label}');
+  });
+
+  it('hides recommended moving frames from assistive tech', () => {
+    expect(generateReactComponent(spinnerBraille)).toContain(
+      'aria-hidden={true}',
+    );
   });
 });

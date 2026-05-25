@@ -14,9 +14,10 @@ export function SpinnerBrailleAnimation({
 }: SpinnerBrailleAnimationProps) {
   return (
     <>
+      {decorative ? null : <span className="sr-only" role="status">{label}</span>}
       <span
         className={[ 'glyphe-spinner-braille', className ].filter(Boolean).join(' ')}
-        aria-hidden={decorative}
+        aria-hidden={true}
       >
         <span>{'⠋'}</span>
         <span>{'⠙'}</span>
@@ -29,7 +30,6 @@ export function SpinnerBrailleAnimation({
         <span>{'⠇'}</span>
         <span>{'⠏'}</span>
       </span>
-      {decorative ? <span className="sr-only">{label}</span> : null}
     </>
   );
 }
@@ -50,7 +50,8 @@ export function ProgressAsciiAnimation({
   className,
 }: ProgressAsciiAnimationProps) {
   return (
-    <span role="status" aria-label={label}>
+    <>
+      {decorative ? null : <span className="sr-only" role="status">{label}</span>}
       <span
         className={[ 'glyphe-progress-ascii', className ].filter(Boolean).join(' ')}
         aria-hidden={decorative ? true : undefined}
@@ -62,8 +63,7 @@ export function ProgressAsciiAnimation({
         <span>{'[====>]'}</span>
         <span>{'[=====]'}</span>
       </span>
-      {decorative ? null : <span className="sr-only">{label}</span>}
-    </span>
+    </>
   );
 }
 

@@ -58,11 +58,11 @@ creating, why each output differs, and how to copy usable code confidently.
 ## Generated React Quality
 
 - [x] Confirm components are copy/paste friendly
-- [ ] Confirm generated props are minimal and useful
-- [ ] Confirm accessible labels are included where needed
-- [ ] Confirm decorative items can be hidden from assistive tech
-- [ ] Confirm reduced-motion notes align with CSS output
-- [ ] Decide whether generated React should include CSS or import CSS
+- [x] Confirm generated props are minimal and useful
+- [x] Confirm accessible labels are included where needed
+- [x] Confirm decorative items can be hidden from assistive tech
+- [x] Confirm reduced-motion notes align with CSS output
+- [x] Decide whether generated React should include CSS or import CSS
 
 ## Generated Tailwind Quality
 
@@ -142,6 +142,14 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Estimate frame box width by code point instead of UTF-16 length
 - [x] Keep reduced-motion output covered by generator tests
 - [x] Confirm generated CSS does not add unnecessary comments
+
+## Slice 9: Generated React Quality
+
+- [x] Sanitize generated class name overrides through the CSS naming helper
+- [x] Keep React props limited to `label`, `decorative`, and `className`
+- [x] Render stable status labels only when `decorative` is false
+- [x] Hide recommended moving frames from assistive tech
+- [x] Keep React output separate from CSS and point users to the generated CSS media query
 
 ## Definition Of Done
 

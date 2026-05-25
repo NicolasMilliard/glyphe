@@ -15,11 +15,12 @@ export function generateReactComponent(
   options: ReactGeneratorOptions = {},
 ) {
   const componentName = options.componentName ?? getComponentName(item);
-  const rootClassName =
-    options.className ?? getGeneratedCssNames(item).rootClassName;
+  const rootClassName = getGeneratedCssNames(item, {
+    className: options.className,
+  }).rootClassName;
   const frames = item.frames ?? [item.name];
   const label = getScreenReaderLabel(item);
-  const props = generateComponentProps(item);
+  const props = generateComponentProps();
   const markup = generateComponentMarkup(item, {
     componentName,
     rootClassName,
@@ -44,15 +45,7 @@ export function getComponentName(item: RegistryItem) {
   return `${toPascalCase(item.slug)}Animation`;
 }
 
-export function generateComponentProps(item: RegistryItem) {
-  if (item.accessibility.decorative) {
-    return `{
-  label?: string;
-  decorative?: boolean;
-  className?: string;
-}`;
-  }
-
+export function generateComponentProps() {
   return `{
   label?: string;
   decorative?: boolean;
@@ -68,7 +61,7 @@ export function generateStackedSpanMarkup(
   },
 ) {
   const ariaHidden = item.accessibility.ariaHiddenRecommended
-    ? '{decorative}'
+    ? '{true}'
     : '{decorative ? true : undefined}';
   const spans = options.frames
     .map((frame) => `        <span>{${formatJsxString(frame)}}</span>`)
@@ -90,7 +83,7 @@ export function generateSingleElementMarkup(
   },
 ) {
   const ariaHidden = item.accessibility.ariaHiddenRecommended
-    ? '{decorative}'
+    ? '{true}'
     : '{decorative ? true : undefined}';
   const content = options.frame
     ? `\n        {${formatJsxString(options.frame)}}\n      `
@@ -103,8 +96,8 @@ export function generateSingleElementMarkup(
 }
 
 export function generateAccessibleLabelMarkup(item: RegistryItem) {
-  if (item.accessibility.decorative) {
-    return `{decorative ? <span className="sr-only">{label}</span> : null}`;
+  if (needsStatusRole(item)) {
+    return `{decorative ? null : <span className="sr-only" role="status">{label}</span>}`;
   }
 
   return `{decorative ? null : <span className="sr-only">{label}</span>}`;
@@ -129,17 +122,17 @@ function generateComponentMarkup(
   if (item.accessibility.decorative) {
     return `  return (
     <>
-${animatedMarkup}
       ${labelMarkup}
+${animatedMarkup}
     </>
   );`;
   }
 
   return `  return (
-    <span role="status" aria-label={label}>
-${animatedMarkup}
+    <>
       ${labelMarkup}
-    </span>
+${animatedMarkup}
+    </>
   );`;
 }
 
@@ -184,4 +177,8 @@ function escapeStringLiteral(value: string) {
 
 export function formatJsxString(value: string) {
   return `'${escapeStringLiteral(value)}'`;
+}
+
+function needsStatusRole(item: RegistryItem) {
+  return ['loader', 'progress', 'spinner'].includes(item.category);
 }
