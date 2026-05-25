@@ -33,24 +33,33 @@ safe, accessible text animations.
 
 ## Core Pages
 
-- [ ] Introduction
-  - [ ] Explain Glyphe in one paragraph
-  - [ ] Explain copy/paste ownership
-  - [ ] Explain website, generator, registry, and future CLI
+- [x] Introduction
+  - [x] Explain Glyphe in one paragraph
+  - [x] Explain copy/paste ownership
+  - [x] Explain website, generator, registry, and future CLI
 
-- [ ] Installation And Usage
-  - [ ] Explain copy CSS flow
-  - [ ] Explain copy React flow
-  - [ ] Explain copy Tailwind flow
-  - [ ] Explain future CLI flow without promising shipped behavior
+- [x] Installation And Usage
+  - [x] Explain copy CSS flow
+  - [x] Explain copy React flow
+  - [x] Explain copy Tailwind flow
+  - [x] Explain future CLI flow without promising shipped behavior
 
-- [ ] Rendering Strategies
-  - [ ] Explain stacked spans
-  - [ ] Explain CSS variable swap
-  - [ ] Explain pseudo content
-  - [ ] Explain transform effects
-  - [ ] Explain scripted previews versus generated output
-  - [ ] Add strategy selection guidance
+- [x] Rendering Strategies
+  - [x] Explain stacked spans
+  - [x] Explain CSS variable swap
+  - [x] Explain pseudo content
+  - [x] Explain transform effects
+  - [x] Explain scripted previews versus generated output
+  - [x] Add strategy selection guidance
+
+## Slice 2: Usage And Rendering Content
+
+- [x] Add Installation and Usage section
+- [x] Add copy CSS guidance
+- [x] Add copy React guidance
+- [x] Add copy Tailwind guidance
+- [x] Add CLI wording that does not promise shipped behavior
+- [x] Add practical rendering strategy selection guidance
 
 - [ ] Accessibility
   - [ ] Explain decorative animations

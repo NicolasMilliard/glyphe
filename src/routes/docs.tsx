@@ -111,6 +111,31 @@ function DocsPage() {
           </li>
         </ul>
 
+        <h2 id="installation-usage">Installation and usage</h2>
+        <p>
+          Glyphe is currently designed around copying code from the website.
+          Pick an animation in the gallery, inspect the detail page, then copy
+          the output that matches your project.
+        </p>
+        <ul>
+          <li>
+            Copy CSS when you want the smallest dependency-free primitive.
+          </li>
+          <li>
+            Copy React when you want accessible markup and props alongside the
+            CSS pattern.
+          </li>
+          <li>
+            Copy Tailwind when your project keeps animation tokens in a Tailwind
+            v4 stylesheet.
+          </li>
+        </ul>
+        <p>
+          A CLI is planned, but it should preserve the same ownership model:
+          generate ordinary files, place them in your project, and keep the code
+          readable after install.
+        </p>
+
         <h2 id="rendering-strategies">Rendering strategies</h2>
         <p>
           Glyphe supports several rendering strategies because terminal-inspired
@@ -138,6 +163,11 @@ function DocsPage() {
             typewriter and scramble text.
           </li>
         </ul>
+        <p>
+          When in doubt, start with <code>stacked-spans</code> for frame-based
+          glyph animation, <code>transform</code> for visual distortion, and{' '}
+          <code>scripted</code> for effects that need text state over time.
+        </p>
 
         <h2 id="accessibility">Accessibility</h2>
         <p>
@@ -284,6 +314,7 @@ const docsNavItems = [
   { label: 'Introduction', href: '#project-introduction' },
   { label: 'Registry', href: '#registry-concepts' },
   { label: 'Ownership', href: '#copy-paste-ownership' },
+  { label: 'Usage', href: '#installation-usage' },
   { label: 'Rendering', href: '#rendering-strategies' },
   { label: 'Accessibility', href: '#accessibility' },
   { label: 'Unicode', href: '#unicode-rendering' },
@@ -295,15 +326,15 @@ const docsNavItems = [
 const docsNavGroups = [
   {
     label: 'Start',
-    items: docsNavItems.slice(0, 3),
+    items: docsNavItems.slice(0, 4),
   },
   {
     label: 'Use Safely',
-    items: docsNavItems.slice(3, 7),
+    items: docsNavItems.slice(4, 8),
   },
   {
     label: 'Extend',
-    items: docsNavItems.slice(7),
+    items: docsNavItems.slice(8),
   },
 ];
 
