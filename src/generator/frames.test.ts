@@ -34,7 +34,10 @@ describe('frame parser', () => {
         frames: [],
         duration: 800,
       }),
-    ).toContain('Add at least one visible frame.');
+    ).toContainEqual({
+      message: 'Add at least one visible frame.',
+      severity: 'error',
+    });
   });
 
   it('warns when space-based input probably contains framed spaces', () => {
@@ -44,7 +47,10 @@ describe('frame parser', () => {
         frames: parseFrames('[    ] [=   ]'),
         duration: 800,
       }),
-    ).toContain('Frames with internal spaces need one frame per line.');
+    ).toContainEqual({
+      message: 'Frames with internal spaces need one frame per line.',
+      severity: 'warning',
+    });
   });
 
   it('warns about very wide frames', () => {
@@ -54,7 +60,10 @@ describe('frame parser', () => {
         frames: ['abcdefghijklmnopqrstuvwxyz'],
         duration: 800,
       }),
-    ).toContain('Very wide frames may overflow compact previews.');
+    ).toContainEqual({
+      message: 'Very wide frames may overflow compact previews.',
+      severity: 'warning',
+    });
   });
 
   it('warns about very fast frame changes', () => {
@@ -64,6 +73,9 @@ describe('frame parser', () => {
         frames: ['a', 'b', 'c', 'd', 'e'],
         duration: 200,
       }),
-    ).toContain('Very fast frame changes can feel flashy.');
+    ).toContainEqual({
+      message: 'Very fast frame changes can feel flashy.',
+      severity: 'warning',
+    });
   });
 });

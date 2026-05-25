@@ -14,6 +14,7 @@ import { generateCss } from '@/generator/css';
 import {
   getFrameInputMode,
   parseFrames,
+  type FrameValidationMessage,
   validateFrameInput,
 } from '@/generator/frames';
 import { generateReactComponent } from '@/generator/react';
@@ -252,7 +253,10 @@ function GeneratorPage() {
           </div>
 
           {validationMessages.length > 0 ? (
-            <MessageList title="Validation" items={validationMessages} />
+            <ValidationMessageList
+              title="Validation"
+              items={validationMessages}
+            />
           ) : null}
 
           {glyphWarnings.length > 0 ? (
@@ -271,18 +275,40 @@ function GeneratorPage() {
               {
                 label: 'CSS',
                 value: 'css',
-                content: <CodePanel value={cssOutput} label="Copy CSS" />,
+                content: (
+                  <CodePanel
+                    value={cssOutput}
+                    label="Copy CSS"
+                    title="CSS output"
+                    bestFor="Best for dependency-free primitives and framework-agnostic projects."
+                    motionSummary={getMotionSummary(generatedItem)}
+                  />
+                ),
               },
               {
                 label: 'React',
                 value: 'react',
-                content: <CodePanel value={reactOutput} label="Copy React" />,
+                content: (
+                  <CodePanel
+                    value={reactOutput}
+                    label="Copy React"
+                    title="React component"
+                    bestFor="Best when you want the markup, class hook, and accessibility label together."
+                    motionSummary={getMotionSummary(generatedItem)}
+                  />
+                ),
               },
               {
                 label: 'Tailwind',
                 value: 'tailwind',
                 content: (
-                  <CodePanel value={tailwindOutput} label="Copy Tailwind" />
+                  <CodePanel
+                    value={tailwindOutput}
+                    label="Copy Tailwind"
+                    title="Tailwind output"
+                    bestFor="Best when animation tokens live in your Tailwind v4 stylesheet."
+                    motionSummary={getMotionSummary(generatedItem)}
+                  />
                 ),
               },
             ]}
@@ -387,18 +413,76 @@ function loadPreset(
   setters.setStrategy(item.strategy);
 }
 
-function CodePanel({ value, label }: { value: string; label: string }) {
+function CodePanel({
+  value,
+  label,
+  title,
+  bestFor,
+  motionSummary,
+}: {
+  value: string;
+  label: string;
+  title: string;
+  bestFor: string;
+  motionSummary: string;
+}) {
   return (
     <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
-      <div className="border-border flex min-w-0 flex-wrap items-center justify-between gap-2 border-b p-3">
-        <p className="text-muted-foreground font-mono text-xs uppercase">
-          Generated output
-        </p>
-        <CopyButton value={value} label={label} className="h-8 px-3 text-xs" />
+      <div className="border-border flex min-w-0 flex-wrap items-start justify-between gap-3 border-b p-3">
+        <div className="grid min-w-0 gap-1">
+          <p className="text-foreground text-sm font-medium">{title}</p>
+          <p className="text-muted-foreground text-sm leading-6">{bestFor}</p>
+          <p className="text-muted-foreground font-mono text-xs">
+            {motionSummary}
+          </p>
+        </div>
+        <CopyButton
+          value={value}
+          label={label}
+          className="border-accent bg-accent text-accent-foreground hover:bg-accent/90 h-8 px-3 text-xs"
+        />
       </div>
       <pre className="text-foreground max-h-[28rem] max-w-full overflow-auto p-4 text-sm leading-6">
         <code>{value}</code>
       </pre>
+    </div>
+  );
+}
+
+function getMotionSummary(item: RegistryItem) {
+  const timing =
+    item.timing === 'custom'
+      ? 'custom timing variable'
+      : `${item.timing} timing`;
+  const loop = item.loop ? 'loops forever' : 'runs once and holds';
+
+  return `${item.duration}ms · ${timing} · ${loop}`;
+}
+
+function ValidationMessageList({
+  title,
+  items,
+}: {
+  title: string;
+  items: FrameValidationMessage[];
+}) {
+  return (
+    <div className="rounded-glyphe-md border-border bg-background border p-3">
+      <p className="text-foreground text-sm font-medium">{title}</p>
+      <ul className="mt-2 grid gap-1 text-sm leading-6">
+        {items.map((item) => (
+          <li
+            key={item.message}
+            className={
+              item.severity === 'error'
+                ? 'text-danger'
+                : 'text-orange-700 dark:text-orange-300'
+            }
+          >
+            {item.message}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

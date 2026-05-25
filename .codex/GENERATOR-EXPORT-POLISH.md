@@ -23,16 +23,16 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Add validation for invisible or whitespace-only frames
 - [x] Add validation for very wide frames
 - [x] Add validation for potentially flashy frame sets
-- [ ] Clarify loop behavior in UI and generated output
-- [ ] Clarify timing behavior in UI and generated output
+- [x] Clarify loop behavior in UI and generated output
+- [x] Clarify timing behavior in UI and generated output
 
 ## Export Tabs
 
-- [ ] Improve CSS output heading and description
-- [ ] Improve React output heading and description
-- [ ] Improve Tailwind output heading and description
-- [ ] Add a short "best for" note to each output
-- [ ] Make copy actions visually primary enough
+- [x] Improve CSS output heading and description
+- [x] Improve React output heading and description
+- [x] Improve Tailwind output heading and description
+- [x] Add a short "best for" note to each output
+- [x] Make copy actions visually primary enough
 - [ ] Consider "Copy all" for multi-file React/Tailwind output
 
 ## Rendering Strategy Polish
@@ -96,6 +96,13 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Warn when ASCII frames with internal spaces are entered on one line
 - [x] Warn for empty, too-wide, duplicate, and very fast frame sets
 - [x] Keep line-based parsing preserving internal spaces
+
+## Slice 4: Export Tab Clarity
+
+- [x] Give CSS, React, and Tailwind outputs distinct panel titles
+- [x] Add a compact "best for" note per output format
+- [x] Surface duration, timing, and loop behavior beside generated code
+- [x] Make copy actions visually primary inside generator output panels
 
 ## Preset Strategy
 
