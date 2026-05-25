@@ -171,164 +171,164 @@ looking at the actual gallery and detail pages.
 
 ### Cursor
 
-- [ ] `cursor/block` - Block Cursor
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `cursor/block` - Block Cursor
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `cursor/braille` - Braille Cursor
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `cursor/braille` - Braille Cursor
+  - [x] Keep as new current item
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
 ### Loaders
 
-- [ ] `loader/bars` - Bars Loader
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `loader/bars` - Bars Loader
+  - [x] Keep with frame, copy, tag, and metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `loader/waveform` - Waveform Loader
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `loader/waveform` - Waveform Loader
+  - [x] Keep with copy, tag, and metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
 ### Progress
 
-- [ ] `progress/ascii` - ASCII Progress
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `progress/ascii` - ASCII Progress
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `progress/blocks` - Block Progress
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `progress/blocks` - Block Progress
+  - [x] Keep with copy, tag, and metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
 ### Spinners
 
-- [ ] `spinner/braille` - Braille Spinner
-  - [ ] Keep, remove, or update
-  - [ ] Review display name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `spinner/braille` - Braille Spinner
+  - [x] Keep with tag and metadata update
+  - [x] Review display name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `spinner/clock` - Clock Spinner
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `spinner/clock` - Clock Spinner
+  - [x] Keep with copy, tag, and metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `spinner/dots` - Dots Spinner
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `spinner/dots` - Dots Spinner
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `spinner/line` - Line Spinner
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `spinner/line` - Line Spinner
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
 ### Braille Spinner Variants
 
-- [ ] `spinner/braille-orbit` - Braille Orbit
-- [ ] `spinner/braille-snake` - Braille Snake
-- [ ] `spinner/braille-fill-sweep` - Braille Fill Sweep
-- [ ] `spinner/braille-scan` - Braille Scan
-- [ ] `spinner/braille-pulse` - Braille Pulse
-- [ ] `spinner/braille-cascade` - Braille Cascade
-- [ ] `spinner/braille-checkerboard` - Braille Checkerboard
-- [ ] `spinner/braille-rain` - Braille Rain
-- [ ] `spinner/braille-sparkle` - Braille Fireworks
-- [ ] `spinner/braille-wave` - Braille Wave
-- [ ] `spinner/braille-dna` - Braille Twist
-- [ ] `spinner/braille-matrix` - Braille Matrix
+- [x] `spinner/braille-orbit` - Braille Orbit
+- [x] `spinner/braille-snake` - Braille Snake
+- [x] `spinner/braille-fill-sweep` - Braille Fill Sweep
+- [x] `spinner/braille-scan` - Braille Scan
+- [x] `spinner/braille-pulse` - Braille Pulse
+- [x] `spinner/braille-cascade` - Braille Cascade
+- [x] `spinner/braille-checkerboard` - Braille Checkerboard
+- [x] `spinner/braille-rain` - Braille Rain
+- [x] `spinner/braille-sparkle` - Braille Fireworks
+- [x] `spinner/braille-wave` - Braille Wave
+- [x] `spinner/braille-dna` - Braille Twist
+- [x] `spinner/braille-matrix` - Braille Matrix
 
 For each braille variant:
 
-- [ ] Decide if it is visually distinct enough
-- [ ] Decide if the name matches the motion
-- [ ] Decide if it should stay in the gallery
-- [ ] Decide if it should be hidden from default generator presets
-- [ ] Review duration against perceived motion
-- [ ] Review whether tags add meaningful discovery value
-- [ ] Review if family/detail related animations remain useful
+- [x] Decide if it is visually distinct enough
+- [x] Decide if the name matches the motion
+- [x] Decide if it should stay in the gallery
+- [x] Decide if it should be hidden from default generator presets
+- [x] Review duration against perceived motion
+- [x] Review whether tags add meaningful discovery value
+- [x] Review if family/detail related animations remain useful
 
 ### Text Effects
 
-- [ ] `text/glitch-soft` - Soft Glitch Text
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `text/glitch-soft` - Soft Glitch Text
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `text/glitch-3d` - 3D Glitch Text
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `text/glitch-3d` - 3D Glitch Text
+  - [x] Keep as new current item with rendering support
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `text/scramble` - Scramble Text
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `text/scramble` - Scramble Text
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
-- [ ] `text/typewriter` - Typewriter Text
-  - [ ] Keep, remove, or update
-  - [ ] Review name
-  - [ ] Review description
-  - [ ] Review tags
-  - [ ] Review accessibility mode
-  - [ ] Review reduced-motion behavior
-  - [ ] Review rendering strategy
+- [x] `text/typewriter` - Typewriter Text
+  - [x] Keep with metadata update
+  - [x] Review name
+  - [x] Review description
+  - [x] Review tags
+  - [x] Review accessibility mode
+  - [x] Review reduced-motion behavior
+  - [x] Review rendering strategy
 
 ## Suggested Review Outputs
 
