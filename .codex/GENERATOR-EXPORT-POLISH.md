@@ -52,12 +52,12 @@ creating, why each output differs, and how to copy usable code confidently.
 - [ ] Audit CSS variable names
 - [ ] Audit width behavior for single-cell and multi-character frames
 - [ ] Audit reduced-motion media query output
-- [ ] Audit escaping for quotes, slashes, backslashes, and Unicode
+- [x] Audit escaping for quotes, slashes, backslashes, and Unicode
 - [ ] Audit generated comments or remove unnecessary comments
 
 ## Generated React Quality
 
-- [ ] Confirm components are copy/paste friendly
+- [x] Confirm components are copy/paste friendly
 - [ ] Confirm generated props are minimal and useful
 - [ ] Confirm accessible labels are included where needed
 - [ ] Confirm decorative items can be hidden from assistive tech
@@ -80,6 +80,14 @@ creating, why each output differs, and how to copy usable code confidently.
 - [x] Preserve strategy-specific keyframes from the CSS generator
 - [x] Remove extra generated `animate-*` class from examples
 - [x] Add tests for CSS variable swap and pseudo-content Tailwind output
+
+## Slice 2: Escaping And Copy Safety
+
+- [x] Escape generated CSS strings for quotes, backslashes, and line breaks
+- [x] Emit React frame text as JSX string expressions
+- [x] Preserve ASCII frames with internal spaces in generated React
+- [x] Add tests for CSS content escaping
+- [x] Add tests for JSX-reserved frame characters
 
 ## Preset Strategy
 

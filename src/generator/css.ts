@@ -353,6 +353,11 @@ export function escapeCssIdentifier(value: string) {
     .replace(/^-+|-+$/g, '');
 }
 
-function escapeCssString(value: string) {
-  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+export function escapeCssString(value: string) {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\A ')
+    .replace(/\r/g, '\\D ')
+    .replace(/\f/g, '\\C ');
 }

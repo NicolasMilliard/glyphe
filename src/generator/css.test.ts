@@ -3,7 +3,12 @@ import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import { textGlitch3d } from '@/registry/items/text-glitch-3d';
 import { textGlitchSoft } from '@/registry/items/text-glitch-soft';
-import { escapeCssIdentifier, generateCss, getGeneratedCssNames } from './css';
+import {
+  escapeCssIdentifier,
+  escapeCssString,
+  generateCss,
+  getGeneratedCssNames,
+} from './css';
 
 describe('css generator', () => {
   it('generates stable names from registry slugs', () => {
@@ -15,6 +20,10 @@ describe('css generator', () => {
 
   it('escapes generated identifiers', () => {
     expect(escapeCssIdentifier('Text/Glitch Soft!')).toBe('text-glitch-soft');
+  });
+
+  it('escapes generated CSS strings', () => {
+    expect(escapeCssString('a"b\\c\nd')).toBe('a\\"b\\\\c\\A d');
   });
 
   it('generates stacked span CSS', () => {
@@ -56,6 +65,16 @@ describe('css generator', () => {
         strategy: 'pseudo-content',
       }),
     ).toContain('::before');
+  });
+
+  it('escapes generated pseudo-content frames', () => {
+    const output = generateCss({
+      ...spinnerBraille,
+      frames: ['a"b\\c\nd'],
+      strategy: 'pseudo-content',
+    });
+
+    expect(output).toContain('content: "a\\"b\\\\c\\A d";');
   });
 
   it('reflects timing and loop options in CSS', () => {

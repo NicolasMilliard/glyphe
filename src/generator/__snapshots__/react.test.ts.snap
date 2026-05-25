@@ -18,16 +18,16 @@ export function SpinnerBrailleAnimation({
         className={[ 'glyphe-spinner-braille', className ].filter(Boolean).join(' ')}
         aria-hidden={decorative}
       >
-        <span>⠋</span>
-        <span>⠙</span>
-        <span>⠹</span>
-        <span>⠸</span>
-        <span>⠼</span>
-        <span>⠴</span>
-        <span>⠦</span>
-        <span>⠧</span>
-        <span>⠇</span>
-        <span>⠏</span>
+        <span>{'⠋'}</span>
+        <span>{'⠙'}</span>
+        <span>{'⠹'}</span>
+        <span>{'⠸'}</span>
+        <span>{'⠼'}</span>
+        <span>{'⠴'}</span>
+        <span>{'⠦'}</span>
+        <span>{'⠧'}</span>
+        <span>{'⠇'}</span>
+        <span>{'⠏'}</span>
       </span>
       {decorative ? <span className="sr-only">{label}</span> : null}
     </>
@@ -55,12 +55,12 @@ export function ProgressAsciiAnimation({
         className={[ 'glyphe-progress-ascii', className ].filter(Boolean).join(' ')}
         aria-hidden={decorative ? true : undefined}
       >
-        <span>[>    ]</span>
-        <span>[=>   ]</span>
-        <span>[==>  ]</span>
-        <span>[===> ]</span>
-        <span>[====>]</span>
-        <span>[=====]</span>
+        <span>{'[>    ]'}</span>
+        <span>{'[=>   ]'}</span>
+        <span>{'[==>  ]'}</span>
+        <span>{'[===> ]'}</span>
+        <span>{'[====>]'}</span>
+        <span>{'[=====]'}</span>
       </span>
       {decorative ? null : <span className="sr-only">{label}</span>}
     </span>

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import {
+  formatJsxString,
   generateAccessibleLabelMarkup,
   generateReactComponent,
   generateReducedMotionNote,
@@ -25,6 +26,10 @@ describe('react generator', () => {
     );
   });
 
+  it('formats generated JSX string literals', () => {
+    expect(formatJsxString("a'b\\c\n{d}")).toBe("'a\\'b\\\\c\\n{d}'");
+  });
+
   it('generates stacked span components', () => {
     expect(generateReactComponent(spinnerBraille)).toMatchSnapshot();
   });
@@ -46,6 +51,15 @@ describe('react generator', () => {
 
     expect(output).toContain('⠋');
     expect(output).not.toContain('Generated Animation');
+  });
+
+  it('generates safe JSX for frames with reserved JSX characters', () => {
+    const output = generateReactComponent({
+      ...spinnerBraille,
+      frames: ["a'b\\c\n{d}"],
+    });
+
+    expect(output).toContain("<span>{'a\\'b\\\\c\\n{d}'}</span>");
   });
 
   it('generates status components', () => {

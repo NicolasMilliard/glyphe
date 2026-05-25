@@ -71,7 +71,7 @@ export function generateStackedSpanMarkup(
     ? '{decorative}'
     : '{decorative ? true : undefined}';
   const spans = options.frames
-    .map((frame) => `        <span>${escapeJsxText(frame)}</span>`)
+    .map((frame) => `        <span>{${formatJsxString(frame)}}</span>`)
     .join('\n');
 
   return `      <span
@@ -93,7 +93,7 @@ export function generateSingleElementMarkup(
     ? '{decorative}'
     : '{decorative ? true : undefined}';
   const content = options.frame
-    ? `\n        ${escapeJsxText(options.frame)}\n      `
+    ? `\n        {${formatJsxString(options.frame)}}\n      `
     : '';
 
   return `      <span
@@ -175,9 +175,13 @@ function toPascalCase(value: string) {
 }
 
 function escapeStringLiteral(value: string) {
-  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r');
 }
 
-function escapeJsxText(value: string) {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+export function formatJsxString(value: string) {
+  return `'${escapeStringLiteral(value)}'`;
 }
