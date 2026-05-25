@@ -12,20 +12,26 @@ function DocsPage() {
   useDocumentTitle(metadata.title);
 
   return (
-    <div className="grid min-w-0 gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-start">
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:items-start">
       <aside className="lg:sticky lg:top-24">
-        <nav aria-label="Docs sections" className="grid gap-2">
-          <p className="text-muted-foreground font-mono text-xs uppercase">
-            Docs
-          </p>
-          {docsNavItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="glyphe-pressable text-muted-foreground hover:bg-surface hover:text-foreground rounded-glyphe-md px-3 py-2 text-sm"
-            >
-              {item.label}
-            </a>
+        <nav aria-label="Docs sections" className="grid gap-6">
+          {docsNavGroups.map((group) => (
+            <div key={group.label} className="grid gap-2">
+              <p className="text-muted-foreground font-mono text-xs uppercase">
+                {group.label}
+              </p>
+              <div className="grid gap-1">
+                {group.items.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="glyphe-pressable text-muted-foreground hover:bg-surface hover:text-foreground rounded-glyphe-md px-3 py-2 text-sm"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
       </aside>
@@ -33,6 +39,23 @@ function DocsPage() {
       <DocsContent>
         <h1>{metadata.title}</h1>
         <p>{metadata.description}</p>
+
+        <div className="border-border rounded-glyphe-lg my-8 grid gap-0 overflow-hidden border">
+          {quickLinks.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="glyphe-pressable border-border hover:bg-surface grid gap-1 border-b px-4 py-3 last:border-b-0 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4"
+            >
+              <span className="text-foreground text-sm font-medium">
+                {item.label}
+              </span>
+              <span className="text-muted-foreground text-sm leading-6">
+                {item.description}
+              </span>
+            </Link>
+          ))}
+        </div>
 
         <h2 id="project-introduction">Project introduction</h2>
         <p>
@@ -62,6 +85,12 @@ function DocsPage() {
         <p>
           For a technical view of the current entries and active rendering
           strategies, open the <Link to="/registry">registry overview</Link>.
+        </p>
+        <p>
+          For visual selection, start in the <Link to="/gallery">gallery</Link>.
+          For custom frames, use the <Link to="/generator">generator</Link>. For
+          realistic product usage, browse the{' '}
+          <Link to="/examples">examples</Link>.
         </p>
 
         <h2 id="copy-paste-ownership">Copy-paste ownership</h2>
@@ -203,6 +232,25 @@ function DocsPage() {
           </li>
         </ul>
 
+        <h2 id="generator-output">Generator output</h2>
+        <p>
+          The generator turns frame lists into previewable registry-shaped
+          items. It uses the same CSS, React, Tailwind, accessibility, and
+          compatibility paths as gallery items, so exported code should match
+          the preview.
+        </p>
+        <ul>
+          <li>Use spaces for simple one-glyph frames like braille spinners.</li>
+          <li>
+            Use one frame per line when frames contain internal spaces, such as
+            ASCII progress bars.
+          </li>
+          <li>
+            Choose presets from the curated registry list when you want a safe
+            starting point.
+          </li>
+        </ul>
+
         <h2 id="tailwind-integration">Tailwind integration</h2>
         <p>
           Tailwind support is additive. Glyphe generates ordinary CSS first,
@@ -239,6 +287,40 @@ const docsNavItems = [
   { label: 'Rendering', href: '#rendering-strategies' },
   { label: 'Accessibility', href: '#accessibility' },
   { label: 'Unicode', href: '#unicode-rendering' },
+  { label: 'Generator', href: '#generator-output' },
   { label: 'Tailwind', href: '#tailwind-integration' },
   { label: 'Future CLI', href: '#future-cli' },
 ];
+
+const docsNavGroups = [
+  {
+    label: 'Start',
+    items: docsNavItems.slice(0, 3),
+  },
+  {
+    label: 'Use Safely',
+    items: docsNavItems.slice(3, 7),
+  },
+  {
+    label: 'Extend',
+    items: docsNavItems.slice(7),
+  },
+];
+
+const quickLinks = [
+  {
+    label: 'Browse',
+    description: 'Compare previews, copy code, and inspect animation details.',
+    to: '/gallery',
+  },
+  {
+    label: 'Generate',
+    description: 'Create frame animations and export CSS, React, or Tailwind.',
+    to: '/generator',
+  },
+  {
+    label: 'Apply',
+    description: 'See how primitives fit inside realistic interface flows.',
+    to: '/examples',
+  },
+] as const;

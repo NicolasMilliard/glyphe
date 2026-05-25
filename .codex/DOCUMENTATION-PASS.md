@@ -16,12 +16,20 @@ safe, accessible text animations.
 
 ## Information Architecture
 
-- [ ] Define docs landing structure
-- [ ] Add or refine side navigation
-- [ ] Group pages by user intent
+- [x] Define docs landing structure
+- [x] Add or refine side navigation
+- [x] Group pages by user intent
 - [ ] Make docs reachable from gallery detail pages
 - [ ] Make registry metadata reachable from detail pages
-- [ ] Keep examples page linked from docs
+- [x] Keep examples page linked from docs
+
+## Slice 1: Docs Information Architecture
+
+- [x] Group docs navigation into Start, Use Safely, and Extend
+- [x] Add direct docs links to Gallery, Generator, and Examples
+- [x] Add a Generator Output section
+- [x] Keep copy concise and grounded in current shipped behavior
+- [ ] Add detail-page documentation hooks in a later slice
 
 ## Core Pages
 
