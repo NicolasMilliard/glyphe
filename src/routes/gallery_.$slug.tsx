@@ -12,7 +12,7 @@ import { getUnicodeCompatibilityGuidance } from '@/lib/unicode-compatibility';
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { getRegistryItem, registryItems, type RegistryItem } from '@/registry';
 import { Link, createFileRoute } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 
 export const Route = createFileRoute('/gallery_/$slug')({
   component: AnimationDetailPage,
@@ -90,12 +90,23 @@ function AnimationDetailPage() {
           <p className="text-muted-foreground mt-5 max-w-2xl text-lg leading-8">
             {item.description}
           </p>
-          <Link
-            to="/registry"
-            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm mt-4 inline-flex text-sm font-medium underline underline-offset-4"
-          >
-            Registry metadata
-          </Link>
+          <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-6">
+            {getUsageNote(item)}{' '}
+            <DocsAnchor href="/docs#installation-usage">
+              Usage guidance
+            </DocsAnchor>
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              to="/registry"
+              className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm inline-flex text-sm font-medium underline underline-offset-4"
+            >
+              Registry metadata
+            </Link>
+            <DocsAnchor href="/docs#registry-metadata">
+              Metadata docs
+            </DocsAnchor>
+          </div>
         </div>
       </header>
 
@@ -109,7 +120,13 @@ function AnimationDetailPage() {
           {
             label: 'CSS',
             value: 'css',
-            content: <CodePanel value={generateCss(item)} label="Copy CSS" />,
+            content: (
+              <CodePanel
+                value={generateCss(item)}
+                label="Copy CSS"
+                docsHref="/docs#installation-usage"
+              />
+            ),
           },
           {
             label: 'React',
@@ -118,6 +135,7 @@ function AnimationDetailPage() {
               <CodePanel
                 value={generateReactComponent(item)}
                 label="Copy React"
+                docsHref="/docs#accessibility"
               />
             ),
           },
@@ -128,6 +146,7 @@ function AnimationDetailPage() {
               <CodePanel
                 value={generateTailwindCss(item)}
                 label="Copy Tailwind"
+                docsHref="/docs#tailwind-integration"
               />
             ),
           },
@@ -152,6 +171,8 @@ function AnimationDetailPage() {
                 : 'Readable text stays exposed',
               accessibility.flashingRisk,
             ]}
+            docsHref="/docs#accessibility"
+            docsLabel="Accessibility docs"
           />
 
           <NoteSection
@@ -163,6 +184,8 @@ function AnimationDetailPage() {
               `Glyph width: ${unicodeCompatibility.glyphWidth}`,
               `Unicode risk: ${unicodeCompatibility.unicodeRisk}`,
             ]}
+            docsHref="/docs#unicode-rendering"
+            docsLabel="Unicode docs"
           />
 
           <NoteSection
@@ -179,6 +202,8 @@ function AnimationDetailPage() {
               item.loop ? 'Loops' : 'Resolves',
               ...item.tags.slice(0, 3),
             ]}
+            docsHref="/docs#generator-output"
+            docsLabel="Generator docs"
           />
         </div>
       </section>
@@ -218,13 +243,24 @@ function AnimationDetailPage() {
   );
 }
 
-function CodePanel({ value, label }: { value: string; label: string }) {
+function CodePanel({
+  value,
+  label,
+  docsHref,
+}: {
+  value: string;
+  label: string;
+  docsHref: string;
+}) {
   return (
     <div className="rounded-glyphe-lg border-border bg-background min-w-0 overflow-hidden border">
       <div className="border-border flex min-w-0 flex-wrap items-center justify-between gap-2 border-b p-3">
-        <p className="text-muted-foreground font-mono text-xs uppercase">
-          Generated output
-        </p>
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
+          <p className="text-muted-foreground font-mono text-xs uppercase">
+            Generated output
+          </p>
+          <DocsAnchor href={docsHref}>Output docs</DocsAnchor>
+        </div>
         <CopyButton
           value={value}
           label={label}
@@ -292,16 +328,48 @@ function getDisplayName(item: RegistryItem) {
   return item.name.replace(/^Braille\s+/i, '');
 }
 
+function getUsageNote(item: RegistryItem) {
+  switch (item.category) {
+    case 'spinner':
+      return 'Use it for compact loading states where the surrounding text explains what is happening.';
+    case 'loader':
+      return 'Use it near background work, sync states, or compact interface feedback.';
+    case 'progress':
+      return 'Use it when progress should stay text-native and easy to inspect.';
+    case 'cursor':
+      return 'Use it inside prompt, typing, or terminal-style text surfaces.';
+    case 'text':
+      return 'Use it when the text itself is the moment, and keep the final copy readable.';
+    case 'matrix':
+      return 'Use it for dense ambient text effects, with extra care around motion and contrast.';
+  }
+}
+
+function DocsAnchor({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm inline-flex text-sm font-medium underline underline-offset-4"
+    >
+      {children}
+    </a>
+  );
+}
+
 function NoteSection({
   kicker,
   title,
   body,
   facts,
+  docsHref,
+  docsLabel,
 }: {
   kicker: string;
   title: string;
   body: string;
   facts: string[];
+  docsHref: string;
+  docsLabel: string;
 }) {
   return (
     <section className="grid min-w-0 content-start gap-5 py-5 lg:px-6 lg:first:pl-0 lg:last:pr-0">
@@ -311,6 +379,9 @@ function NoteSection({
         </p>
         <h3 className="text-foreground mt-2 text-lg font-semibold">{title}</h3>
         <p className="text-muted-foreground mt-3 text-sm leading-6">{body}</p>
+        <div className="mt-3">
+          <DocsAnchor href={docsHref}>{docsLabel}</DocsAnchor>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2">

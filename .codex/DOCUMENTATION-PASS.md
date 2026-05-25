@@ -19,8 +19,8 @@ safe, accessible text animations.
 - [x] Define docs landing structure
 - [x] Add or refine side navigation
 - [x] Group pages by user intent
-- [ ] Make docs reachable from gallery detail pages
-- [ ] Make registry metadata reachable from detail pages
+- [x] Make docs reachable from gallery detail pages
+- [x] Make registry metadata reachable from detail pages
 - [x] Keep examples page linked from docs
 
 ## Slice 1: Docs Information Architecture
@@ -85,44 +85,68 @@ safe, accessible text animations.
 - [x] Add braille and block glyph compatibility guidance
 - [x] Add browser/font/background compatibility checklist
 
-- [ ] Tailwind Usage
-  - [ ] Explain generated theme tokens
-  - [ ] Explain utility classes
-  - [ ] Explain CSS variables for duration and width
-  - [ ] Explain how to override safely
+- [x] Tailwind Usage
+  - [x] Explain generated theme tokens
+  - [x] Explain utility classes
+  - [x] Explain CSS variables for duration and width
+  - [x] Explain how to override safely
 
-- [ ] Registry
-  - [ ] Explain registry item anatomy
-  - [ ] Explain categories, families, tags, and metadata
-  - [ ] Explain how future CLI installs will use registry entries
+- [x] Registry
+  - [x] Explain registry item anatomy
+  - [x] Explain categories, families, tags, and metadata
+  - [x] Explain how future CLI installs will use registry entries
 
-- [ ] Generator
-  - [ ] Explain frame input
-  - [ ] Explain timing, duration, loop, and strategy controls
-  - [ ] Explain generated CSS, React, and Tailwind outputs
-  - [ ] Explain when custom animations should become local code
+- [x] Generator
+  - [x] Explain frame input
+  - [x] Explain timing, duration, loop, and strategy controls
+  - [x] Explain generated CSS, React, and Tailwind outputs
+  - [x] Explain when custom animations should become local code
+
+## Slice 4: Generator Tailwind And Registry Content
+
+- [x] Add duration, timing, and loop guidance
+- [x] Add custom animation ownership guidance
+- [x] Add Tailwind token and utility guidance
+- [x] Add CSS variable override guidance
+- [x] Add registry item anatomy
+- [x] Add category, tag, and compatibility metadata guidance
+- [x] Add future CLI registry alignment guidance
 
 ## Detail Page Documentation Hooks
 
-- [ ] Add a concise "When to use this" note per item
-- [ ] Add a concise "Accessibility" note per item
-- [ ] Add a concise "Compatibility" note per item
-- [ ] Link detail pages to relevant docs sections
-- [ ] Link generated output sections to relevant docs sections
+- [x] Add a concise "When to use this" note per item
+- [x] Add a concise "Accessibility" note per item
+- [x] Add a concise "Compatibility" note per item
+- [x] Link detail pages to relevant docs sections
+- [x] Link generated output sections to relevant docs sections
+
+## Slice 5: Detail Page Documentation Hooks
+
+- [x] Add usage guidance link near animation descriptions
+- [x] Add docs links to implementation notes
+- [x] Add docs links to generated output tabs
+- [x] Keep registry metadata reachable from detail pages
 
 ## Content Quality Checklist
 
-- [ ] Replace vague claims with concrete guidance
-- [ ] Avoid repeated paragraphs across pages
-- [ ] Keep headings scannable
-- [ ] Keep code snippets short
-- [ ] Use the same naming as registry metadata
-- [ ] Avoid future-tense promises for unbuilt CLI/package features
+- [x] Replace vague claims with concrete guidance
+- [x] Avoid repeated paragraphs across pages
+- [x] Keep headings scannable
+- [x] Keep code snippets short
+- [x] Use the same naming as registry metadata
+- [x] Avoid future-tense promises for unbuilt CLI/package features
+
+## Slice 6: Content Quality And Completion
+
+- [x] Tighten ownership wording
+- [x] Keep Tailwind override guidance concrete
+- [x] Keep future CLI wording framed as planned behavior
+- [x] Confirm detail hooks, generator docs, registry docs, and safety docs connect
 
 ## Definition Of Done
 
-- [ ] Docs explain the product without needing the roadmap
-- [ ] Docs support the gallery, generator, and future CLI direction
-- [ ] Accessibility guidance is consistent with registry metadata
-- [ ] Unicode guidance is visible before users copy risky animations
-- [ ] Navigation makes the docs feel like a real developer resource
+- [x] Docs explain the product without needing the roadmap
+- [x] Docs support the gallery, generator, and future CLI direction
+- [x] Accessibility guidance is consistent with registry metadata
+- [x] Unicode guidance is visible before users copy risky animations
+- [x] Navigation makes the docs feel like a real developer resource

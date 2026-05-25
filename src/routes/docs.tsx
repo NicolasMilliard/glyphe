@@ -67,7 +67,8 @@ function DocsPage() {
         <p>
           The product goal is ownership. Generated CSS, React components, and
           Tailwind-friendly snippets should be readable enough to paste into an
-          app, customize, and keep without depending on a runtime package.
+          app, rename, customize, and keep without depending on a runtime
+          package.
         </p>
 
         <h2 id="registry-concepts">Registry concepts</h2>
@@ -324,6 +325,24 @@ function DocsPage() {
             starting point.
           </li>
         </ul>
+        <h3>Timing and loop controls</h3>
+        <p>
+          Duration controls how long one full pass takes. Timing controls how
+          frames advance. Use <code>steps</code> for discrete glyph swaps,{' '}
+          <code>linear</code> for continuous values, and <code>custom</code>{' '}
+          when you want to expose a CSS variable for local tuning.
+        </p>
+        <p>
+          Looping should match the job. Loading states usually loop; reveal
+          effects like typewriter or scramble often run once and settle on the
+          final text.
+        </p>
+        <h3>Custom animations</h3>
+        <p>
+          If a generated animation becomes part of your product language, keep
+          the exported code in your project and treat it like local UI code.
+          Rename classes, adjust variables, and delete options you do not need.
+        </p>
 
         <h2 id="tailwind-integration">Tailwind integration</h2>
         <p>
@@ -335,6 +354,41 @@ function DocsPage() {
           The generated Tailwind output uses <code>@theme</code> animation
           tokens and utility classes where useful. It should stay readable,
           copyable, and close to the plain CSS output.
+        </p>
+        <ul>
+          <li>
+            Use generated <code>@theme</code> tokens when the animation should
+            be reused through Tailwind utilities.
+          </li>
+          <li>
+            Use generated utility classes when you want a named local primitive
+            such as <code>glyphe-spinner-braille</code>.
+          </li>
+          <li>
+            Override <code>--glyphe-duration</code>, <code>--glyphe-width</code>
+            , and <code>--glyphe-font-family</code> near the component when a
+            single instance needs different behavior.
+          </li>
+        </ul>
+
+        <h2 id="registry-metadata">Registry metadata</h2>
+        <p>
+          Registry items are ordinary typed objects. Each item carries a slug,
+          category, tags, frames, duration, timing, loop behavior, rendering
+          strategy, accessibility metadata, compatibility metadata, and
+          customization options.
+        </p>
+        <p>
+          Categories describe the broad primitive type. Tags describe discovery
+          traits like <code>braille</code>, <code>ascii</code>,{' '}
+          <code>blocks</code>, <code>glitch</code>, or <code>loading</code>.
+          Compatibility metadata describes how risky the glyphs are across fonts
+          and platforms.
+        </p>
+        <p>
+          Future CLI installs should read from the same registry entries as the
+          website, so <code>glyphe add spinner/braille</code> can stay aligned
+          with the gallery preview, generated code, and accessibility notes.
         </p>
 
         <h2 id="future-cli">Future CLI</h2>
@@ -364,6 +418,7 @@ const docsNavItems = [
   { label: 'Unicode', href: '#unicode-rendering' },
   { label: 'Generator', href: '#generator-output' },
   { label: 'Tailwind', href: '#tailwind-integration' },
+  { label: 'Metadata', href: '#registry-metadata' },
   { label: 'Future CLI', href: '#future-cli' },
 ];
 
