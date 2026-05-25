@@ -44,11 +44,11 @@ motion that fights the animation primitives themselves.
 
 ## Slice 4: Gallery Experience
 
-- [ ] Make gallery card hover states feel clickable but restrained
-- [ ] Keep card previews compact and stable
-- [ ] Avoid extra animation around already-animated glyph previews
-- [ ] Review card spacing and badge hierarchy on mobile
-- [ ] Check dark preview mode across all card categories
+- [x] Make gallery card hover states feel clickable but restrained
+- [x] Keep card previews compact and stable
+- [x] Avoid extra animation around already-animated glyph previews
+- [x] Review card spacing and badge hierarchy on mobile
+- [x] Check dark preview mode across all card categories
 
 ## Slice 5: Detail Page Experience
 

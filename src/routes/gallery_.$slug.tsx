@@ -59,8 +59,9 @@ function AnimationDetailPage() {
         </p>
         <Link
           to="/gallery"
-          className="text-accent mt-8 inline-flex text-sm font-medium hover:underline"
+          className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm mt-8 inline-flex items-center text-sm font-medium underline underline-offset-4"
         >
+          <ChevronLeftIcon />
           Back to gallery
         </Link>
       </section>
@@ -76,8 +77,9 @@ function AnimationDetailPage() {
       <header className="grid min-w-0 gap-5">
         <Link
           to="/gallery"
-          className="text-accent justify-self-start text-sm font-medium hover:underline"
+          className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm inline-flex items-center justify-self-start text-sm font-medium underline underline-offset-4"
         >
+          <ChevronLeftIcon />
           Back to gallery
         </Link>
 
@@ -242,6 +244,23 @@ function SectionIntro({ title, copy }: { title: string; copy: string }) {
       <h2 className="text-foreground text-2xl font-semibold">{title}</h2>
       <p className="text-muted-foreground mt-2 text-sm leading-6">{copy}</p>
     </div>
+  );
+}
+
+function ChevronLeftIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="mr-1 size-4 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+    >
+      <path d="m15 18-6-6 6-6" />
+    </svg>
   );
 }
 
