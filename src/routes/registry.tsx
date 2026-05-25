@@ -11,10 +11,15 @@ export const Route = createFileRoute('/registry')({
 function RegistryPage() {
   const metadata = routeMetadata.registry;
   useDocumentTitle(metadata.title);
-  const strategyCounts = renderingStrategies.map((strategy) => ({
-    strategy,
-    count: registryItems.filter((item) => item.strategy === strategy).length,
-  }));
+  const strategyCounts = renderingStrategies
+    .map((strategy) => ({
+      strategy,
+      count: registryItems.filter((item) => item.strategy === strategy).length,
+    }))
+    .filter((item) => item.count > 0);
+  const cssOnlyCount = registryItems.filter(
+    (item) => item.compatibility.supportsCssOnly,
+  ).length;
 
   return (
     <section className="grid min-w-0 gap-10">
@@ -27,17 +32,11 @@ function RegistryPage() {
         </p>
       </div>
 
-      <div className="grid min-w-0 gap-4 sm:grid-cols-3">
-        <StatCard label="Registry items" value={registryItems.length} />
-        <StatCard label="Categories" value={animationCategories.length} />
-        <StatCard
-          label="CSS-only"
-          value={
-            registryItems.filter((item) => item.compatibility.supportsCssOnly)
-              .length
-          }
-        />
-      </div>
+      <dl className="border-border divide-border grid min-w-0 divide-y border-y sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <StatItem label="Registry items" value={registryItems.length} />
+        <StatItem label="Categories" value={animationCategories.length} />
+        <StatItem label="CSS-only" value={cssOnlyCount} />
+      </dl>
 
       <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <section className="rounded-glyphe-lg border-border bg-surface min-w-0 border p-5">
@@ -67,6 +66,10 @@ function RegistryPage() {
           <h2 className="text-foreground text-xl font-semibold">
             Rendering strategies
           </h2>
+          <p className="text-muted-foreground mt-3 text-sm leading-6">
+            Active strategies in the current registry. Planned strategies stay
+            in the schema until an item needs them.
+          </p>
           <div className="mt-5 grid gap-2">
             {strategyCounts.map((item) => (
               <div
@@ -131,13 +134,13 @@ function RegistryPage() {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: number }) {
+function StatItem({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-glyphe-lg border-border bg-surface border p-5">
-      <p className="text-muted-foreground font-mono text-xs uppercase">
+    <div className="py-5 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+      <dt className="text-muted-foreground font-mono text-xs uppercase">
         {label}
-      </p>
-      <p className="text-foreground mt-3 text-3xl font-semibold">{value}</p>
+      </dt>
+      <dd className="text-foreground mt-3 text-3xl font-semibold">{value}</dd>
     </div>
   );
 }

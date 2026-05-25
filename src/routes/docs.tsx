@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { Link, createFileRoute } from '@tanstack/react-router';
 import { DocsContent } from '@/components/site/docs-content';
 import { routeMetadata } from '@/lib/routes';
 import { useDocumentTitle } from '@/lib/use-document-title';
@@ -58,6 +58,10 @@ function DocsPage() {
           The gallery, detail pages, generator output, compatibility notes, and
           future CLI should all consume this metadata. That keeps docs,
           previews, and generated code from drifting apart.
+        </p>
+        <p>
+          For a technical view of the current entries and active rendering
+          strategies, open the <Link to="/registry">registry overview</Link>.
         </p>
 
         <h2 id="copy-paste-ownership">Copy-paste ownership</h2>
