@@ -13,7 +13,7 @@ import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import { textScramble } from '@/registry/items/text-scramble';
 import { Link, createFileRoute } from '@tanstack/react-router';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Route = createFileRoute('/examples')({
   component: ExamplesPage,
@@ -35,125 +35,168 @@ function ExamplesPage() {
         </p>
       </div>
 
-      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
-        <ExampleCard
-          title="Loading Button"
-          description="A compact action button with a decorative spinner."
-          item={spinnerBraille}
-        >
-          <button
-            type="button"
-            className="rounded-glyphe-md border-accent bg-accent text-accent-foreground inline-flex h-11 items-center gap-3 border px-4 text-sm font-medium"
-          >
-            <InlineAnimation
-              item={spinnerBraille}
-              className="text-accent-foreground text-base"
-            />
-            Saving changes
-          </button>
-        </ExampleCard>
-
-        <ExampleCard
-          title="Command Palette Row"
-          description="A command-style result row with a loading affordance."
-          item={loaderWaveform}
-        >
-          <div className="rounded-glyphe-md border-border bg-background grid min-w-0 gap-3 border p-4">
-            <div className="flex min-w-0 items-center justify-between gap-4">
-              <div className="min-w-0">
-                <p className="text-foreground text-sm font-medium">
-                  Sync registry cache
-                </p>
-                <p className="text-muted-foreground mt-1 truncate text-xs">
-                  Updating local animation metadata
-                </p>
-              </div>
-              <InlineAnimation item={loaderWaveform} className="text-xl" />
-            </div>
-          </div>
-        </ExampleCard>
-
-        <ExampleCard
-          title="Terminal Status Line"
-          description="A quiet terminal-style line for background jobs."
-          item={cursorBlock}
-        >
-          <div className="rounded-glyphe-md border-border bg-background text-foreground flex min-w-0 items-center gap-2 border p-4 font-mono text-sm">
-            <span className="text-accent">$</span>
-            <span className="min-w-0 truncate">building registry</span>
-            <InlineAnimation item={cursorBlock} className="text-sm" />
-          </div>
-        </ExampleCard>
-
-        <ExampleCard
-          title="Progress Indicator"
-          description="An ASCII progress primitive with a stable status label."
-          item={progressAscii}
-        >
-          <div className="rounded-glyphe-md border-border bg-background grid gap-3 border p-4">
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-foreground text-sm font-medium">
-                Generating snippets
+      <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
+        <section className="rounded-glyphe-lg border-border bg-background grid min-w-0 gap-8 border p-5 sm:p-6">
+          <div className="flex min-w-0 flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-muted-foreground font-mono text-xs uppercase">
+                Build flow
               </p>
-              <p className="text-muted-foreground font-mono text-xs">72%</p>
+              <h2 className="text-foreground mt-2 text-2xl font-semibold">
+                A realistic registry install path.
+              </h2>
             </div>
-            <InlineAnimation item={progressAscii} className="text-base" />
+            <button
+              type="button"
+              className="rounded-glyphe-md border-accent bg-accent text-accent-foreground inline-flex h-11 items-center gap-3 border px-4 text-sm font-medium"
+            >
+              <InlineAnimation
+                item={spinnerBraille}
+                className="text-accent-foreground text-base"
+              />
+              Saving changes
+            </button>
           </div>
-        </ExampleCard>
 
-        <ExampleCard
-          title="Text Reveal"
-          description="A restrained text effect for resolving labels or headlines."
-          item={textScramble}
-          className="lg:col-span-2"
-        >
-          <div className="rounded-glyphe-md border-border bg-background grid gap-2 border p-5">
-            <p className="text-muted-foreground font-mono text-xs uppercase">
-              Deploy preview
-            </p>
-            <InlineAnimation item={textScramble} className="text-3xl" />
+          <div className="grid min-w-0 gap-4">
+            <FlowStep
+              index="01"
+              title="Save animation config"
+              copy="Inline motion confirms the action without taking over the interface."
+              item={spinnerBraille}
+              side={<span className="font-mono text-xs">pending</span>}
+            />
+            <FlowStep
+              index="02"
+              title="Sync registry cache"
+              copy="The command row stays readable while the loader sits at the edge."
+              item={loaderWaveform}
+              side={
+                <InlineAnimation item={loaderWaveform} className="text-xl" />
+              }
+            />
+            <FlowStep
+              index="03"
+              title="Build local output"
+              copy="A terminal cursor gives the background job a tiny heartbeat."
+              item={cursorBlock}
+              side={
+                <span className="text-foreground flex items-center gap-2 font-mono text-sm">
+                  <span className="text-accent">$</span>
+                  build
+                  <InlineAnimation item={cursorBlock} className="text-sm" />
+                </span>
+              }
+            />
           </div>
-        </ExampleCard>
+        </section>
+
+        <div className="grid min-w-0 gap-5">
+          <section className="rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-5 border p-5">
+            <ExampleIntro
+              index="04"
+              title="Progress that stays text-native."
+              copy="ASCII progress is inspectable, compact, and easy to paste."
+              item={progressAscii}
+            />
+            <div className="grid gap-3">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-foreground text-sm font-medium">
+                  Generating snippets
+                </p>
+                <p className="text-muted-foreground font-mono text-xs">72%</p>
+              </div>
+              <InlineAnimation item={progressAscii} className="text-base" />
+            </div>
+          </section>
+
+          <section className="rounded-glyphe-lg border-border bg-background grid min-w-0 gap-5 border p-5">
+            <ExampleIntro
+              index="05"
+              title="Reveal the result."
+              copy="Use text effects when the content itself is the event."
+              item={textScramble}
+            />
+            <div className="grid min-w-0 gap-2">
+              <p className="text-muted-foreground font-mono text-xs uppercase">
+                Deploy preview
+              </p>
+              <InlineAnimation item={textScramble} className="text-4xl" />
+            </div>
+          </section>
+        </div>
       </div>
     </section>
   );
 }
 
-function ExampleCard({
+function ExampleIntro({
+  index,
   title,
-  description,
+  copy,
   item,
-  className,
-  children,
+  align = 'left',
 }: {
+  index: string;
   title: string;
-  description: string;
+  copy: string;
   item: RegistryItem;
-  className?: string;
-  children: ReactNode;
+  align?: 'left' | 'center';
 }) {
   return (
-    <article
-      className={`rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-5 border p-5 ${className ?? ''}`}
+    <div
+      className={cn(
+        'min-w-0',
+        align === 'center' && 'mx-auto max-w-2xl text-center',
+      )}
     >
-      <div className="min-w-0">
-        <p className="text-accent font-mono text-xs uppercase">{item.slug}</p>
-        <h2 className="text-foreground mt-2 text-xl font-semibold">{title}</h2>
-        <p className="text-muted-foreground mt-2 text-sm leading-6">
-          {description}
-        </p>
-      </div>
-
-      <div className="min-w-0">{children}</div>
-
-      <Link
-        to="/gallery/$slug"
-        params={{ slug: item.slug.replace('/', '--') }}
-        className="text-accent text-sm font-medium hover:underline"
+      <div
+        className={cn(
+          'flex items-center gap-3',
+          align === 'center' && 'justify-center',
+        )}
       >
-        View primitive
-      </Link>
-    </article>
+        <p className="text-muted-foreground font-mono text-xs uppercase">
+          {index}
+        </p>
+        <PrimitiveLink item={item} />
+      </div>
+      <h2 className="text-foreground mt-3 text-2xl font-semibold">{title}</h2>
+      <p className="text-muted-foreground mt-2 text-sm leading-6">{copy}</p>
+    </div>
+  );
+}
+
+function FlowStep({
+  index,
+  title,
+  copy,
+  item,
+  side,
+}: {
+  index: string;
+  title: string;
+  copy: string;
+  item: RegistryItem;
+  side: React.ReactNode;
+}) {
+  return (
+    <div className="border-border grid min-w-0 gap-4 border-l pl-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+      <ExampleIntro index={index} title={title} copy={copy} item={item} />
+      <div className="text-muted-foreground sm:justify-self-end">{side}</div>
+    </div>
+  );
+}
+
+function PrimitiveLink({ item }: { item: RegistryItem }) {
+  return (
+    <Link
+      to="/gallery/$slug"
+      params={{ slug: item.slug.replace('/', '--') }}
+      className="text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground font-mono text-xs underline underline-offset-4 transition-colors"
+    >
+      {item.slug}
+    </Link>
   );
 }
 
