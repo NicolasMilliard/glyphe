@@ -138,13 +138,13 @@ function ThemeToggle({
       aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
       aria-pressed={dark}
       onClick={onChange}
-      className="border-border bg-background/90 text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 backdrop-blur transition-colors"
+      className="glyphe-pressable border-border bg-background/90 text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 backdrop-blur"
     >
       <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
       <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
       <span
         className={cn(
-          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform',
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-[var(--duration-ui)] ease-[var(--ease-out)]',
           dark ? 'translate-x-0' : 'translate-x-10',
         )}
       />

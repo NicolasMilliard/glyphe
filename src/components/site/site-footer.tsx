@@ -9,7 +9,7 @@ export function SiteFooter() {
             target="_blank"
             rel="noreferrer"
             aria-label="Open Glyphe on GitHub"
-            className="hover:text-foreground rounded-glyphe-md inline-flex size-9 items-center justify-center transition-colors"
+            className="glyphe-pressable hover:text-foreground rounded-glyphe-md inline-flex size-9 items-center justify-center"
           >
             <svg
               aria-hidden="true"

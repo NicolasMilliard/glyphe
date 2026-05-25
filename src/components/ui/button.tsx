@@ -34,7 +34,7 @@ export function Button({
     <button
       type={type}
       className={cn(
-        'rounded-glyphe-md inline-flex items-center justify-center gap-2 border font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50',
+        'glyphe-pressable rounded-glyphe-md inline-flex items-center justify-center gap-2 border font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50',
         buttonVariants[variant],
         buttonSizes[size],
         className,

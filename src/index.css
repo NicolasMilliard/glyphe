@@ -48,6 +48,10 @@
   --radius-lg: 0.5rem;
   --page-gutter: clamp(1rem, 2vw, 2rem);
   --section-gap: clamp(4rem, 9vw, 7rem);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-press: 140ms;
+  --duration-ui: 180ms;
 }
 
 .theme-dark {
@@ -118,12 +122,48 @@ body {
   outline-offset: 2px;
 }
 
+.glyphe-pressable {
+  transition-property:
+    color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--duration-press);
+  transition-timing-function: var(--ease-out);
+}
+
+.glyphe-pressable:active {
+  transform: scale(0.97);
+}
+
+.glyphe-ui-transition {
+  transition-property:
+    color, background-color, border-color, box-shadow, opacity;
+  transition-duration: var(--duration-ui);
+  transition-timing-function: var(--ease-out);
+}
+
+.glyphe-hover-lift {
+  transition-property:
+    color, background-color, border-color, box-shadow, transform;
+  transition-duration: var(--duration-ui);
+  transition-timing-function: var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glyphe-hover-lift:hover {
+    transform: translateY(-1px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .glyphe-pressable:active,
+  .glyphe-hover-lift:hover {
+    transform: none;
   }
 }
 

@@ -39,7 +39,7 @@ export function IconButton({
       aria-label={label}
       title={label}
       className={cn(
-        'rounded-glyphe-md inline-grid place-items-center border transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4',
+        'glyphe-pressable rounded-glyphe-md inline-grid place-items-center border disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4',
         iconButtonVariants[variant],
         iconButtonSizes[size],
         className,

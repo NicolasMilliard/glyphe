@@ -83,7 +83,7 @@ function AnimationDetailPage() {
           </Link>
           <Link
             to="/registry"
-            className="text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground text-sm font-medium underline underline-offset-4 transition-colors"
+            className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm text-sm font-medium underline underline-offset-4"
           >
             Registry metadata
           </Link>
@@ -252,7 +252,7 @@ function AnimationTile({ item }: { item: RegistryItem }) {
     <Link
       to="/gallery/$slug"
       params={{ slug: item.slug.replace('/', '--') }}
-      className="border-border bg-background hover:bg-surface rounded-glyphe-lg grid min-w-0 grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3 border p-3 transition-colors"
+      className="glyphe-pressable glyphe-hover-lift border-border bg-background hover:bg-surface rounded-glyphe-lg grid min-w-0 grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3 border p-3"
     >
       <AnimationPreview
         item={item}

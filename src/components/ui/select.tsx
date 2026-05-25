@@ -8,7 +8,7 @@ export function Select({ className, children, ...props }: SelectProps) {
     <span className="relative inline-block w-full">
       <select
         className={cn(
-          'rounded-glyphe-md border-border bg-background text-foreground h-10 w-full appearance-none border py-0 pr-10 pl-3 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50',
+          'glyphe-ui-transition rounded-glyphe-md border-border bg-background text-foreground h-10 w-full appearance-none border py-0 pr-10 pl-3 text-sm disabled:cursor-not-allowed disabled:opacity-50',
           'focus-visible:border-ring focus-visible:outline-none',
           className,
         )}

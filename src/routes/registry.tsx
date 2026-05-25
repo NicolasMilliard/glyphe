@@ -113,7 +113,7 @@ function RegistryPage() {
                 key={item.slug}
                 to="/gallery/$slug"
                 params={{ slug: item.slug.replace('/', '--') }}
-                className="hover:bg-surface-strong grid min-w-0 gap-2 p-4 transition-colors sm:grid-cols-[minmax(0,1fr)_8rem_10rem] sm:items-center"
+                className="glyphe-pressable hover:bg-surface-strong grid min-w-0 gap-2 p-4 sm:grid-cols-[minmax(0,1fr)_8rem_10rem] sm:items-center"
               >
                 <div className="min-w-0">
                   <p className="text-foreground font-medium">{item.name}</p>

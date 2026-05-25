@@ -22,7 +22,7 @@ function DocsPage() {
             <a
               key={item.href}
               href={item.href}
-              className="text-muted-foreground hover:bg-surface hover:text-foreground rounded-glyphe-md px-3 py-2 text-sm transition-colors"
+              className="glyphe-pressable text-muted-foreground hover:bg-surface hover:text-foreground rounded-glyphe-md px-3 py-2 text-sm"
             >
               {item.label}
             </a>

@@ -83,7 +83,7 @@ export function Tabs({
               disabled={item.disabled}
               onClick={() => onValueChange(item.value)}
               className={cn(
-                'rounded-glyphe-sm shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50',
+                'glyphe-pressable rounded-glyphe-sm shrink-0 px-3 py-1.5 text-sm font-medium whitespace-nowrap disabled:pointer-events-none disabled:opacity-50',
                 selected
                   ? 'bg-background text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground',

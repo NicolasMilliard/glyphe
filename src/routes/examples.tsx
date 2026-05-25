@@ -193,7 +193,7 @@ function PrimitiveLink({ item }: { item: RegistryItem }) {
     <Link
       to="/gallery/$slug"
       params={{ slug: item.slug.replace('/', '--') }}
-      className="text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground font-mono text-xs underline underline-offset-4 transition-colors"
+      className="glyphe-pressable text-muted-foreground hover:text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm font-mono text-xs underline underline-offset-4"
     >
       {item.slug}
     </Link>

@@ -50,13 +50,13 @@ function HomePage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/gallery"
-              className="rounded-glyphe-md border-accent bg-accent text-accent-foreground hover:bg-accent/90 inline-flex h-11 items-center justify-center border px-5 text-base font-medium whitespace-nowrap transition-colors"
+              className="glyphe-pressable rounded-glyphe-md border-accent bg-accent text-accent-foreground hover:bg-accent/90 inline-flex h-11 items-center justify-center border px-5 text-base font-medium whitespace-nowrap"
             >
               Browse gallery
             </Link>
             <Link
               to="/generator"
-              className="rounded-glyphe-md border-border bg-surface text-foreground hover:bg-surface-strong inline-flex h-11 items-center justify-center border px-5 text-base font-medium whitespace-nowrap transition-colors"
+              className="glyphe-pressable rounded-glyphe-md border-border bg-surface text-foreground hover:bg-surface-strong inline-flex h-11 items-center justify-center border px-5 text-base font-medium whitespace-nowrap"
             >
               Open generator
             </Link>

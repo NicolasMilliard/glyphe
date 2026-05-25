@@ -148,7 +148,7 @@ function GalleryPage() {
                       filters.filter((item) => item !== filter),
                     )
                   }
-                  className="rounded-glyphe-md border-border bg-surface text-muted-foreground hover:text-foreground border px-3 py-1.5 text-sm transition-colors"
+                  className="glyphe-pressable rounded-glyphe-md border-border bg-surface text-muted-foreground hover:text-foreground border px-3 py-1.5 text-sm"
                 >
                   {getFilterLabel(filter)} ×
                 </button>
@@ -233,7 +233,7 @@ function FilterNavButton({
       type="button"
       onClick={onClick}
       className={cn(
-        'rounded-glyphe-md shrink-0 px-3 py-2 text-left text-sm transition-colors',
+        'glyphe-pressable rounded-glyphe-md shrink-0 px-3 py-2 text-left text-sm',
         active
           ? 'bg-foreground text-background'
           : 'text-muted-foreground hover:bg-surface hover:text-foreground',
@@ -254,7 +254,7 @@ function FilterCheckbox({
   children: React.ReactNode;
 }) {
   return (
-    <label className="text-muted-foreground hover:text-foreground rounded-glyphe-md hover:bg-surface flex shrink-0 cursor-pointer items-center gap-2 px-3 py-2 text-sm transition-colors">
+    <label className="glyphe-pressable text-muted-foreground hover:text-foreground rounded-glyphe-md hover:bg-surface flex shrink-0 cursor-pointer items-center gap-2 px-3 py-2 text-sm">
       <input
         type="checkbox"
         checked={checked}
@@ -281,13 +281,13 @@ function ThemeToggle({
       aria-label={`Switch preview to ${dark ? 'light' : 'dark'} theme`}
       aria-pressed={dark}
       onClick={onChange}
-      className="border-border bg-background text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5 transition-colors"
+      className="glyphe-pressable border-border bg-background text-muted-foreground hover:text-foreground relative inline-flex h-10 w-20 shrink-0 items-center justify-between rounded-full border px-2.5"
     >
       <MoonIcon className={dark ? 'text-white' : 'text-muted-foreground'} />
       <SunIcon className={dark ? 'text-muted-foreground' : 'text-white'} />
       <span
         className={cn(
-          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform',
+          'absolute top-1.5 left-1.5 size-7 rounded-full bg-black transition-transform duration-[var(--duration-ui)] ease-[var(--ease-out)]',
           dark ? 'translate-x-0' : 'translate-x-10',
         )}
       />

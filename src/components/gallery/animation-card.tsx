@@ -20,7 +20,7 @@ export function AnimationCard({
   const displayName = getDisplayName(item);
 
   return (
-    <article className="rounded-glyphe-lg border-border bg-background grid min-w-0 overflow-hidden border">
+    <article className="glyphe-hover-lift rounded-glyphe-lg border-border bg-background grid min-w-0 overflow-hidden border">
       <AnimationPreview
         item={item}
         loopPreview
@@ -71,7 +71,7 @@ export function AnimationCard({
         <Link
           to="/gallery/$slug"
           params={{ slug: detailSlug }}
-          className="text-foreground decoration-border hover:decoration-foreground justify-self-start text-sm font-medium underline underline-offset-4 transition-colors"
+          className="glyphe-pressable text-foreground decoration-border hover:decoration-foreground rounded-glyphe-sm justify-self-start text-sm font-medium underline underline-offset-4"
         >
           View details
         </Link>
