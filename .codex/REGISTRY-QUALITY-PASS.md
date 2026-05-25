@@ -332,23 +332,37 @@ For each braille variant:
 
 ## Suggested Review Outputs
 
-Use these labels when reviewing items:
+Round 1 used these outcomes:
 
-- [ ] Keep as-is
-- [ ] Keep with copy update
-- [ ] Keep with metadata update
-- [ ] Keep with rendering update
-- [ ] Rename
-- [ ] Move category
-- [ ] Hide from default gallery
-- [ ] Hide from generator presets
-- [ ] Remove
+- [x] Keep as-is
+  - `spinner/braille` remains the reference braille spinner.
+- [x] Keep with copy update
+  - `loader/waveform`, `progress/blocks`, and `spinner/clock` received clearer
+    descriptions.
+- [x] Keep with metadata update
+  - All retained registry items now include explicit compatibility metadata.
+- [x] Keep with rendering update
+  - `text/glitch-3d` uses specialized chromatic transform rendering.
+- [x] Rename
+  - `spinner/braille-fillsweep` became `spinner/braille-fill-sweep`.
+  - `spinner/braille-waverows` became the current `spinner/braille-wave`.
+  - `spinner/braille-dna` displays as `Braille Twist`.
+  - `spinner/braille-sparkle` displays as `Braille Fireworks`.
+- [x] Move category
+  - No retained item moved category in Round 1.
+- [x] Hide from default gallery
+  - No retained item is hidden from the gallery in Round 1.
+- [x] Hide from generator presets
+  - Dense braille variants are intentionally absent from curated generator
+    presets.
+- [x] Remove
+  - Weak or redundant braille variants were removed from the active registry.
 
 ## Definition Of Done
 
-- [ ] Every animation has an explicit keep/remove/update decision
-- [ ] Every retained animation has reviewed name, description, tags, and metadata
-- [ ] Gallery filters remain useful after tag cleanup
-- [ ] Detail pages read consistently across all categories
-- [ ] Generator presets use only the strongest representative animations
-- [ ] Registry tests pass
+- [x] Every animation has an explicit keep/remove/update decision
+- [x] Every retained animation has reviewed name, description, tags, and metadata
+- [x] Gallery filters remain useful after tag cleanup
+- [x] Detail pages read consistently across all categories
+- [x] Generator presets use only the strongest representative animations
+- [x] Registry tests pass
