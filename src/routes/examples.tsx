@@ -13,6 +13,7 @@ import { progressAscii } from '@/registry/items/progress-ascii';
 import { spinnerBraille } from '@/registry/items/spinner-braille';
 import { textScramble } from '@/registry/items/text-scramble';
 import { Link, createFileRoute } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
 export const Route = createFileRoute('/examples')({
@@ -35,20 +36,20 @@ function ExamplesPage() {
         </p>
       </div>
 
-      <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
-        <section className="rounded-glyphe-lg border-border bg-background grid min-w-0 gap-8 border p-5 sm:p-6">
-          <div className="flex min-w-0 flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="text-muted-foreground font-mono text-xs uppercase">
-                Build flow
+      <div className="min-w-0">
+        <section className="border-border bg-background rounded-glyphe-lg min-w-0 overflow-hidden border">
+          <div className="border-border flex min-w-0 flex-wrap items-center justify-between gap-4 border-b px-4 py-3 sm:px-5">
+            <div className="min-w-0">
+              <p className="text-foreground font-mono text-sm font-medium">
+                glyphe.config.ts
               </p>
-              <h2 className="text-foreground mt-2 text-2xl font-semibold">
-                A realistic registry install path.
-              </h2>
+              <p className="text-muted-foreground mt-1 text-sm">
+                Registry install, local build, preview handoff.
+              </p>
             </div>
             <button
               type="button"
-              className="rounded-glyphe-md border-accent bg-accent text-accent-foreground inline-flex h-11 items-center gap-3 border px-4 text-sm font-medium"
+              className="rounded-glyphe-md border-accent bg-accent text-accent-foreground glyphe-pressable inline-flex h-10 items-center gap-3 border px-4 text-sm font-medium"
             >
               <InlineAnimation
                 item={spinnerBraille}
@@ -58,73 +59,95 @@ function ExamplesPage() {
             </button>
           </div>
 
-          <div className="grid min-w-0 gap-4">
-            <FlowStep
-              index="01"
-              title="Save animation config"
-              copy="Inline motion confirms the action without taking over the interface."
-              item={spinnerBraille}
-              side={<span className="font-mono text-xs">pending</span>}
-            />
-            <FlowStep
-              index="02"
-              title="Sync registry cache"
-              copy="The command row stays readable while the loader sits at the edge."
-              item={loaderWaveform}
-              side={
-                <InlineAnimation item={loaderWaveform} className="text-xl" />
-              }
-            />
-            <FlowStep
-              index="03"
-              title="Build local output"
-              copy="A terminal cursor gives the background job a tiny heartbeat."
-              item={cursorBlock}
-              side={
-                <span className="text-foreground flex items-center gap-2 font-mono text-sm">
-                  <span className="text-accent">$</span>
-                  build
-                  <InlineAnimation item={cursorBlock} className="text-sm" />
-                </span>
-              }
-            />
+          <div className="grid min-w-0">
+            <div className="divide-border min-w-0 divide-y">
+              <FlowStep
+                index="01"
+                title="Save animation config"
+                copy="Inline motion confirms the action without taking over the interface."
+                item={spinnerBraille}
+                side={
+                  <span className="text-foreground flex items-center gap-2 font-mono text-sm">
+                    <InlineAnimation
+                      item={spinnerBraille}
+                      className="text-base"
+                    />
+                    saving
+                  </span>
+                }
+              />
+              <FlowStep
+                index="02"
+                title="Sync registry cache"
+                copy="The command row stays readable while the loader sits at the edge."
+                item={loaderWaveform}
+                side={
+                  <InlineAnimation item={loaderWaveform} className="text-xl" />
+                }
+              />
+              <FlowStep
+                index="03"
+                title="Build local output"
+                copy="A terminal cursor gives the background job a tiny heartbeat."
+                item={cursorBlock}
+                side={
+                  <span className="text-foreground flex items-center gap-2 font-mono text-sm">
+                    <span className="text-accent">$</span>
+                    build
+                    <InlineAnimation item={cursorBlock} className="text-sm" />
+                  </span>
+                }
+              />
+            </div>
+
+            <div className="border-border bg-background grid min-w-0 gap-0 border-t md:grid-cols-2">
+              <div className="grid min-w-0 gap-4">
+                <div className="p-5">
+                  <ExampleIntro
+                    index="04"
+                    title="Generate snippets"
+                    copy="ASCII progress stays inspectable while the code is produced."
+                    item={progressAscii}
+                  />
+                  <div className="mt-5 grid gap-3">
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-foreground text-sm font-medium">
+                        CSS + React + Tailwind
+                      </p>
+                      <p className="text-muted-foreground font-mono text-xs">
+                        72%
+                      </p>
+                    </div>
+                    <InlineAnimation
+                      item={progressAscii}
+                      className="max-w-full overflow-hidden text-base"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-border grid min-w-0 gap-4 border-t md:border-t-0 md:border-l">
+                <div className="p-5">
+                  <ExampleIntro
+                    index="05"
+                    title="Reveal preview"
+                    copy="Use text effects when the content itself is the event."
+                    item={textScramble}
+                  />
+                  <div className="mt-5 grid min-w-0 gap-2">
+                    <p className="text-muted-foreground font-mono text-xs uppercase">
+                      Deploy preview
+                    </p>
+                    <InlineAnimation
+                      item={textScramble}
+                      className="max-w-full overflow-hidden text-4xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-
-        <div className="grid min-w-0 gap-5">
-          <section className="rounded-glyphe-lg border-border bg-surface grid min-w-0 gap-5 border p-5">
-            <ExampleIntro
-              index="04"
-              title="Progress that stays text-native."
-              copy="ASCII progress is inspectable, compact, and easy to paste."
-              item={progressAscii}
-            />
-            <div className="grid gap-3">
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-foreground text-sm font-medium">
-                  Generating snippets
-                </p>
-                <p className="text-muted-foreground font-mono text-xs">72%</p>
-              </div>
-              <InlineAnimation item={progressAscii} className="text-base" />
-            </div>
-          </section>
-
-          <section className="rounded-glyphe-lg border-border bg-background grid min-w-0 gap-5 border p-5">
-            <ExampleIntro
-              index="05"
-              title="Reveal the result."
-              copy="Use text effects when the content itself is the event."
-              item={textScramble}
-            />
-            <div className="grid min-w-0 gap-2">
-              <p className="text-muted-foreground font-mono text-xs uppercase">
-                Deploy preview
-              </p>
-              <InlineAnimation item={textScramble} className="text-4xl" />
-            </div>
-          </section>
-        </div>
       </div>
     </section>
   );
@@ -135,27 +158,15 @@ function ExampleIntro({
   title,
   copy,
   item,
-  align = 'left',
 }: {
   index: string;
   title: string;
   copy: string;
   item: RegistryItem;
-  align?: 'left' | 'center';
 }) {
   return (
-    <div
-      className={cn(
-        'min-w-0',
-        align === 'center' && 'mx-auto max-w-2xl text-center',
-      )}
-    >
-      <div
-        className={cn(
-          'flex items-center gap-3',
-          align === 'center' && 'justify-center',
-        )}
-      >
+    <div className="min-w-0">
+      <div className="flex items-center gap-3">
         <p className="text-muted-foreground font-mono text-xs uppercase">
           {index}
         </p>
@@ -178,10 +189,10 @@ function FlowStep({
   title: string;
   copy: string;
   item: RegistryItem;
-  side: React.ReactNode;
+  side: ReactNode;
 }) {
   return (
-    <div className="border-border grid min-w-0 gap-4 border-l pl-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+    <div className="grid min-w-0 gap-4 px-4 py-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-5">
       <ExampleIntro index={index} title={title} copy={copy} item={item} />
       <div className="text-muted-foreground sm:justify-self-end">{side}</div>
     </div>

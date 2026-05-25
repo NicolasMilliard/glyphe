@@ -60,11 +60,11 @@ motion that fights the animation primitives themselves.
 
 ## Slice 6: Examples Page
 
-- [ ] Make examples feel like realistic product flows
-- [ ] Reduce decorative framing when the interface example is enough
-- [ ] Keep each example directly linked to its primitive
-- [ ] Verify inline animation renderers match their context
-- [ ] Avoid examples that feel like isolated ornaments
+- [x] Make examples feel like realistic product flows
+- [x] Reduce decorative framing when the interface example is enough
+- [x] Keep each example directly linked to its primitive
+- [x] Verify inline animation renderers match their context
+- [x] Avoid examples that feel like isolated ornaments
 
 ## Slice 7: Reduced Motion And Accessibility
 
