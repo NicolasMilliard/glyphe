@@ -4,13 +4,14 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Current Focus
 
-- [x] Scaffold Vite React TypeScript app
-- [x] Install Tailwind CSS
-- [x] Install TanStack Router
-- [x] Wire TanStack Router into Vite
-- [x] Create root route
-- [x] Create home route
-- [x] Create base app layout
+- [x] Complete registry quality pass
+- [x] Complete documentation pass
+- [x] Complete generator export polish
+- [x] Keep detailed completed plans as project history
+- [ ] Complete package boundary planning
+- [ ] Decide package extraction order
+- [ ] Decide release workflow
+- [ ] Decide first public release scope
 
 ## Foundation
 
@@ -288,6 +289,18 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Export edited preset output
 - [x] Review package boundaries after examples
 - [x] Review package boundaries after generator presets
+
+## Next Phase: Package Boundary Planning
+
+- [ ] Mark package responsibilities from current app modules
+- [ ] Decide `apps/www` migration timing
+- [ ] Decide `@glyphe/core` extraction scope
+- [ ] Decide `@glyphe/registry` extraction scope
+- [ ] Decide `@glyphe/generator` extraction scope
+- [ ] Decide whether `@glyphe/react` ships in v1
+- [ ] Decide whether `@glyphe/tailwind` ships in v1
+- [ ] Decide release workflow
+- [ ] Define first public release scope
 
 ## Deferred
 

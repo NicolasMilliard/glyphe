@@ -114,13 +114,17 @@ prove the product loop first, then packages should follow stable boundaries.
 
 ## Pre-Extraction Checklist
 
-- [ ] Registry quality pass is complete
-- [ ] Documentation pass is complete enough to describe package behavior
-- [ ] Generator export polish is complete
-- [ ] CLI prototype can install local registry items
-- [ ] Tests cover registry, generators, and slug lookup
-- [ ] Public package names are reserved or confirmed available
+- [x] Registry quality pass is complete
+- [x] Documentation pass is complete enough to describe package behavior
+- [x] Generator export polish is complete
+- [x] CLI prototype can install local registry items
+- [x] Tests cover registry, generators, and slug lookup
+- [x] Public package names are reserved or confirmed available
 - [ ] Release workflow is chosen
+
+## Current Recommendation
+
+Package extraction should be planned next, but not executed until the release workflow and first public scope are agreed. Start with `@glyphe/core`, `@glyphe/registry`, and `@glyphe/generator`; keep `@glyphe/react` and `@glyphe/tailwind` optional until a clear DX win appears.
 
 ## Definition Of Done
 

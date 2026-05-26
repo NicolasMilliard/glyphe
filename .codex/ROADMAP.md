@@ -352,7 +352,7 @@ The current implementation has moved past foundation work and now includes:
 - generator validation, glyph warnings, and strategy-specific output
 - focused tests for generators, registry validation, slug lookup, frame parsing, accessibility helpers, and unicode compatibility helpers
 
-The next high-value work should focus on polish, examples, and visual QA before starting a CLI prototype.
+The next high-value work is package boundary planning and release readiness. The product loop is stable enough to decide extraction order, public package scope, and release workflow before adding more animation surface area.
 
 ## Milestones
 

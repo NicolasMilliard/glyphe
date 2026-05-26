@@ -29,7 +29,7 @@ safe, accessible text animations.
 - [x] Add direct docs links to Gallery, Generator, and Examples
 - [x] Add a Generator Output section
 - [x] Keep copy concise and grounded in current shipped behavior
-- [ ] Add detail-page documentation hooks in a later slice
+- [x] Add detail-page documentation hooks in a later slice
 
 ## Core Pages
 
