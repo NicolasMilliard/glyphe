@@ -227,8 +227,8 @@ Package extraction should be planned next, but not executed until the release wo
 
 ## Definition Of Done
 
-- [ ] Package boundaries are documented
-- [ ] Extraction order is agreed
-- [ ] App code has clear seams for extraction
-- [ ] No package is extracted only because it feels tidy
-- [ ] Future `bunx glyphe add spinner/braille` remains compatible with the plan
+- [x] Package boundaries are documented
+- [x] Extraction order is agreed
+- [x] App code has clear seams for extraction
+- [x] No package is extracted only because it feels tidy
+- [x] Future `bunx glyphe add spinner/braille` remains compatible with the plan

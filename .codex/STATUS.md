@@ -13,7 +13,7 @@ Glyphe is now a coherent MVP-level web product. The gallery, detail pages, gener
 - Generator Export Polish: complete
 - Product Loop Stabilization: complete
 - Future CLI planning and local install prototype: complete
-- Future package planning: drafted
+- Future package planning: complete
 
 ## Product Strengths
 
@@ -35,14 +35,14 @@ Glyphe is now a coherent MVP-level web product. The gallery, detail pages, gener
 
 ## Recommended Next Step
 
-Package Boundary Planning.
+Release Workflow Planning.
 
-Do not add more animation surface area yet. The product loop is stable enough that the highest-leverage work is deciding what becomes `@glyphe/core`, `@glyphe/registry`, `@glyphe/generator`, whether `@glyphe/react` and `@glyphe/tailwind` ship in v1, and when the current app should move to `apps/www`.
+Do not extract packages yet. The package boundaries are now clear enough that the next useful decision is how releases will work: Changesets or a simpler process, Bun workspaces, build scripts, publish dry-runs, changelogs, and GitHub Actions checks.
 
 ## Active Plans
 
 - `PLAN.md`: main implementation map
-- `PACKAGE-BOUNDARY-PLANNING.md`: next active plan
+- `PACKAGE-BOUNDARY-PLANNING.md`: completed package boundary decision record
 - `PACKAGES.md`: package design reference
 - `CLI.md`: future CLI behavior reference
 - `ROADMAP.md`: product direction and milestone history
@@ -54,5 +54,6 @@ Keep these as history:
 - `REGISTRY-QUALITY-PASS.md`
 - `DOCUMENTATION-PASS.md`
 - `GENERATOR-EXPORT-POLISH.md`
+- `PACKAGE-BOUNDARY-PLANNING.md`
 
 Do not delete them yet. They explain why current product decisions exist.
