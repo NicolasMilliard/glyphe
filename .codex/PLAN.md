@@ -8,10 +8,10 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 - [x] Complete documentation pass
 - [x] Complete generator export polish
 - [x] Keep detailed completed plans as project history
-- [ ] Complete package boundary planning
-- [ ] Decide package extraction order
+- [x] Complete package boundary planning
+- [x] Decide package extraction order
 - [ ] Decide release workflow
-- [ ] Decide first public release scope
+- [x] Decide first public release scope
 
 ## Foundation
 
@@ -292,15 +292,25 @@ A small-action implementation checklist for Glyphe. Treat each item like a Linea
 
 ## Next Phase: Package Boundary Planning
 
-- [ ] Mark package responsibilities from current app modules
-- [ ] Decide `apps/www` migration timing
-- [ ] Decide `@glyphe/core` extraction scope
-- [ ] Decide `@glyphe/registry` extraction scope
-- [ ] Decide `@glyphe/generator` extraction scope
-- [ ] Decide whether `@glyphe/react` ships in v1
-- [ ] Decide whether `@glyphe/tailwind` ships in v1
+- [x] Mark package responsibilities from current app modules
+- [x] Decide `apps/www` migration timing
+- [x] Decide `@glyphe/core` extraction scope
+- [x] Decide `@glyphe/registry` extraction scope
+- [x] Decide `@glyphe/generator` extraction scope
+- [x] Decide whether `@glyphe/react` ships in v1
+- [x] Decide whether `@glyphe/tailwind` ships in v1
 - [ ] Decide release workflow
-- [ ] Define first public release scope
+- [x] Define first public release scope
+
+## Next Phase: Release Workflow
+
+- [ ] Choose Changesets or a simpler release process
+- [ ] Decide package build tool
+- [ ] Decide workspace package manager setup
+- [ ] Design package build scripts
+- [ ] Design package publish dry-run
+- [ ] Design package changelog workflow
+- [ ] Design GitHub Actions release checks
 
 ## Deferred
 

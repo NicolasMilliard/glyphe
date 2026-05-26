@@ -243,18 +243,18 @@ Future structure:
 
 ```txt
 apps/
-  web/
+  www/
 
 packages/
   core/
   registry/
   generator/
-  cli/
+  glyphe/
   react/
   tailwind/
 ```
 
-The current repo can remain single-app until package extraction creates more value than maintenance cost.
+The current repo can remain single-app until package extraction starts. When it becomes a monorepo, the website should move to `apps/www` and the executable CLI package should live in `packages/glyphe`.
 
 ## Extraction Criteria
 
@@ -278,3 +278,11 @@ The examples page and generator preset flow both reuse registry items directly, 
 - keep React preview components website-local until a real runtime package need appears
 
 The next extraction candidate remains `@glyphe/core`, followed by `@glyphe/registry` and `@glyphe/generator`. The examples and preset work did not reveal a need to extract `@glyphe/react` or `@glyphe/tailwind` yet.
+
+## Current Boundary Decision
+
+Package extraction should happen before public npm packages are released, but the website can be deployed before extraction. The first public package scope should be `glyphe`, `@glyphe/core`, `@glyphe/registry`, and `@glyphe/generator`.
+
+Registry entries should stay authored in TypeScript. A generated JSON registry can be added later for remote registry hosting.
+
+The CLI should use the bundled local registry first. Remote registries, custom registries, adapters, saved animations, and user accounts stay deferred.

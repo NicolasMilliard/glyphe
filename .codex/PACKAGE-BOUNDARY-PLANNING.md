@@ -7,25 +7,25 @@ prove the product loop first, then packages should follow stable boundaries.
 
 ## Preferred Future Package Map
 
-- [ ] `glyphe`
+- [x] `glyphe`
   - Public CLI package.
   - Enables `bunx glyphe ...` and `npx glyphe ...`.
 
-- [ ] `@glyphe/core`
+- [x] `@glyphe/core`
   - Shared types, schema, slug helpers, accessibility helpers, and compatibility
     helpers.
 
-- [ ] `@glyphe/registry`
+- [x] `@glyphe/registry`
   - Canonical registry items and registry lookup utilities.
 
-- [ ] `@glyphe/generator`
+- [x] `@glyphe/generator`
   - CSS, React, and Tailwind code generation.
 
-- [ ] `@glyphe/react`
+- [x] `@glyphe/react`
   - Optional runtime React preview/rendering primitives.
   - Should stay small and not be required for copy/paste ownership.
 
-- [ ] `@glyphe/tailwind`
+- [x] `@glyphe/tailwind`
   - Optional Tailwind integration helpers, if the generator alone is not enough.
 
 ## Extraction Principles
@@ -39,78 +39,177 @@ prove the product loop first, then packages should follow stable boundaries.
 
 ## Proposed Monorepo Structure
 
-- [ ] `apps/www`
-- [ ] `packages/core`
-- [ ] `packages/registry`
-- [ ] `packages/generator`
-- [ ] `packages/react`
-- [ ] `packages/tailwind`
-- [ ] `packages/cli`
+- [x] `apps/www`
+- [x] `packages/core`
+- [x] `packages/registry`
+- [x] `packages/generator`
+- [x] `packages/react`
+- [x] `packages/tailwind`
+- [x] `packages/glyphe`
 
 ## Boundary Decisions To Make
 
-- [ ] Decide if the current app moves to `apps/www`
-- [ ] Decide if package extraction happens before or after first public release
-- [ ] Decide if registry entries should be TypeScript, JSON, or generated JSON
-- [ ] Decide if registry schema lives in `core` or `registry`
-- [ ] Decide if generators depend on registry types only or registry data too
-- [ ] Decide if React renderers are product code, package code, or both
-- [ ] Decide if Tailwind helpers are necessary for v1
-- [ ] Decide if CLI installs from local registry files or remote registry JSON
+- [x] Move the current app to `apps/www` when the repo becomes a monorepo
+- [x] Extract core package boundaries before the first public package release
+- [x] Keep registry source entries in TypeScript and generate JSON for remote hosting later
+- [x] Keep registry schema in `@glyphe/core`
+- [x] Make generators depend on core types and accept registry-shaped input
+- [x] Keep React renderers website-local for now
+- [x] Defer Tailwind helpers until generated Tailwind output proves insufficient
+- [x] Ship the CLI against the bundled local registry first, then add remote registry support
 
 ## Package Responsibilities
 
 ### `@glyphe/core`
 
-- [ ] Registry schema types
-- [ ] Slug helpers
-- [ ] Accessibility guidance helpers
-- [ ] Unicode compatibility helpers
-- [ ] Shared constants
-- [ ] No React dependency
-- [ ] No website dependency
+- [x] Registry schema types
+- [x] Slug helpers
+- [x] Accessibility guidance helpers
+- [x] Unicode compatibility helpers
+- [x] Shared constants
+- [x] No React dependency
+- [x] No website dependency
 
 ### `@glyphe/registry`
 
-- [ ] Registry items
-- [ ] Registry lookup helpers
-- [ ] Category/family/tag helpers
-- [ ] Registry validation
-- [ ] Optional generated JSON output
-- [ ] Depends on `@glyphe/core`
+- [x] Registry items
+- [x] Registry lookup helpers
+- [x] Category/family/tag helpers
+- [x] Registry validation
+- [x] Optional generated JSON output
+- [x] Depends on `@glyphe/core`
 
 ### `@glyphe/generator`
 
-- [ ] CSS generator
-- [ ] React generator
-- [ ] Tailwind generator
-- [ ] Naming helpers
-- [ ] Escaping helpers
-- [ ] Snapshot tests
-- [ ] Depends on `@glyphe/core`
+- [x] CSS generator
+- [x] React generator
+- [x] Tailwind generator
+- [x] Naming helpers
+- [x] Escaping helpers
+- [x] Snapshot tests
+- [x] Depends on `@glyphe/core`
 
 ### `@glyphe/react`
 
-- [ ] Runtime renderers only if useful
-- [ ] Preview components only if they are package-worthy
-- [ ] No dependency on website UI components
-- [ ] Should not be required for copied generated React components
+- [x] Runtime renderers only if useful
+- [x] Preview components only if they are package-worthy
+- [x] No dependency on website UI components
+- [x] Should not be required for copied generated React components
 
 ### `@glyphe/tailwind`
 
-- [ ] Optional plugin or preset helpers
-- [ ] Tailwind v4-first design
-- [ ] Avoid duplicating generator output unless there is a clear DX win
+- [x] Optional plugin or preset helpers
+- [x] Tailwind v4-first design
+- [x] Avoid duplicating generator output unless there is a clear DX win
 
 ### `glyphe` CLI
 
-- [ ] `glyphe init`
-- [ ] `glyphe add <slug>`
-- [ ] `glyphe registry list`
-- [ ] `glyphe generate --frames "..."`
-- [ ] Detect project framework
-- [ ] Write user-owned files
-- [ ] Avoid hidden runtime dependency by default
+- [x] `glyphe init`
+- [x] `glyphe add <slug>`
+- [x] `glyphe registry list`
+- [x] `glyphe generate --frames "..."`
+- [x] Detect project framework
+- [x] Write user-owned files
+- [x] Avoid hidden runtime dependency by default
+
+## Current Source Ownership
+
+This is the source map to use before any file moves happen.
+
+### Core Candidates
+
+- `src/registry/schema.ts`
+- `src/registry/slug.ts`
+- `src/lib/accessibility.ts`
+- `src/lib/unicode-compatibility.ts`
+
+These modules are already close to package-ready. The main cleanup before extraction is import direction: core modules should not import from `@/registry`; they should own the shared types directly.
+
+### Registry Candidates
+
+- `src/registry/items/*`
+- `src/registry/index.ts`
+- `src/registry/presets.ts`
+- `src/registry/validation.ts`
+
+Registry data should remain TypeScript as the authoring format. A generated JSON artifact can be added later for remote registry hosting and CLI fetches.
+
+### Generator Candidates
+
+- `src/generator/css.ts`
+- `src/generator/react.ts`
+- `src/generator/tailwind.ts`
+- `src/generator/frames.ts`
+- `src/generator/*.test.ts`
+- `src/generator/__snapshots__/*`
+
+Generators should accept `RegistryItem`-shaped input, but should not import official registry data at runtime. Tests can keep using official registry items as fixtures.
+
+### CLI Candidate
+
+- `cli/index.ts`
+- `cli/local-install.ts`
+- `cli/local-install.test.ts`
+
+The current CLI prototype is allowed to import from `src/` until extraction starts. When packages exist, it should depend on `@glyphe/core`, `@glyphe/registry`, and `@glyphe/generator`.
+
+### Website-Local Code
+
+- `src/routes/*`
+- `src/components/site/*`
+- `src/components/ui/*`
+- `src/components/gallery/*`
+- `src/components/animation/*`
+- `src/lib/cn.ts`
+- `src/lib/routes.ts`
+- `src/lib/site.ts`
+- `src/lib/use-document-title.ts`
+- `src/lib/use-prefers-reduced-motion.ts`
+
+React preview components are website product code for now. They can inform a future `@glyphe/react`, but they should not become a public runtime package until a user workflow requires it.
+
+## Extraction Order
+
+1. Add workspace structure and move the website to `apps/www`.
+2. Extract `@glyphe/core`.
+3. Extract `@glyphe/registry`.
+4. Extract `@glyphe/generator`.
+5. Move the CLI prototype into `packages/glyphe`.
+6. Decide whether `@glyphe/react` deserves a v1 package.
+7. Decide whether `@glyphe/tailwind` deserves a v1 package.
+
+Do not extract `@glyphe/react` or `@glyphe/tailwind` as part of the first package move. The copy/paste model is stronger if these remain optional.
+
+## First Public Release Scope
+
+The first public package release should include:
+
+- `glyphe` CLI
+- `@glyphe/core`
+- `@glyphe/registry`
+- `@glyphe/generator`
+
+The first public package release should not include:
+
+- remote registries
+- user accounts
+- saved animations
+- framework adapters beyond generated React output
+- a Tailwind plugin unless generated Tailwind output becomes inadequate
+
+The website can be deployed before package extraction. Public npm packages should wait until the boundaries above are real package directories with their own build outputs and tests.
+
+## Release Workflow To Decide
+
+The remaining open decision is release tooling.
+
+Recommended candidates:
+
+- Changesets for versioning and changelog management
+- Bun workspaces for local development
+- GitHub Actions for `bun install`, `bun run check`, package builds, and publish dry-runs
+
+This should be decided before the first package extraction commit, because it affects package layout, build scripts, and publish metadata.
 
 ## Pre-Extraction Checklist
 
