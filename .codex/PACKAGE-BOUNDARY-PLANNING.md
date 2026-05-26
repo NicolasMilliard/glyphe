@@ -223,7 +223,7 @@ This should be decided before the first package extraction commit, because it af
 
 ## Current Recommendation
 
-Package extraction should be planned next, but not executed until the release workflow and first public scope are agreed. Start with `@glyphe/core`, `@glyphe/registry`, and `@glyphe/generator`; keep `@glyphe/react` and `@glyphe/tailwind` optional until a clear DX win appears.
+Package boundaries are now planned. Do not start extraction until the release workflow is chosen. The next step is deciding versioning, build scripts, publish dry-runs, changelogs, and CI checks.
 
 ## Definition Of Done
 
