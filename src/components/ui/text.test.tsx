@@ -1,0 +1,64 @@
+import '@/test/dom';
+
+import { cleanup, render } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
+
+import { Text } from './text';
+
+afterEach(cleanup);
+
+describe('Text', () => {
+  it('renders a paragraph by default', () => {
+    const { getByText } = render(<Text>Body copy</Text>);
+
+    expect(getByText('Body copy').tagName).toBe('P');
+  });
+
+  it('uses the intent as the default semantic element', () => {
+    const { getByRole } = render(<Text intent="h3">Section title</Text>);
+
+    expect(getByRole('heading', { level: 3 }).textContent).toBe(
+      'Section title',
+    );
+  });
+
+  it('allows the rendered element to differ from the visual intent', () => {
+    const { getByText } = render(
+      <Text intent="h3" as="label" htmlFor="motion">
+        Motion
+      </Text>,
+    );
+
+    const label = getByText('Motion');
+
+    expect(label.tagName).toBe('LABEL');
+    expect(label.getAttribute('for')).toBe('motion');
+    expect(label.classList.contains('text-2xl')).toBe(true);
+    expect(label.classList.contains('font-semibold')).toBe(true);
+  });
+
+  it('lets explicit props override intent typography', () => {
+    const { getByRole } = render(
+      <Text intent="h3" weight="normal">
+        Quiet heading
+      </Text>,
+    );
+
+    expect(
+      getByRole('heading', { level: 3 }).classList.contains('font-normal'),
+    ).toBe(true);
+  });
+
+  it('applies measure and rhythm classes', () => {
+    const { getByText } = render(
+      <Text measure="readable" rhythm="comfortable">
+        Readable paragraph
+      </Text>,
+    );
+
+    const text = getByText('Readable paragraph');
+
+    expect(text.classList.contains('max-w-[65ch]')).toBe(true);
+    expect(text.classList.contains('leading-8')).toBe(true);
+  });
+});
