@@ -102,7 +102,7 @@ const textVariants = cva('min-w-0 text-start', {
       small: 'text-sm',
       label: 'text-sm font-medium',
       caption: 'text-xs',
-      code: 'rounded bg-muted px-1.5 py-0.5 font-mono text-sm',
+      code: 'rounded-lg bg-muted px-1.5 py-0.5 font-mono text-sm',
     },
     tone: {
       foreground: 'text-foreground',
@@ -113,13 +113,13 @@ const textVariants = cva('min-w-0 text-start', {
       inherit: 'text-inherit',
     },
     family: {
-      inherit: 'font-[inherit]',
+      inherit: '[font-family:inherit]',
       sans: 'font-sans',
       serif: 'font-serif',
       mono: 'font-mono',
     },
     weight: {
-      inherit: 'font-[inherit]',
+      inherit: '[font-weight:inherit]',
       normal: 'font-normal',
       medium: 'font-medium',
       semibold: 'font-semibold',

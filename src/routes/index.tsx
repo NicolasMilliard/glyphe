@@ -1,7 +1,7 @@
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-import { Button, Text } from '@/components/ui';
+import { Button, Card, CardContent, Text } from '@/components/ui';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -41,7 +41,62 @@ function HomePage() {
           </Button>
         </div>
       </div>
-      <div>Right column</div>
+      <Card>
+        <CardContent className="flex flex-col gap-4">
+          <CardSection>
+            <Text intent="h3" as="h2">
+              Motion
+            </Text>
+            {/* TODO */}
+            <p>Typewriter animation</p>
+          </CardSection>
+          <CardSection>
+            <Text intent="h3" as="h2">
+              States
+            </Text>
+            {/* TODO */}
+            <p>Skeleton</p>
+          </CardSection>
+          <CardSection>
+            <Text intent="h3" as="h2">
+              Components
+            </Text>
+            <Text>Open source primitives with code you fully own.</Text>
+            <Text intent="code">
+              <Text intent="caption" className="text-code-component">
+                {'<Text '}
+              </Text>
+              <Text intent="caption" className="text-code-attribute">
+                {'intent'}
+              </Text>
+              <Text intent="caption" className="text-code-semantic">
+                {'='}
+              </Text>
+              <Text
+                intent="caption"
+                className="text-code-variable"
+              >{`'paragraph' `}</Text>
+              <Text intent="caption" className="text-code-attribute">
+                {'density'}
+              </Text>
+              <Text intent="caption" className="text-code-semantic">
+                {'='}
+              </Text>
+              <Text
+                intent="caption"
+                className="text-code-variable"
+              >{`'comfortable'`}</Text>
+              <Text intent="caption" className="text-code-component">
+                {'/>'}
+              </Text>
+            </Text>
+          </CardSection>
+        </CardContent>
+      </Card>
     </section>
   );
 }
+
+const CardSection = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex flex-col gap-2">{children}</div>
+);
