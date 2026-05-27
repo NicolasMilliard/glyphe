@@ -19,11 +19,11 @@ function HomePage() {
         <Text
           id="home-title"
           intent="display"
-          className="mb-4 font-serif sm:text-[8rem]"
+          className="glyphe-reveal mb-4 font-serif sm:text-[8rem]"
         >
           Glyphe
         </Text>
-        <div>
+        <div className="glyphe-reveal [--glyphe-reveal-delay:90ms]">
           <Text intent="lead" measure="narrow">
             Carefully crafted typography primitives that you can customize,
             extend, and build on.
@@ -32,19 +32,26 @@ function HomePage() {
             Open Source. No Black Boxes.
           </Text>
         </div>
-        <div className="flex items-center gap-6">
+        <nav
+          className="glyphe-reveal flex items-center gap-6 [--glyphe-reveal-delay:180ms]"
+          aria-label="Primary menu"
+        >
           <Button asChild size="lg">
             <Link to="/library">Browse Library</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <Link to="/playground">Open Playground</Link>
           </Button>
-        </div>
+        </nav>
       </div>
-      <Card>
+      <Card
+        role="complementary"
+        className="glyphe-reveal-soft [--glyphe-reveal-delay:260ms]"
+        aria-labelledby="home-preview-title"
+      >
         <CardContent className="flex flex-col gap-4">
           <CardSection>
-            <Text intent="h3" as="h2">
+            <Text id="home-preview-title" intent="h3" as="h2">
               Motion
             </Text>
             {/* TODO */}

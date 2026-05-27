@@ -172,3 +172,52 @@ body {
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .glyphe-reveal {
+    animation: glyphe-reveal 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--glyphe-reveal-delay, 0ms);
+    transform-origin: center top;
+  }
+
+  .glyphe-reveal-soft {
+    animation: glyphe-reveal-soft 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--glyphe-reveal-delay, 0ms);
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glyphe-reveal,
+    .glyphe-reveal-soft {
+      animation: none;
+    }
+  }
+}
+
+@keyframes glyphe-reveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(14px) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glyphe-reveal-soft {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
