@@ -1,5 +1,5 @@
-import { Link } from '@tanstack/react-router';
 import type { ErrorComponentProps } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 
 export function RootNotFound() {
   return (
@@ -14,7 +14,7 @@ export function RootNotFound() {
         </p>
         <Link
           to="/"
-          className="glyphe-pressable rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium"
+          className="glyphe-pressable rounded-glyphe-md border-border text-foreground hover:bg-muted mt-8 inline-flex border px-4 py-2 text-sm font-medium"
         >
           Back to home
         </Link>
@@ -42,7 +42,7 @@ export function RootErrorBoundary({ error, reset }: ErrorComponentProps) {
         <button
           type="button"
           onClick={reset}
-          className="glyphe-pressable rounded-glyphe-md border-border text-foreground hover:bg-surface mt-8 inline-flex border px-4 py-2 text-sm font-medium"
+          className="glyphe-pressable rounded-glyphe-md border-border text-foreground hover:bg-muted mt-8 inline-flex border px-4 py-2 text-sm font-medium"
         >
           Try again
         </button>

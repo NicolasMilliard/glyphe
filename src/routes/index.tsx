@@ -1,5 +1,7 @@
 import { useDocumentTitle } from '@/lib/use-document-title';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
+
+import { Button, Text } from '@/components/ui';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -9,23 +11,37 @@ function HomePage() {
   useDocumentTitle();
 
   return (
-    <section>
-      <h1>HomePage</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <section
+      className="flex min-h-screen items-center justify-between gap-16"
+      aria-labelledby="home-title"
+    >
+      <div className="flex flex-col gap-8">
+        <Text
+          id="home-title"
+          intent="display"
+          className="mb-4 font-serif sm:text-[8rem]"
+        >
+          Glyphe
+        </Text>
+        <div>
+          <Text intent="lead" measure="narrow">
+            Carefully crafted typography primitives that you can customize,
+            extend, and build on.
+          </Text>
+          <Text intent="paragraph" tone="muted" weight="medium">
+            Open Source. No Black Boxes.
+          </Text>
+        </div>
+        <div className="flex items-center gap-6">
+          <Button asChild size="lg">
+            <Link to="/library">Browse Library</Link>
+          </Button>
+          <Button asChild variant="secondary" size="lg">
+            <Link to="/playground">Open Playground</Link>
+          </Button>
+        </div>
+      </div>
+      <div>Right column</div>
     </section>
   );
 }
