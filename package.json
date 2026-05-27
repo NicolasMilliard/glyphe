@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "bun ./node_modules/vitest/vitest.mjs run",
     "check": "bun run lint && bun run test && bun run build",
     "cli": "bun ./cli/index.ts"
   },

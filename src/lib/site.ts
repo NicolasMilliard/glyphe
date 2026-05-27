@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: 'Glyphe',
-  title: 'Glyphe - Terminal-inspired text motion',
+  title: 'Glyphe - Typography primitives',
   description:
-    'A registry-first, CSS-first toolkit for terminal-inspired text animations on the web.',
+    'Carefully crafted typography primitives that you can customize, extend, and build on.',
 } as const;
