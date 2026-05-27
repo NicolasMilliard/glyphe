@@ -10,7 +10,6 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "bun ./node_modules/vitest/vitest.mjs run",
     "check": "bun run lint && bun run test && bun run build",
     "cli": "bun ./cli/index.ts"
   },
@@ -20,7 +19,6 @@
     "@tanstack/react-router": "1.170.7",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "lucide-react": "1.16.0",
     "radix-ui": "1.4.3",
     "react": "19.2.6",
     "react-dom": "19.2.6",
