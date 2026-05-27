@@ -8,12 +8,7 @@ type PageContainerProps = {
 
 export function PageContainer({ children, className }: PageContainerProps) {
   return (
-    <main
-      className={cn(
-        'mx-auto w-full max-w-6xl min-w-0 overflow-x-clip px-(--page-gutter) py-(--section-gap)',
-        className,
-      )}
-    >
+    <main className={cn('mx-auto w-full max-w-5xl min-w-0 pt-19', className)}>
       {children}
     </main>
   );

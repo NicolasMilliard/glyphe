@@ -5,7 +5,7 @@ import { SiteHeader } from './site/site-header';
 
 export function AppLayout() {
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <PageContainer className="flex-1">
         <Outlet />

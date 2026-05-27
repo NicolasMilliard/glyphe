@@ -1,11 +1,4 @@
-export { Button } from './button';
-export { CopyButton } from './copy-button';
-export { IconButton } from './icon-button';
-export { Input } from './input';
-export { SegmentedControl } from './segmented-control';
-export { Select } from './select';
-export { Tabs } from './tabs';
-export { Textarea } from './textarea';
-export { Tooltip } from './tooltip';
-export type { SegmentedControlItem } from './segmented-control';
-export type { TabItem } from './tabs';
+export * from './button';
+export * from './card';
+export * from './text';
+export * from './text-link';
