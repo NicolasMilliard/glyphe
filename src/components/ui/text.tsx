@@ -179,31 +179,31 @@ type TextRhythm = keyof (typeof textRhythmClasses)[TextIntent];
 
 type TextVariantProps = Omit<VariantProps<typeof textVariants>, 'intent'>;
 
-type BaseTextProps<TElement extends TextElement> = Omit<
-  React.ComponentPropsWithoutRef<TElement>,
-  'as' | 'color'
-> &
-  TextVariantProps & {
-    as?: TElement;
-    className?: string;
-    rhythm?: TextRhythm;
-  };
-
-type LabelTextProps = BaseTextProps<'label'> & {
-  intent: 'label';
-  as?: 'label';
-  htmlFor: string;
+type TextOwnProps = TextVariantProps & {
+  className?: string;
+  intent?: TextIntent;
+  rhythm?: TextRhythm;
 };
 
-type NonLabelTextProps<TElement extends TextElement = 'p'> =
-  BaseTextProps<TElement> & {
-    intent?: Exclude<TextIntent, 'label'>;
-    htmlFor?: never;
+type PolymorphicTextProps<TElement extends TextElement> = Omit<
+  React.ComponentPropsWithoutRef<TElement>,
+  keyof TextOwnProps | 'as' | 'color'
+> &
+  TextOwnProps & {
+    as?: TElement;
   };
 
+type LabelIntentTextProps = Omit<
+  PolymorphicTextProps<'label'>,
+  'as' | 'intent'
+> & {
+  intent: 'label';
+  as?: 'label';
+};
+
 type TextProps<TElement extends TextElement = 'p'> =
-  | LabelTextProps
-  | NonLabelTextProps<TElement>;
+  | LabelIntentTextProps
+  | PolymorphicTextProps<TElement>;
 
 function Text<TElement extends TextElement = 'p'>({
   as,
