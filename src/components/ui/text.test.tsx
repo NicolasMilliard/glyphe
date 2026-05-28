@@ -37,6 +37,16 @@ describe('Text', () => {
     expect(label.classList.contains('font-semibold')).toBe(true);
   });
 
+  it('allows visual label intent without label semantics', () => {
+    const { getByText } = render(
+      <Text intent="label" as="span">
+        Visual label
+      </Text>,
+    );
+
+    expect(getByText('Visual label').tagName).toBe('SPAN');
+  });
+
   it('lets explicit props override intent typography', () => {
     const { getByRole } = render(
       <Text intent="h3" weight="normal">

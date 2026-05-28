@@ -173,6 +173,7 @@ const textVariants = cva('min-w-0 text-start', {
 });
 
 type TextElement = React.ElementType;
+type NonLabelTextElement = Exclude<keyof React.JSX.IntrinsicElements, 'label'>;
 
 type TextIntent = keyof typeof textDefaultElements;
 type TextRhythm = keyof (typeof textRhythmClasses)[TextIntent];
@@ -195,15 +196,32 @@ type PolymorphicTextProps<TElement extends TextElement> = Omit<
 
 type LabelIntentTextProps = Omit<
   PolymorphicTextProps<'label'>,
-  'as' | 'intent'
+  'as' | 'htmlFor' | 'intent'
 > & {
   intent: 'label';
   as?: 'label';
+  htmlFor: string;
+};
+
+type VisualLabelTextProps<TElement extends TextElement> = Omit<
+  PolymorphicTextProps<TElement>,
+  'intent'
+> & {
+  intent: 'label';
+  as: TElement;
+};
+
+type NonLabelTextProps<TElement extends TextElement> = Omit<
+  PolymorphicTextProps<TElement>,
+  'intent'
+> & {
+  intent?: Exclude<TextIntent, 'label'>;
 };
 
 type TextProps<TElement extends TextElement = 'p'> =
   | LabelIntentTextProps
-  | PolymorphicTextProps<TElement>;
+  | VisualLabelTextProps<NonLabelTextElement>
+  | NonLabelTextProps<TElement>;
 
 function Text<TElement extends TextElement = 'p'>({
   as,
