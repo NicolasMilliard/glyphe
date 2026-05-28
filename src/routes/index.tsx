@@ -1,7 +1,7 @@
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-import { Button, Card, CardContent, Text } from '@/components/ui';
+import { Button, Card, CardContent, Text, TextSkeleton } from '@/components/ui';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -61,8 +61,7 @@ function HomePage() {
             <Text intent="h3" as="h2">
               States
             </Text>
-            {/* TODO */}
-            <p>Skeleton</p>
+            <TextSkeleton lines={3} />
           </CardSection>
           <CardSection>
             <Text intent="h3" as="h2">
