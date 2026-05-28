@@ -76,4 +76,16 @@ describe('TextLink', () => {
     expect(link.getAttribute('target')).toBe('_self');
     expect(link.getAttribute('rel')).toBe('author');
   });
+
+  it('removes unsafe opener rel values from external blank links', () => {
+    const { getByRole } = render(
+      <TextLink href="https://github.com" external rel="author opener">
+        GitHub
+      </TextLink>,
+    );
+
+    const link = getByRole('link', { name: 'GitHub' });
+
+    expect(link.getAttribute('rel')).toBe('author noopener noreferrer');
+  });
 });

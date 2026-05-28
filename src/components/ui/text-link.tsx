@@ -39,10 +39,7 @@ const textLinkVariants = cva(
   },
 );
 
-type TextLinkProps = Omit<
-  React.ComponentPropsWithoutRef<'a'>,
-  'color' | 'href'
-> &
+type TextLinkProps = Omit<React.ComponentProps<'a'>, 'color' | 'href'> &
   VariantProps<typeof textLinkVariants> & {
     external?: boolean;
     href: string;
@@ -77,10 +74,13 @@ function TextLink({
 }
 
 function mergeRel(rel: string | undefined, defaults: string) {
+  const unsafeRelValues = new Set(['opener']);
+
   return Array.from(
     new Set([rel, defaults].filter(Boolean).join(' ').split(' ')),
   )
     .filter(Boolean)
+    .filter((value) => !unsafeRelValues.has(value))
     .join(' ');
 }
 
