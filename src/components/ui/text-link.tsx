@@ -39,9 +39,13 @@ const textLinkVariants = cva(
   },
 );
 
-type TextLinkProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'color'> &
+type TextLinkProps = Omit<
+  React.ComponentPropsWithoutRef<'a'>,
+  'color' | 'href'
+> &
   VariantProps<typeof textLinkVariants> & {
     external?: boolean;
+    href: string;
   };
 
 function TextLink({
