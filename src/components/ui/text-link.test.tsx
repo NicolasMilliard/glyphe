@@ -88,4 +88,16 @@ describe('TextLink', () => {
 
     expect(link.getAttribute('rel')).toBe('author noopener noreferrer');
   });
+
+  it('secures custom blank targets without requiring external', () => {
+    const { getByRole } = render(
+      <TextLink href="/docs" target="_blank">
+        Documentation
+      </TextLink>,
+    );
+
+    const link = getByRole('link', { name: 'Documentation' });
+
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+  });
 });

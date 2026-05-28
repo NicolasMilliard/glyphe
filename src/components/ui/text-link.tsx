@@ -39,6 +39,8 @@ const textLinkVariants = cva(
   },
 );
 
+const unsafeBlankTargetRelValues = new Set(['opener']);
+
 type TextLinkProps = Omit<React.ComponentProps<'a'>, 'color' | 'href'> &
   VariantProps<typeof textLinkVariants> & {
     external?: boolean;
@@ -55,32 +57,27 @@ function TextLink({
   weight = 'inherit',
   ...props
 }: TextLinkProps) {
-  const externalTarget = external ? (target ?? '_blank') : target;
-  const externalRel =
-    external && externalTarget === '_blank'
-      ? mergeRel(rel, 'noopener noreferrer')
-      : rel;
+  const linkTarget = external ? (target ?? '_blank') : target;
+  const linkRel = linkTarget === '_blank' ? getSafeBlankTargetRel(rel) : rel;
 
   return (
     <a
       data-slot="text-link"
       data-external={external ? '' : undefined}
       className={cn(textLinkVariants({ tone, underline, weight, className }))}
-      rel={externalRel}
-      target={externalTarget}
+      rel={linkRel}
+      target={linkTarget}
       {...props}
     />
   );
 }
 
-function mergeRel(rel: string | undefined, defaults: string) {
-  const unsafeRelValues = new Set(['opener']);
-
+function getSafeBlankTargetRel(rel: string | undefined) {
   return Array.from(
-    new Set([rel, defaults].filter(Boolean).join(' ').split(' ')),
+    new Set([rel, 'noopener noreferrer'].filter(Boolean).join(' ').split(' ')),
   )
     .filter(Boolean)
-    .filter((value) => !unsafeRelValues.has(value))
+    .filter((value) => !unsafeBlankTargetRelValues.has(value))
     .join(' ');
 }
 
