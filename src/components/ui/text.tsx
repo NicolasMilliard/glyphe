@@ -163,7 +163,6 @@ const textVariants = cva('min-w-0 text-start', {
   defaultVariants: {
     intent: 'paragraph',
     tone: 'foreground',
-    family: 'inherit',
     tracking: 'inherit',
     align: 'start',
     wrap: 'pretty',
@@ -229,7 +228,7 @@ function Text<TElement extends TextElement = 'p'>({
   intent = 'paragraph',
   rhythm = 'default',
   tone = 'foreground',
-  family = 'inherit',
+  family,
   weight,
   tracking = 'inherit',
   align = 'start',

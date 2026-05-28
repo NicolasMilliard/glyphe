@@ -71,4 +71,16 @@ describe('Text', () => {
     expect(text.classList.contains('max-w-[65ch]')).toBe(true);
     expect(text.classList.contains('leading-8')).toBe(true);
   });
+
+  it('preserves intent-specific font families by default', () => {
+    const { getByText } = render(
+      <Text intent="code">const value = true;</Text>,
+    );
+
+    const code = getByText('const value = true;');
+
+    expect(code.tagName).toBe('CODE');
+    expect(code.classList.contains('font-mono')).toBe(true);
+    expect(code.classList.contains('[font-family:inherit]')).toBe(false);
+  });
 });
