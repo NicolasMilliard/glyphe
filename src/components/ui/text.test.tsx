@@ -59,9 +59,9 @@ describe('Text', () => {
     ).toBe(true);
   });
 
-  it('applies measure and rhythm classes', () => {
+  it('applies measure and leading classes', () => {
     const { getByText } = render(
-      <Text measure="readable" rhythm="comfortable">
+      <Text measure="readable" leading="comfortable">
         Readable paragraph
       </Text>,
     );

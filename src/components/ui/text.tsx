@@ -19,7 +19,7 @@ const textDefaultElements = {
   code: 'code',
 } as const;
 
-const textRhythmClasses = {
+const textLeadingClasses = {
   display: {
     compact: 'leading-none',
     default: 'leading-[1.04]',
@@ -112,7 +112,7 @@ const textVariants = cva('min-w-0 text-start', {
       destructive: 'text-destructive',
       inherit: 'text-inherit',
     },
-    family: {
+    fontFamily: {
       inherit: '[font-family:inherit]',
       sans: 'font-sans',
       serif: 'font-serif',
@@ -147,7 +147,7 @@ const textVariants = cva('min-w-0 text-start', {
       break: 'break-words',
       truncate: 'truncate',
     },
-    transform: {
+    textTransform: {
       none: '',
       uppercase: 'uppercase',
       lowercase: 'lowercase',
@@ -166,7 +166,7 @@ const textVariants = cva('min-w-0 text-start', {
     tracking: 'inherit',
     align: 'start',
     wrap: 'pretty',
-    transform: 'none',
+    textTransform: 'none',
     measure: 'none',
   },
 });
@@ -175,14 +175,14 @@ type TextElement = React.ElementType;
 type NonLabelTextElement = Exclude<keyof React.JSX.IntrinsicElements, 'label'>;
 
 type TextIntent = keyof typeof textDefaultElements;
-type TextRhythm = keyof (typeof textRhythmClasses)[TextIntent];
+type TextLeading = keyof (typeof textLeadingClasses)[TextIntent];
 
 type TextVariantProps = Omit<VariantProps<typeof textVariants>, 'intent'>;
 
 type TextOwnProps = TextVariantProps & {
   className?: string;
   intent?: TextIntent;
-  rhythm?: TextRhythm;
+  leading?: TextLeading;
 };
 
 type PolymorphicTextProps<TElement extends TextElement> = Omit<
@@ -226,14 +226,14 @@ function Text<TElement extends TextElement = 'p'>({
   as,
   className,
   intent = 'paragraph',
-  rhythm = 'default',
+  leading = 'default',
   tone = 'foreground',
-  family,
+  fontFamily,
   weight,
   tracking = 'inherit',
   align = 'start',
   wrap = 'pretty',
-  transform = 'none',
+  textTransform = 'none',
   measure = 'none',
   ...props
 }: TextProps<TElement>) {
@@ -243,20 +243,20 @@ function Text<TElement extends TextElement = 'p'>({
     <Comp
       data-slot="text"
       data-intent={intent}
-      data-rhythm={rhythm}
+      data-leading={leading}
       className={cn(
         textVariants({
           intent,
           tone,
-          family,
+          fontFamily,
           weight,
           tracking,
           align,
           wrap,
-          transform,
+          textTransform,
           measure,
         }),
-        textRhythmClasses[intent][rhythm],
+        textLeadingClasses[intent][leading],
         className,
       )}
       {...props}
@@ -265,4 +265,4 @@ function Text<TElement extends TextElement = 'p'>({
 }
 
 export { Text };
-export type { TextIntent, TextProps, TextRhythm };
+export type { TextIntent, TextLeading, TextProps };
