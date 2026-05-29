@@ -1,7 +1,15 @@
 import { useDocumentTitle } from '@/lib/use-document-title';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-import { Button, Card, CardContent, Text, TextSkeleton } from '@/components/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  Text,
+  TextReveal,
+  TextSkeleton,
+  TypewriterText,
+} from '@/components/ui';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -12,14 +20,14 @@ function HomePage() {
 
   return (
     <section
-      className="flex min-h-screen items-center justify-between gap-16"
+      className="flex flex-col items-center justify-between gap-16 px-4 py-8 sm:px-6 sm:py-12 lg:min-h-[calc(100svh-4.75rem)] lg:flex-row"
       aria-labelledby="home-title"
     >
       <div className="flex flex-col gap-8">
         <Text
           id="home-title"
           intent="display"
-          className="glyphe-reveal mb-4 font-serif sm:text-[8rem]"
+          className="glyphe-reveal font-serif sm:text-[8rem] lg:mb-4"
         >
           Glyphe
         </Text>
@@ -28,21 +36,20 @@ function HomePage() {
             Carefully crafted typography primitives that you can customize,
             extend, and build on.
           </Text>
-          <Text intent="paragraph" tone="muted" weight="medium">
-            Open Source. No Black Boxes.
-          </Text>
+          <TypewriterText asChild delay="800ms" cursor={false}>
+            <Text intent="caption" tone="muted" weight="medium">
+              Open Source. No Black Boxes.
+            </Text>
+          </TypewriterText>
         </div>
-        <nav
-          className="glyphe-reveal flex items-center gap-6 [--glyphe-reveal-delay:180ms]"
-          aria-label="Primary menu"
-        >
+        <div className="glyphe-reveal flex flex-wrap items-center gap-6 [--glyphe-reveal-delay:180ms]">
           <Button asChild size="lg">
             <Link to="/library">Browse Library</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <Link to="/playground">Open Playground</Link>
           </Button>
-        </nav>
+        </div>
       </div>
       <Card
         role="complementary"
@@ -54,8 +61,10 @@ function HomePage() {
             <Text id="home-preview-title" intent="h3" as="h2">
               Motion
             </Text>
-            {/* TODO */}
-            <p>Typewriter animation</p>
+            <TextReveal effect="slide" delay="900ms">
+              Text reveal effect
+            </TextReveal>
+            <TypewriterText delay="1500ms">Typewriter effect</TypewriterText>
           </CardSection>
           <CardSection>
             <Text intent="h3" as="h2">
@@ -83,7 +92,7 @@ function HomePage() {
                 className="text-code-variable"
               >{`'paragraph' `}</Text>
               <Text intent="caption" className="text-code-attribute">
-                {'density'}
+                {'leading'}
               </Text>
               <Text intent="caption" className="text-code-semantic">
                 {'='}
