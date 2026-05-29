@@ -101,7 +101,7 @@ const textVariants = cva('min-w-0 text-start', {
       lead: 'text-lg',
       small: 'text-sm',
       label: 'text-sm font-medium',
-      caption: 'text-xs',
+      caption: 'text-sm',
       code: 'rounded-lg bg-muted px-1.5 py-0.5 font-mono text-sm',
     },
     tone: {
