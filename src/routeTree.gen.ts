@@ -13,6 +13,11 @@ import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as DocsRouteRouteImport } from './routes/docs/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsInstallationRouteImport } from './routes/docs/installation'
+import { Route as DocsComponentsTypewriterTextRouteImport } from './routes/docs/components/typewriter-text'
+import { Route as DocsComponentsTextSkeletonRouteImport } from './routes/docs/components/text-skeleton'
+import { Route as DocsComponentsTextRevealRouteImport } from './routes/docs/components/text-reveal'
+import { Route as DocsComponentsTextLinkRouteImport } from './routes/docs/components/text-link'
 import { Route as DocsComponentsTextRouteImport } from './routes/docs/components/text'
 
 const PlaygroundRoute = PlaygroundRouteImport.update({
@@ -35,6 +40,34 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DocsRouteRoute,
 } as any)
+const DocsInstallationRoute = DocsInstallationRouteImport.update({
+  id: '/installation',
+  path: '/installation',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
+const DocsComponentsTypewriterTextRoute =
+  DocsComponentsTypewriterTextRouteImport.update({
+    id: '/components/typewriter-text',
+    path: '/components/typewriter-text',
+    getParentRoute: () => DocsRouteRoute,
+  } as any)
+const DocsComponentsTextSkeletonRoute =
+  DocsComponentsTextSkeletonRouteImport.update({
+    id: '/components/text-skeleton',
+    path: '/components/text-skeleton',
+    getParentRoute: () => DocsRouteRoute,
+  } as any)
+const DocsComponentsTextRevealRoute =
+  DocsComponentsTextRevealRouteImport.update({
+    id: '/components/text-reveal',
+    path: '/components/text-reveal',
+    getParentRoute: () => DocsRouteRoute,
+  } as any)
+const DocsComponentsTextLinkRoute = DocsComponentsTextLinkRouteImport.update({
+  id: '/components/text-link',
+  path: '/components/text-link',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
 const DocsComponentsTextRoute = DocsComponentsTextRouteImport.update({
   id: '/components/text',
   path: '/components/text',
@@ -45,35 +78,74 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/docs': typeof DocsRouteRouteWithChildren
   '/playground': typeof PlaygroundRoute
+  '/docs/installation': typeof DocsInstallationRoute
   '/docs/': typeof DocsIndexRoute
   '/docs/components/text': typeof DocsComponentsTextRoute
+  '/docs/components/text-link': typeof DocsComponentsTextLinkRoute
+  '/docs/components/text-reveal': typeof DocsComponentsTextRevealRoute
+  '/docs/components/text-skeleton': typeof DocsComponentsTextSkeletonRoute
+  '/docs/components/typewriter-text': typeof DocsComponentsTypewriterTextRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/docs/installation': typeof DocsInstallationRoute
   '/docs': typeof DocsIndexRoute
   '/docs/components/text': typeof DocsComponentsTextRoute
+  '/docs/components/text-link': typeof DocsComponentsTextLinkRoute
+  '/docs/components/text-reveal': typeof DocsComponentsTextRevealRoute
+  '/docs/components/text-skeleton': typeof DocsComponentsTextSkeletonRoute
+  '/docs/components/typewriter-text': typeof DocsComponentsTypewriterTextRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/docs': typeof DocsRouteRouteWithChildren
   '/playground': typeof PlaygroundRoute
+  '/docs/installation': typeof DocsInstallationRoute
   '/docs/': typeof DocsIndexRoute
   '/docs/components/text': typeof DocsComponentsTextRoute
+  '/docs/components/text-link': typeof DocsComponentsTextLinkRoute
+  '/docs/components/text-reveal': typeof DocsComponentsTextRevealRoute
+  '/docs/components/text-skeleton': typeof DocsComponentsTextSkeletonRoute
+  '/docs/components/typewriter-text': typeof DocsComponentsTypewriterTextRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/docs' | '/playground' | '/docs/' | '/docs/components/text'
+  fullPaths:
+    | '/'
+    | '/docs'
+    | '/playground'
+    | '/docs/installation'
+    | '/docs/'
+    | '/docs/components/text'
+    | '/docs/components/text-link'
+    | '/docs/components/text-reveal'
+    | '/docs/components/text-skeleton'
+    | '/docs/components/typewriter-text'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/playground' | '/docs' | '/docs/components/text'
+  to:
+    | '/'
+    | '/playground'
+    | '/docs/installation'
+    | '/docs'
+    | '/docs/components/text'
+    | '/docs/components/text-link'
+    | '/docs/components/text-reveal'
+    | '/docs/components/text-skeleton'
+    | '/docs/components/typewriter-text'
   id:
     | '__root__'
     | '/'
     | '/docs'
     | '/playground'
+    | '/docs/installation'
     | '/docs/'
     | '/docs/components/text'
+    | '/docs/components/text-link'
+    | '/docs/components/text-reveal'
+    | '/docs/components/text-skeleton'
+    | '/docs/components/typewriter-text'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -112,6 +184,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof DocsRouteRoute
     }
+    '/docs/installation': {
+      id: '/docs/installation'
+      path: '/installation'
+      fullPath: '/docs/installation'
+      preLoaderRoute: typeof DocsInstallationRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/docs/components/typewriter-text': {
+      id: '/docs/components/typewriter-text'
+      path: '/components/typewriter-text'
+      fullPath: '/docs/components/typewriter-text'
+      preLoaderRoute: typeof DocsComponentsTypewriterTextRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/docs/components/text-skeleton': {
+      id: '/docs/components/text-skeleton'
+      path: '/components/text-skeleton'
+      fullPath: '/docs/components/text-skeleton'
+      preLoaderRoute: typeof DocsComponentsTextSkeletonRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/docs/components/text-reveal': {
+      id: '/docs/components/text-reveal'
+      path: '/components/text-reveal'
+      fullPath: '/docs/components/text-reveal'
+      preLoaderRoute: typeof DocsComponentsTextRevealRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/docs/components/text-link': {
+      id: '/docs/components/text-link'
+      path: '/components/text-link'
+      fullPath: '/docs/components/text-link'
+      preLoaderRoute: typeof DocsComponentsTextLinkRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
     '/docs/components/text': {
       id: '/docs/components/text'
       path: '/components/text'
@@ -123,13 +230,23 @@ declare module '@tanstack/react-router' {
 }
 
 interface DocsRouteRouteChildren {
+  DocsInstallationRoute: typeof DocsInstallationRoute
   DocsIndexRoute: typeof DocsIndexRoute
   DocsComponentsTextRoute: typeof DocsComponentsTextRoute
+  DocsComponentsTextLinkRoute: typeof DocsComponentsTextLinkRoute
+  DocsComponentsTextRevealRoute: typeof DocsComponentsTextRevealRoute
+  DocsComponentsTextSkeletonRoute: typeof DocsComponentsTextSkeletonRoute
+  DocsComponentsTypewriterTextRoute: typeof DocsComponentsTypewriterTextRoute
 }
 
 const DocsRouteRouteChildren: DocsRouteRouteChildren = {
+  DocsInstallationRoute: DocsInstallationRoute,
   DocsIndexRoute: DocsIndexRoute,
   DocsComponentsTextRoute: DocsComponentsTextRoute,
+  DocsComponentsTextLinkRoute: DocsComponentsTextLinkRoute,
+  DocsComponentsTextRevealRoute: DocsComponentsTextRevealRoute,
+  DocsComponentsTextSkeletonRoute: DocsComponentsTextSkeletonRoute,
+  DocsComponentsTypewriterTextRoute: DocsComponentsTypewriterTextRoute,
 }
 
 const DocsRouteRouteWithChildren = DocsRouteRoute._addFileChildren(

@@ -113,7 +113,7 @@ function TextDocsPage() {
   useDocumentTitle('Text');
 
   return (
-    <article className="space-y-18 px-4 py-8 sm:px-6 sm:py-12">
+    <article className="space-y-18">
       <header className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
         <div className="glyphe-reveal space-y-6">
           <Text intent="caption" tone="muted" weight="medium">

@@ -11,10 +11,7 @@ function DocsIndexPage() {
   useDocumentTitle('Docs');
 
   return (
-    <section
-      className="space-y-10 px-4 py-8 sm:px-6 sm:py-12"
-      aria-labelledby="docs-title"
-    >
+    <section className="space-y-10" aria-labelledby="docs-title">
       <div className="space-y-4">
         <Text id="docs-title" intent="h1" className="font-normal">
           Docs
