@@ -44,7 +44,7 @@ function HomePage() {
         </div>
         <div className="glyphe-reveal flex flex-wrap items-center gap-6 [--glyphe-reveal-delay:180ms]">
           <Button asChild size="lg">
-            <Link to="/library">Browse Library</Link>
+            <Link to="/docs">Browse Docs</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <Link to="/playground">Open Playground</Link>

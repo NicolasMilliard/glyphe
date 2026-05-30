@@ -20,7 +20,7 @@ function DocsIndexPage() {
           Docs
         </Text>
         <Text intent="lead" measure="readable" tone="muted">
-          Learn how Glyphe primitives keep typography readable, semantic, and
+          Learn how Glyphe components keep typography readable, semantic, and
           easy to own in your project.
         </Text>
       </div>

@@ -15,9 +15,6 @@ export function SiteHeader() {
             <Link to="/docs">Docs</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/library">Library</Link>
-          </Button>
-          <Button asChild variant="ghost">
             <Link to="/playground">Playground</Link>
           </Button>
         </nav>
