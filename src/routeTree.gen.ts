@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as LibraryRouteImport } from './routes/library'
-import { Route as DocsRouteImport } from './routes/docs'
+import { Route as DocsRouteRouteImport } from './routes/docs/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsComponentsTextRouteImport } from './routes/docs/components/text'
 
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
@@ -24,7 +26,7 @@ const LibraryRoute = LibraryRouteImport.update({
   path: '/library',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DocsRoute = DocsRouteImport.update({
+const DocsRouteRoute = DocsRouteRouteImport.update({
   id: '/docs',
   path: '/docs',
   getParentRoute: () => rootRouteImport,
@@ -34,37 +36,65 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
+const DocsComponentsTextRoute = DocsComponentsTextRouteImport.update({
+  id: '/components/text',
+  path: '/components/text',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/docs': typeof DocsRoute
+  '/docs': typeof DocsRouteRouteWithChildren
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
+  '/docs/': typeof DocsIndexRoute
+  '/docs/components/text': typeof DocsComponentsTextRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/docs': typeof DocsRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
+  '/docs': typeof DocsIndexRoute
+  '/docs/components/text': typeof DocsComponentsTextRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/docs': typeof DocsRoute
+  '/docs': typeof DocsRouteRouteWithChildren
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
+  '/docs/': typeof DocsIndexRoute
+  '/docs/components/text': typeof DocsComponentsTextRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/docs' | '/library' | '/playground'
+  fullPaths:
+    | '/'
+    | '/docs'
+    | '/library'
+    | '/playground'
+    | '/docs/'
+    | '/docs/components/text'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/docs' | '/library' | '/playground'
-  id: '__root__' | '/' | '/docs' | '/library' | '/playground'
+  to: '/' | '/library' | '/playground' | '/docs' | '/docs/components/text'
+  id:
+    | '__root__'
+    | '/'
+    | '/docs'
+    | '/library'
+    | '/playground'
+    | '/docs/'
+    | '/docs/components/text'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DocsRoute: typeof DocsRoute
+  DocsRouteRoute: typeof DocsRouteRouteWithChildren
   LibraryRoute: typeof LibraryRoute
   PlaygroundRoute: typeof PlaygroundRoute
 }
@@ -89,7 +119,7 @@ declare module '@tanstack/react-router' {
       id: '/docs'
       path: '/docs'
       fullPath: '/docs'
-      preLoaderRoute: typeof DocsRouteImport
+      preLoaderRoute: typeof DocsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -99,12 +129,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs/': {
+      id: '/docs/'
+      path: '/'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/docs/components/text': {
+      id: '/docs/components/text'
+      path: '/components/text'
+      fullPath: '/docs/components/text'
+      preLoaderRoute: typeof DocsComponentsTextRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
   }
 }
 
+interface DocsRouteRouteChildren {
+  DocsIndexRoute: typeof DocsIndexRoute
+  DocsComponentsTextRoute: typeof DocsComponentsTextRoute
+}
+
+const DocsRouteRouteChildren: DocsRouteRouteChildren = {
+  DocsIndexRoute: DocsIndexRoute,
+  DocsComponentsTextRoute: DocsComponentsTextRoute,
+}
+
+const DocsRouteRouteWithChildren = DocsRouteRoute._addFileChildren(
+  DocsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DocsRoute: DocsRoute,
+  DocsRouteRoute: DocsRouteRouteWithChildren,
   LibraryRoute: LibraryRoute,
   PlaygroundRoute: PlaygroundRoute,
 }
