@@ -19,33 +19,31 @@ export function PageIntro() {
 export const primitives = [
   {
     name: 'Text',
-    role: 'Base text',
-    detail:
-      'Headings, paragraphs, lead text, labels, captions, and inline code.',
+    role: 'Typography',
+    description:
+      'Headings, paragraphs, labels, captions, code, and the typography decisions that connect them.',
   },
   {
     name: 'TextLink',
-    role: 'Inline links',
-    detail:
-      'Underline variants, token-backed tones, focus styles, and safe external-link behavior.',
+    role: 'Links',
+    description: 'Typographic links designed to live naturally inside content.',
   },
   {
     name: 'TextSkeleton',
-    role: 'Loading states',
-    detail:
-      'Text-shaped placeholders that keep reading rhythm stable while content loads.',
+    role: 'Loading',
+    description:
+      'Text-shaped placeholders that preserve reading rythm while content loads.',
   },
   {
     name: 'TypewriterText',
-    role: 'Text feedback',
-    detail:
-      'Typewriter-style motion with configurable timing, steps, tone, and cursor behavior.',
+    role: 'Feedback',
+    description:
+      'Sequential text motion for status updates, prompts, and progressive disclosure.',
   },
   {
     name: 'TextReveal',
-    role: 'Text entrance',
-    detail:
-      'Fade, blur, slide, and mask reveal effects with reduced-motion handling in CSS.',
+    role: 'Entrance',
+    description: 'Reveal content with motion that respects user preferences.',
   },
 ] as const;
 

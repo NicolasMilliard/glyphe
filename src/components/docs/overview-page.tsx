@@ -20,16 +20,16 @@ const primitiveColumns = [
   {
     header: 'Use for',
     render: (primitive) => (
-      <Text intent="small" weight="medium">
+      <Text intent="small" as="p" weight="medium">
         {primitive.role}
       </Text>
     ),
   },
   {
-    header: 'Details',
+    header: 'Description',
     render: (primitive) => (
-      <Text intent="small" tone="muted">
-        {primitive.detail}
+      <Text intent="small" as="p">
+        {primitive.description}
       </Text>
     ),
   },
@@ -44,22 +44,21 @@ function OverviewPage() {
         </Text>
         <Text intent="lead" measure="readable" tone="muted">
           Typography primitives for React interfaces that need readable text,
-          semantic HTML, and design-system friendly variants.
+          semantic HTML, and expressive motion.
         </Text>
       </header>
 
       <DocsSection id="why-glyphe" title="Why Glyphe?">
         <div className="space-y-5">
           <Text leading="comfortable" measure="readable">
-            Typography drift is rarely dramatic. It starts with one local
-            heading class, then another muted color, then a loading state that
-            collapses the layout while content is still on the way.
+            Typography is more than text styles. It shapes readability,
+            hierarchy, feedback, and motion throughout an interface.
           </Text>
           <Text leading="comfortable" measure="readable">
-            A simple <Text intent="code">{'<Text />'}</Text> wrapper helps, but
-            it only solves the first layer. Glyphe treats typography as a small
-            system: text, links, loading placeholders, and text motion share one
-            vocabulary instead of growing separate APIs.
+            Glyphe provides a small set of focused primitives for typography,
+            links, loading states, and text motion. Each primitive solves one
+            problem, shares the same vocabulary, and stays easy to adapt to your
+            design system.
           </Text>
         </div>
       </DocsSection>
@@ -67,24 +66,22 @@ function OverviewPage() {
       <DocsSection id="own-the-code" title="Own the code">
         <div className="space-y-5">
           <Text leading="comfortable" measure="readable">
-            Typography sits close to your design system. It is where product
-            voice, spacing, color tokens, semantics, and motion all meet. That
-            layer should not be locked behind an implementation you can only
-            configure from the outside.
+            Typography sits close to your design system. It shapes readability,
+            semantics, motion, and product voice. That layer should not be
+            locked behind an implementation you can only configure from the
+            outside.
           </Text>
           <Text leading="comfortable" measure="readable">
-            Glyphe is designed around code you can bring into your app, then
-            edit. Change the variants. Replace the classes. Keep the API shape
-            that works for your team. The primitive is the starting point, not a
-            boundary.
+            Glyphe ships as code you can inspect, modify, and extend. The
+            primitives are a starting point, never a boundary.
           </Text>
         </div>
       </DocsSection>
 
       <DocsSection id="primitives" title="Primitives">
         <Text leading="comfortable" measure="readable">
-          Glyphe is intentionally narrow. Each primitive solves one typography
-          problem and stays open for you to own in your app.
+          Each primitive solves a single typography problem and stays focused on
+          that responsability.
         </Text>
         <DocsTable
           columns={primitiveColumns}
