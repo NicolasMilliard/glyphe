@@ -90,23 +90,18 @@ export const coreIdeas = [
 
 export const defaultValues = [
   {
-    name: 'Semantic defaults',
+    name: 'Semantic by default',
     detail:
-      'Text intents render sensible elements by default: headings render headings, paragraphs render p, labels render label, and code renders code.',
+      'Text primitives render sensible elements out of the box, making interfaces accessible before customization.',
   },
   {
-    name: 'Readable measures',
+    name: 'Consistent reading rhytm',
     detail:
-      'Measure options use character-based widths so prose, lead text, and short copy have predictable line lengths.',
+      'Measures, tones, and spacing are chosen to work well together while remaining easy to adjust.',
   },
   {
-    name: 'Token-backed tones',
+    name: 'Motion when it helps',
     detail:
-      'Tone values map to the project color tokens instead of hardcoded colors.',
-  },
-  {
-    name: 'Quiet motion',
-    detail:
-      'Motion primitives define timing through CSS variables and stop animation when reduced motion is requested.',
+      'Animation primitives come with sensible timing and automatically respect reduced motion preferences.',
   },
 ] as const;

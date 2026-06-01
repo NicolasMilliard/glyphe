@@ -104,7 +104,7 @@ function OverviewPage() {
       <DocsSection
         id="defaults"
         title="Defaults"
-        description="Defaults are chosen to make the first version useful without turning them into rules you cannot change."
+        description="Defaults should help you start quickly without getting in the way later."
       >
         <DefaultValuesList />
       </DocsSection>
