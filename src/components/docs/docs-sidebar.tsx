@@ -7,19 +7,18 @@ const docsSidebarGroups = [
   {
     title: 'Getting Started',
     links: [
-      { label: 'Overview', to: '/docs', exact: true },
-      { label: 'Installation', to: '/docs/installation', exact: true },
+      { label: 'Overview', to: '/docs' },
+      { label: 'Installation', to: '/docs/installation' },
     ],
   },
   {
     title: 'Components',
     links: [
-      { label: 'Text', to: '/docs/components/text', exact: true },
-      { label: 'TextLink', to: '/docs/components/text-link', exact: true },
+      { label: 'Text', to: '/docs/components/text' },
+      { label: 'TextLink', to: '/docs/components/text-link' },
       {
         label: 'TextSkeleton',
         to: '/docs/components/text-skeleton',
-        exact: true,
       },
     ],
   },
@@ -29,9 +28,8 @@ const docsSidebarGroups = [
       {
         label: 'TypewriterText',
         to: '/docs/components/typewriter-text',
-        exact: true,
       },
-      { label: 'TextReveal', to: '/docs/components/text-reveal', exact: true },
+      { label: 'TextReveal', to: '/docs/components/text-reveal' },
     ],
   },
 ] as const;
@@ -49,7 +47,7 @@ function DocsSidebar({ className }: DocsSidebarProps) {
       >
         {docsSidebarGroups.map((group) => (
           <div key={group.title} className="grid gap-2">
-            <Text intent="caption" tone="muted" weight="medium">
+            <Text intent="caption" weight="medium">
               {group.title}
             </Text>
             <ul className="grid gap-1">
@@ -57,7 +55,7 @@ function DocsSidebar({ className }: DocsSidebarProps) {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    activeOptions={{ exact: link.exact }}
+                    activeOptions={{ exact: true }}
                     activeProps={{
                       className: 'bg-muted text-foreground',
                     }}
