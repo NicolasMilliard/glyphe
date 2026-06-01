@@ -51,40 +51,34 @@ export const primitives = [
 
 export const coreIdeas = [
   {
-    idea: 'Intent is not always semantics',
+    idea: 'Intent over elements',
     decision: (
       <>
-        <Text intent="code">intent</Text> selects the typography variant.{' '}
-        <Text intent="code">as</Text> changes the rendered element when the
-        document structure needs something else.
+        <Text intent="code">intent</Text> selects the typography style. Use{' '}
+        <Text intent="code">as</Text> when the document structure calls for a
+        different element.
       </>
     ),
   },
   {
-    idea: 'Tokens beat one-off classes',
+    idea: 'Repeated decisions deserve names',
     decision: (
       <>
         <Text intent="code">tone</Text>, <Text intent="code">measure</Text>,{' '}
         <Text intent="code">leading</Text>, and <Text intent="code">wrap</Text>{' '}
-        name repeated typography decisions without hiding{' '}
-        <Text intent="code">className</Text>.
+        capture typography decisions you make every day.
       </>
     ),
   },
   {
-    idea: 'Primitives stay narrow',
+    idea: 'Primitives stay focused',
     decision:
-      'Links, loading states, and text motion are separate primitives so Text can stay boring enough to use everywhere.',
+      'Links, motion, and loading states are separate primitives. Text stays focused on typography.',
   },
   {
     idea: 'Composition stays open',
-    decision: (
-      <>
-        Components accept regular React props. Motion primitives also support{' '}
-        <Text intent="code">asChild</Text> when the final DOM needs to stay in
-        your control.
-      </>
-    ),
+    decision:
+      'Components accept regular React props and compose naturally with the rest of your application.',
   },
 ] as const;
 

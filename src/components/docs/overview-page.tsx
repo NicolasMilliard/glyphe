@@ -96,7 +96,7 @@ function OverviewPage() {
       <DocsSection
         id="core-ideas"
         title="Core ideas"
-        description="Glyphe exposes the decisions you repeat most often and leaves the rest close to React and CSS."
+        description="Glyphe exposes the typography decisions you repeat most often and leaves the rest close to React and CSS."
       >
         <CoreIdeasList />
       </DocsSection>
