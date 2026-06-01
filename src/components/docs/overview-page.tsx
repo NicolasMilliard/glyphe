@@ -9,7 +9,8 @@ import { Link } from '@tanstack/react-router';
 import { DocsCodeBlock } from '@/components/docs/docs-code-block';
 import { DocsSection } from '@/components/docs/docs-section';
 import { DocsTable, type DocsTableColumn } from '@/components/docs/docs-table';
-import { Button, Card, CardContent, Text } from '@/components/ui';
+import { Button, Text } from '@/components/ui';
+import { MoveRightIcon } from 'lucide-react';
 
 const primitiveColumns = [
   {
@@ -109,62 +110,37 @@ function OverviewPage() {
       </DocsSection>
 
       <DocsSection
-        id="quick-example"
-        title="Small example"
-        description="A typical component starts by naming the typography decision, then reaches for classes only when the local design needs it."
+        id="example"
+        title="Example"
+        description="Start with a typography primitive. Reach for utility classes only when the local design needs something specific."
       >
-        <Card>
-          <CardContent className="space-y-5">
-            <div className="bg-muted/30 rounded-lg p-6">
-              <header className="space-y-4">
-                <Text intent="h1" measure="narrow" wrap="balance">
-                  Ship typography that keeps its shape.
-                </Text>
-                <Text
-                  intent="lead"
-                  leading="comfortable"
-                  measure="readable"
-                  tone="muted"
-                >
-                  Use named typography decisions instead of repeating one-off
-                  classes.
-                </Text>
-              </header>
-            </div>
-            <DocsCodeBlock code={quickExampleCode} />
-          </CardContent>
-        </Card>
+        <DocsCodeBlock
+          code={quickExampleCode.trim()}
+          language="tsx"
+          showLanguage={false}
+          theme={{
+            light: 'one-light',
+            dark: 'one-dark-pro',
+          }}
+          defaultColor="light-dark()"
+        />
       </DocsSection>
 
-      <DocsSection id="ai-ready" title="Readable by tools">
-        <div className="space-y-5">
-          <Text leading="comfortable" measure="readable">
-            Open component code is easier for AI tools to inspect than a closed
-            runtime API. The model can see the variants, tokens, defaults, and
-            composition patterns that your app actually uses.
-          </Text>
-          <Text leading="comfortable" measure="readable">
-            That matters when you ask for a new text state, a local variant, or
-            a refactor across typography usage. The output can follow your
-            primitives instead of guessing from screenshots or package docs.
-          </Text>
-        </div>
+      <DocsSection id="ai-ready" title="AI-Ready">
+        <Text leading="comfortable" measure="readable">
+          The code lives in your project, not behind a runtime API. AI tools can
+          inspect the implementation directly and work with your typography
+          primitives as first-class code.
+        </Text>
       </DocsSection>
 
-      <DocsSection
-        id="next"
-        title="What's next?"
-        description="Start with setup, then read the Text primitive. It defines the vocabulary the rest of the typography components build on."
-      >
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Button asChild>
-            <Link to="/docs/installation">Installation</Link>
-          </Button>
-          <Button asChild variant="secondary">
-            <Link to="/docs/components/text">Read Text docs</Link>
-          </Button>
-        </div>
-      </DocsSection>
+      <div className="flex justify-end">
+        <Button asChild>
+          <Link to="/docs/installation">
+            Installation <MoveRightIcon />
+          </Link>
+        </Button>
+      </div>
     </article>
   );
 }
