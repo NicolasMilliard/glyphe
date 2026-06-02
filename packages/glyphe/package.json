@@ -9,6 +9,7 @@
   "files": [
     "dist",
     "registry",
+    "LICENSE",
     "README.md"
   ],
   "keywords": [
