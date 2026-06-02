@@ -8,7 +8,7 @@ export const Route = createFileRoute('/docs')({
 
 function DocsLayout() {
   return (
-    <div className="grid gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:items-start">
+    <div className="grid gap-8 px-4 py-6 sm:px-6 sm:py-10 md:grid-cols-[14rem_minmax(0,1fr)] md:items-start md:gap-10 md:py-12">
       <DocsSidebar />
       <div className="min-w-0">
         <Outlet />
