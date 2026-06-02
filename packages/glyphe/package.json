@@ -1,0 +1,36 @@
+{
+  "name": "glyphe",
+  "version": "0.0.1",
+  "description": "Carefully crafted typography primitives that you can customize, extend, and build on.",
+  "type": "module",
+  "bin": {
+    "glyphe": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "registry",
+    "README.md"
+  ],
+  "keywords": [
+    "react",
+    "typescript",
+    "typography",
+    "components",
+    "glyphe"
+  ],
+  "homepage": "https://github.com/NicolasMilliard/glyphe#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicolasMilliard/glyphe.git",
+    "directory": "packages/glyphe"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.3",
+    "typescript": "6.0.2"
+  }
+}
