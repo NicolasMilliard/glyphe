@@ -1,6 +1,7 @@
 import {
   type ComponentPropsWithoutRef,
   type ComponentPropsWithRef,
+  type ElementType,
   type ReactNode,
 } from 'react';
 import { cn } from '../../lib/cn';
@@ -53,25 +54,26 @@ type TextTag =
   | 'sup'
   | 'time';
 
-type TextOwnProps<T extends TextTag = 'span'> = {
+type TextOwnProps<T extends TextTag = 'p'> = {
   as?: T;
   variant?: Variant;
   ref?: ComponentPropsWithRef<T>['ref'];
+  className?: string;
   children?: ReactNode;
 };
 
-type TextProps<T extends TextTag = 'span'> = TextOwnProps<T> &
+type TextProps<T extends TextTag = 'p'> = TextOwnProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof TextOwnProps<T>>;
 
-function Text<T extends TextTag = 'span'>({
+function Text<T extends TextTag = 'p'>({
   as,
   variant = 'body-md',
   ref,
-  children,
   className,
+  children,
   ...props
 }: TextProps<T>) {
-  const Component = (as ?? 'span') as React.ElementType;
+  const Component = (as ?? 'p') as ElementType;
 
   return (
     <Component

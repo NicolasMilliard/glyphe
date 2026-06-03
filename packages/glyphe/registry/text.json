@@ -5,11 +5,16 @@
     {
       "source": "registry/text.tsx",
       "target": "src/components/ui/text.tsx"
+    },
+    {
+      "source": "registry/lib/cn.ts",
+      "target": "src/lib/cn.ts",
+      "skipIfExists": true
     }
   ],
   "dependencies": ["clsx", "tailwind-merge"],
   "notes": [
-    "Text uses Tailwind CSS utility classes and token-backed color names such as foreground, muted, primary, and destructive.",
-    "Text has no runtime dependencies beyond React."
+    "Text is designed for React and Tailwind CSS projects.",
+    "The generated cn helper uses clsx and tailwind-merge so custom className values can override variant classes predictably."
   ]
 }
