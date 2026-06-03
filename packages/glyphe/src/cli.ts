@@ -23,8 +23,17 @@ type RegistryComponent = {
   description?: string;
   files: RegistryFile[];
   dependencies?: string[];
-  notes?: string[];
 };
+
+type PackageJson = {
+  packageManager?: string;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
+};
+
+type PackageManager = 'bun' | 'npm' | 'pnpm' | 'yarn';
 
 async function readRegistryComponent(component: string) {
   const registryUrl = new URL(`../registry/${component}.json`, import.meta.url);
@@ -33,18 +42,96 @@ async function readRegistryComponent(component: string) {
   return JSON.parse(contents) as RegistryComponent;
 }
 
+async function readPackageJson(cwd: string) {
+  try {
+    const contents = await readFile(path.join(cwd, 'package.json'), 'utf8');
+
+    return JSON.parse(contents) as PackageJson;
+  } catch {
+    return undefined;
+  }
+}
+
 function resolveRegistrySource(source: string) {
   return fileURLToPath(new URL(`../${source}`, import.meta.url));
 }
 
+function detectPackageManager(cwd: string, packageJson?: PackageJson) {
+  if (
+    existsSync(path.join(cwd, 'bun.lock')) ||
+    existsSync(path.join(cwd, 'bun.lockb'))
+  ) {
+    return 'bun';
+  }
+
+  if (existsSync(path.join(cwd, 'pnpm-lock.yaml'))) {
+    return 'pnpm';
+  }
+
+  if (existsSync(path.join(cwd, 'yarn.lock'))) {
+    return 'yarn';
+  }
+
+  if (
+    existsSync(path.join(cwd, 'package-lock.json')) ||
+    existsSync(path.join(cwd, 'npm-shrinkwrap.json'))
+  ) {
+    return 'npm';
+  }
+
+  if (packageJson?.packageManager?.startsWith('bun@')) {
+    return 'bun';
+  }
+
+  if (packageJson?.packageManager?.startsWith('pnpm@')) {
+    return 'pnpm';
+  }
+
+  if (packageJson?.packageManager?.startsWith('yarn@')) {
+    return 'yarn';
+  }
+
+  return 'npm';
+}
+
+function getInstalledDependencies(packageJson?: PackageJson) {
+  return new Set([
+    ...Object.keys(packageJson?.dependencies ?? {}),
+    ...Object.keys(packageJson?.devDependencies ?? {}),
+    ...Object.keys(packageJson?.peerDependencies ?? {}),
+    ...Object.keys(packageJson?.optionalDependencies ?? {}),
+  ]);
+}
+
+function getInstallCommand(
+  packageManager: PackageManager,
+  dependencies: string[],
+) {
+  const dependencyList = dependencies.join(' ');
+
+  if (packageManager === 'npm') {
+    return `npm install ${dependencyList}`;
+  }
+
+  return `${packageManager} add ${dependencyList}`;
+}
+
 async function addComponent(component: string) {
+  const cwd = process.cwd();
   const registry = await readRegistryComponent(component);
+  const packageJson = await readPackageJson(cwd);
+  const packageManager = detectPackageManager(cwd, packageJson);
+  const installedDependencies = getInstalledDependencies(packageJson);
+  const missingDependencies =
+    registry.dependencies?.filter(
+      (dependency) => !installedDependencies.has(dependency),
+    ) ?? [];
   const installed: string[] = [];
   const skipped: string[] = [];
 
   for (const file of registry.files) {
     const sourcePath = resolveRegistrySource(file.source);
-    const targetPath = path.resolve(process.cwd(), file.target);
+    const targetPath = path.resolve(cwd, file.target);
     const shouldSkipExisting = file.skipIfExists ?? true;
 
     if (shouldSkipExisting && existsSync(targetPath)) {
@@ -73,16 +160,9 @@ async function addComponent(component: string) {
     }
   }
 
-  if (registry.dependencies !== undefined && registry.dependencies.length > 0) {
-    console.log('\nInstall dependencies if needed:');
-    console.log(`  bun add ${registry.dependencies.join(' ')}`);
-  }
-
-  if (registry.notes !== undefined && registry.notes.length > 0) {
-    console.log('\nNotes:');
-    for (const note of registry.notes) {
-      console.log(`  - ${note}`);
-    }
+  if (missingDependencies.length > 0) {
+    console.log('\nInstall missing dependencies:');
+    console.log(`  ${getInstallCommand(packageManager, missingDependencies)}`);
   }
 }
 

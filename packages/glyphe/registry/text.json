@@ -12,9 +12,5 @@
       "skipIfExists": true
     }
   ],
-  "dependencies": ["clsx", "tailwind-merge"],
-  "notes": [
-    "Text is designed for React and Tailwind CSS projects.",
-    "The generated cn helper uses clsx and tailwind-merge so custom className values can override variant classes predictably."
-  ]
+  "dependencies": ["clsx", "tailwind-merge"]
 }
