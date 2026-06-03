@@ -1,268 +1,88 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import * as React from 'react';
-
+import {
+  type ComponentPropsWithoutRef,
+  type ComponentPropsWithRef,
+  type ReactNode,
+} from 'react';
 import { cn } from '../../lib/cn';
 
-const textDefaultElements = {
-  display: 'h1',
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  paragraph: 'p',
-  lead: 'p',
-  small: 'small',
-  label: 'label',
-  caption: 'span',
-  code: 'code',
+const variants = {
+  display:
+    'text-[3rem]/[3.6rem] md:text-[3.5rem]/[4.2rem] font-semibold tracking-tight',
+  'heading-xl': 'text-[2rem]/[2.4rem] font-semibold tracking-tight',
+  'heading-lg': 'text-[1.75rem]/[2.1rem] font-semibold tracking-tight',
+  'heading-md': 'text-[1.5rem]/[1.8rem] font-semibold',
+  'heading-sm': 'text-[1.25rem]/[1.75rem] font-semibold',
+  'body-lg': 'text-[1.125rem]/[1.6875rem] font-normal',
+  'body-md': 'text-[1rem]/[1.5rem] font-normal',
+  'body-sm': 'text-[0.875rem]/[1.3125rem] font-normal',
+  label: 'text-[1rem]/[1.5rem] font-medium',
+  caption: 'text-[0.75rem]/[1.125rem] font-normal',
+  mono: 'text-[1rem]/[1.5rem] font-mono',
 } as const;
 
-const textLeadingClasses = {
-  display: {
-    compact: 'leading-none',
-    default: 'leading-[1.04]',
-    comfortable: 'leading-tight',
-  },
-  h1: {
-    compact: 'leading-none',
-    default: 'leading-[1.08]',
-    comfortable: 'leading-tight',
-  },
-  h2: {
-    compact: 'leading-none',
-    default: 'leading-[1.12]',
-    comfortable: 'leading-tight',
-  },
-  h3: {
-    compact: 'leading-tight',
-    default: 'leading-[1.2]',
-    comfortable: 'leading-8',
-  },
-  h4: {
-    compact: 'leading-tight',
-    default: 'leading-7',
-    comfortable: 'leading-8',
-  },
-  h5: {
-    compact: 'leading-tight',
-    default: 'leading-7',
-    comfortable: 'leading-8',
-  },
-  h6: {
-    compact: 'leading-tight',
-    default: 'leading-6',
-    comfortable: 'leading-7',
-  },
-  paragraph: {
-    compact: 'leading-snug',
-    default: 'leading-7',
-    comfortable: 'leading-8',
-  },
-  lead: {
-    compact: 'leading-snug',
-    default: 'leading-8',
-    comfortable: 'leading-9',
-  },
-  small: {
-    compact: 'leading-snug',
-    default: 'leading-6',
-    comfortable: 'leading-7',
-  },
-  label: {
-    compact: 'leading-none',
-    default: 'leading-none',
-    comfortable: 'leading-5',
-  },
-  caption: {
-    compact: 'leading-none',
-    default: 'leading-5',
-    comfortable: 'leading-6',
-  },
-  code: {
-    compact: 'leading-snug',
-    default: 'leading-6',
-    comfortable: 'leading-7',
-  },
-} as const;
+type Variant = keyof typeof variants;
 
-const textVariants = cva('min-w-0 text-start', {
-  variants: {
-    intent: {
-      display: 'text-5xl font-semibold tracking-tight sm:text-7xl',
-      h1: 'text-4xl font-semibold tracking-tight sm:text-6xl',
-      h2: 'text-3xl font-semibold tracking-tight sm:text-4xl',
-      h3: 'text-2xl font-semibold tracking-tight',
-      h4: 'text-xl font-semibold',
-      h5: 'text-lg font-semibold',
-      h6: 'text-base font-semibold',
-      paragraph: 'text-base',
-      lead: 'text-lg',
-      small: 'text-sm',
-      label: 'text-sm font-medium',
-      caption: 'text-sm',
-      code: 'rounded-lg bg-muted px-1.5 py-0.5 font-mono text-sm',
-    },
-    tone: {
-      foreground: 'text-foreground',
-      muted: 'text-muted-foreground',
-      subtle: 'text-muted-foreground/80',
-      primary: 'text-primary',
-      destructive: 'text-destructive',
-      inherit: 'text-inherit',
-    },
-    fontFamily: {
-      inherit: '[font-family:inherit]',
-      sans: 'font-sans',
-      serif: 'font-serif',
-      mono: 'font-mono',
-    },
-    weight: {
-      inherit: '[font-weight:inherit]',
-      normal: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
-    },
-    tracking: {
-      inherit: '',
-      tighter: 'tracking-tighter',
-      tight: 'tracking-tight',
-      normal: 'tracking-normal',
-      wide: 'tracking-wide',
-      wider: 'tracking-wider',
-    },
-    align: {
-      start: 'text-start',
-      center: 'text-center',
-      end: 'text-end',
-      justify: 'text-justify',
-    },
-    wrap: {
-      pretty: 'text-pretty',
-      balance: 'text-balance',
-      normal: 'text-wrap',
-      nowrap: 'whitespace-nowrap',
-      break: 'break-words',
-      truncate: 'truncate',
-    },
-    textTransform: {
-      none: '',
-      uppercase: 'uppercase',
-      lowercase: 'lowercase',
-      capitalize: 'capitalize',
-    },
-    measure: {
-      none: '',
-      narrow: 'max-w-[45ch]',
-      readable: 'max-w-[65ch]',
-      wide: 'max-w-[75ch]',
-    },
-  },
-  defaultVariants: {
-    intent: 'paragraph',
-    tone: 'foreground',
-    tracking: 'inherit',
-    align: 'start',
-    wrap: 'pretty',
-    textTransform: 'none',
-    measure: 'none',
-  },
-});
+type TextTag =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'div'
+  | 'strong'
+  | 'em'
+  | 'small'
+  | 'mark'
+  | 'code'
+  | 'pre'
+  | 'kbd'
+  | 'samp'
+  | 'label'
+  | 'legend'
+  | 'abbr'
+  | 'blockquote'
+  | 'cite'
+  | 'q'
+  | 's'
+  | 'del'
+  | 'ins'
+  | 'sub'
+  | 'sup'
+  | 'time';
 
-type TextElement = React.ElementType;
-type NonLabelTextElement = Exclude<keyof React.JSX.IntrinsicElements, 'label'>;
-
-type TextIntent = keyof typeof textDefaultElements;
-type TextLeading = keyof (typeof textLeadingClasses)[TextIntent];
-
-type TextVariantProps = Omit<VariantProps<typeof textVariants>, 'intent'>;
-
-type TextOwnProps = TextVariantProps & {
-  className?: string;
-  intent?: TextIntent;
-  leading?: TextLeading;
+type TextOwnProps<T extends TextTag = 'span'> = {
+  as?: T;
+  variant?: Variant;
+  ref?: ComponentPropsWithRef<T>['ref'];
+  children?: ReactNode;
 };
 
-type PolymorphicTextProps<TElement extends TextElement> = Omit<
-  React.ComponentPropsWithoutRef<TElement>,
-  keyof TextOwnProps | 'as' | 'color'
-> &
-  TextOwnProps & {
-    as?: TElement;
-  };
+type TextProps<T extends TextTag = 'span'> = TextOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof TextOwnProps<T>>;
 
-type LabelIntentTextProps = Omit<
-  PolymorphicTextProps<'label'>,
-  'as' | 'htmlFor' | 'intent'
-> & {
-  intent: 'label';
-  as?: 'label';
-  htmlFor: string;
-};
-
-type VisualLabelTextProps<TElement extends TextElement> = Omit<
-  PolymorphicTextProps<TElement>,
-  'intent'
-> & {
-  intent: 'label';
-  as: TElement;
-};
-
-type NonLabelTextProps<TElement extends TextElement> = Omit<
-  PolymorphicTextProps<TElement>,
-  'intent'
-> & {
-  intent?: Exclude<TextIntent, 'label'>;
-};
-
-type TextProps<TElement extends TextElement = 'p'> =
-  | LabelIntentTextProps
-  | VisualLabelTextProps<NonLabelTextElement>
-  | NonLabelTextProps<TElement>;
-
-function Text<TElement extends TextElement = 'p'>({
+function Text<T extends TextTag = 'span'>({
   as,
+  variant = 'body-md',
+  ref,
+  children,
   className,
-  intent = 'paragraph',
-  leading = 'default',
-  tone = 'foreground',
-  fontFamily,
-  weight,
-  tracking = 'inherit',
-  align = 'start',
-  wrap = 'pretty',
-  textTransform = 'none',
-  measure = 'none',
   ...props
-}: TextProps<TElement>) {
-  const Comp = (as ?? textDefaultElements[intent]) as React.ElementType;
+}: TextProps<T>) {
+  const Component = (as ?? 'span') as React.ElementType;
 
   return (
-    <Comp
-      data-slot="text"
-      data-intent={intent}
-      data-leading={leading}
-      className={cn(
-        textVariants({
-          intent,
-          tone,
-          fontFamily,
-          weight,
-          tracking,
-          align,
-          wrap,
-          textTransform,
-          measure,
-        }),
-        textLeadingClasses[intent][leading],
-        className,
-      )}
+    <Component
+      ref={ref}
+      className={cn(variants[variant], className)}
       {...props}
-    />
+    >
+      {children}
+    </Component>
   );
 }
 
 export { Text };
-export type { TextIntent, TextLeading, TextProps };
+export type { TextProps };

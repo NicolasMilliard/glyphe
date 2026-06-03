@@ -5,16 +5,11 @@
     {
       "source": "registry/text.tsx",
       "target": "src/components/ui/text.tsx"
-    },
-    {
-      "source": "registry/cn.ts",
-      "target": "src/lib/cn.ts",
-      "skipIfExists": true
     }
   ],
-  "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+  "dependencies": ["clsx", "tailwind-merge"],
   "notes": [
     "Text uses Tailwind CSS utility classes and token-backed color names such as foreground, muted, primary, and destructive.",
-    "The default generated import assumes src/components/ui/text.tsx and src/lib/cn.ts."
+    "Text has no runtime dependencies beyond React."
   ]
 }
