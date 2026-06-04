@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { copyFile, mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -34,6 +35,11 @@ type PackageJson = {
 };
 
 type PackageManager = 'bun' | 'npm' | 'pnpm' | 'yarn';
+
+type InstallCommand = {
+  command: PackageManager;
+  args: string[];
+};
 
 async function readRegistryComponent(component: string) {
   const registryUrl = new URL(`../registry/${component}.json`, import.meta.url);
@@ -91,6 +97,10 @@ function detectPackageManager(cwd: string, packageJson?: PackageJson) {
     return 'yarn';
   }
 
+  if (packageJson?.packageManager?.startsWith('npm@')) {
+    return 'npm';
+  }
+
   return 'npm';
 }
 
@@ -107,13 +117,59 @@ function getInstallCommand(
   packageManager: PackageManager,
   dependencies: string[],
 ) {
-  const dependencyList = dependencies.join(' ');
-
   if (packageManager === 'npm') {
-    return `npm install ${dependencyList}`;
+    return {
+      command: 'npm',
+      args: ['install', ...dependencies],
+    } satisfies InstallCommand;
   }
 
-  return `${packageManager} add ${dependencyList}`;
+  return {
+    command: packageManager,
+    args: ['add', ...dependencies],
+  } satisfies InstallCommand;
+}
+
+function formatInstallCommand(installCommand: InstallCommand) {
+  return [installCommand.command, ...installCommand.args].join(' ');
+}
+
+function installMissingDependencies(
+  packageManager: PackageManager,
+  dependencies: string[],
+  cwd: string,
+) {
+  const installCommand = getInstallCommand(packageManager, dependencies);
+
+  console.log('\nInstalling dependencies:');
+  console.log(`  ${formatInstallCommand(installCommand)}`);
+
+  const result = spawnSync(installCommand.command, installCommand.args, {
+    cwd,
+    stdio: 'inherit',
+  });
+
+  if (result.error !== undefined) {
+    throw new Error(
+      `Failed to run ${installCommand.command}. Install dependencies manually with: ${formatInstallCommand(
+        installCommand,
+      )}`,
+    );
+  }
+
+  if (result.signal !== null) {
+    throw new Error(
+      `Dependency installation stopped with signal ${result.signal}.`,
+    );
+  }
+
+  if (result.status !== 0) {
+    throw new Error(
+      `Dependency installation failed. Run manually with: ${formatInstallCommand(
+        installCommand,
+      )}`,
+    );
+  }
 }
 
 async function addComponent(component: string) {
@@ -144,8 +200,6 @@ async function addComponent(component: string) {
     installed.push(file.target);
   }
 
-  console.log(`Added ${registry.name}.`);
-
   if (installed.length > 0) {
     console.log('\nInstalled files:');
     for (const file of installed) {
@@ -161,13 +215,12 @@ async function addComponent(component: string) {
   }
 
   if (missingDependencies.length > 0) {
-    console.log('\nInstall missing dependencies:');
-    console.log(`  ${getInstallCommand(packageManager, missingDependencies)}`);
+    installMissingDependencies(packageManager, missingDependencies, cwd);
   }
 }
 
 async function main(args: string[]) {
-  const [command, component] = args;
+  const [command, component, ...flags] = args;
 
   if (command === undefined || command === '--help' || command === '-h') {
     console.log(USAGE);
@@ -187,6 +240,15 @@ async function main(args: string[]) {
         ? 'Missing component name.'
         : `Unknown component: ${component}`,
     );
+    console.error(USAGE);
+    process.exitCode = 1;
+    return;
+  }
+
+  const unknownFlags = flags.filter((flag) => flag !== '--no-install');
+
+  if (unknownFlags.length > 0) {
+    console.error(`Unknown option: ${unknownFlags.join(', ')}`);
     console.error(USAGE);
     process.exitCode = 1;
     return;

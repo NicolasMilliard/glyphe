@@ -15,8 +15,5 @@ src/components/ui/text.tsx
 src/lib/cn.ts
 ```
 
-Existing files are skipped by default. The generated `cn` helper uses:
-
-```sh
-bun add clsx tailwind-merge
-```
+Existing files are skipped by default. Missing helper dependencies are installed
+with the detected package manager.
