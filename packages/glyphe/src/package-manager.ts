@@ -5,13 +5,46 @@ import path from 'node:path';
 import type { InstallCommand, PackageJson, PackageManager } from './types.js';
 
 export async function readPackageJson(cwd: string) {
+  const packageJsonPath = path.join(cwd, 'package.json');
+
   try {
-    const contents = await readFile(path.join(cwd, 'package.json'), 'utf8');
+    const contents = await readFile(packageJsonPath, 'utf8');
 
     return JSON.parse(contents) as PackageJson;
-  } catch {
-    return undefined;
+  } catch (error: unknown) {
+    if (
+      error instanceof Error &&
+      'code' in error &&
+      error.code === 'ENOENT'
+    ) {
+      return undefined;
+    }
+
+    throw new Error(
+      `Failed to read ${packageJsonPath}: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+      { cause: error },
+    );
   }
+}
+
+export function findProjectRoot(cwd: string) {
+  let directory = path.resolve(cwd);
+
+  while (!existsSync(path.join(directory, 'package.json'))) {
+    const parentDirectory = path.dirname(directory);
+
+    if (parentDirectory === directory) {
+      throw new Error(
+        'Could not find a package.json. Run Glyphe inside a project.',
+      );
+    }
+
+    directory = parentDirectory;
+  }
+
+  return directory;
 }
 
 export function detectPackageManager(

@@ -10,7 +10,7 @@ Commands:
 `;
 
 async function main(args: string[]) {
-  const [command, component] = args;
+  const [command, component, ...extraArguments] = args;
 
   if (command === undefined || command === '--help' || command === '-h') {
     console.log(USAGE);
@@ -30,6 +30,15 @@ async function main(args: string[]) {
         ? 'Missing component name.'
         : `Unknown component: ${component}`,
     );
+    console.error(USAGE);
+    process.exitCode = 1;
+    return;
+  }
+
+  if (extraArguments.length > 0) {
+    const label = extraArguments.length === 1 ? 'argument' : 'arguments';
+
+    console.error(`Unknown ${label}: ${extraArguments.join(' ')}`);
     console.error(USAGE);
     process.exitCode = 1;
     return;
