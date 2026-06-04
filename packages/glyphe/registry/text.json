@@ -4,7 +4,8 @@
   "files": [
     {
       "source": "registry/text.tsx",
-      "target": "src/components/ui/text.tsx"
+      "target": "src/components/ui/text.tsx",
+      "skipIfExists": true
     },
     {
       "source": "registry/lib/cn.ts",
